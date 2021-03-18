@@ -223,8 +223,7 @@ export function select_action(agent:Agent, actionList:Action[], locationList:Loc
   return currentChoice;
 }
 
-/*  Selects an action from a list of valid actions to be preformed by a specific agent.
-    Choses the action with the maximal utility of the agent (motive increase/time).
+/*  applies the effects of an action to an agent.
     agent: the agent in question
     action: the action in question */
 export function execute_action(agent:Agent, action:Action):void {
@@ -259,12 +258,11 @@ export function execute_action(agent:Agent, action:Action):void {
   }
 }
 
-/*  Selects an action from a list of valid actions to be preformed by a specific agent.
-    Choses the action with the maximal utility of the agent (motive increase/time).
-    agentList: list of agents in the sim
+/*  updates movement and occupation counters for an agent. chooses and executes a new action if necessary 
+    agent: agent executing a turn
     actionList: the list of valid actions
     locationList: all locations in the world
-    continueFunction: boolean function that is used as a check as to whether or not to keep running the sim */
+    time: current tick time */
 export function turn(agent:Agent, actionList:Action[], locationList:Location[], time:number):void {
   if (time%600 == 0) {
     if (!isContent(agent)) {

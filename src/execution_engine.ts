@@ -100,8 +100,7 @@ export function getNearestLocation(req:npc.LocationReq, list:npc.Location[], x:n
   return ret;
 }
 
-/*  Selects an action from a list of valid actions to be preformed by a specific agent.
-    Choses the action with the maximal utility of the agent (motive increase/time).
+/*  randomizes order and executes a turn for each agent every tick.
     agentList: list of agents in the sim
     actionList: the list of valid actions
     locationList: all locations in the world
