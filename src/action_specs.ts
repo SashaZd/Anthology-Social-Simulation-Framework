@@ -34,6 +34,8 @@ export var travel_action : Action =
 // END
 
 // Fills physical, requires a restaurant location
+// Discuss: replace type:0 with type:ReqType.location 
+// Discuss: replace effect's motive:0 with Motive.physical
 export var eat_action : Action =
 {
   name: "eat_action",
