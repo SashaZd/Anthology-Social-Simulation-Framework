@@ -1,0 +1,74 @@
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    .button {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -o-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+        -moz-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        -webkit-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        -o-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        -ms-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        background: none;
+        border: solid 1px;
+        color: inherit;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 0.8em;
+        font-weight: 900;
+        letter-spacing: 2px;
+        min-width: 18em;
+        padding: 0 0.75em;
+        line-height: 3.75em;
+        text-align: center;
+        text-decoration: none;
+        /* text-transform: uppercase; */ 
+    }
+
+        input[type="button"]:hover,
+        input[type="submit"]:hover,
+        input[type="reset"]:hover,
+        .button:hover {
+            background: rgba(188, 202, 206, 0.15);
+            border-color: inherit;
+        }
+
+#chess {
+    width: 640px;
+    height: 640px;
+    margin: 0.5em;
+    border: 2px solid #808080;
+}
+
+#chess div {
+    float: left;
+    width: 80px;
+    height: 80px;
+    background-color: #FAFAFA;
+    text-align: center;
+}
+
+.playerMove  { 
+	color: green;
+	font-size: 30;
+	position: relative;
+	display: block;
+	vertical-align: middle;
+	line-height: 80px;
+}
+
+#chess div:nth-child(-2n+8), 
+#chess div:nth-child(8) ~ div:nth-child(-2n+15), 
+#chess div:nth-child(16) ~ div:nth-child(-2n+24), 
+#chess div:nth-child(24) ~ div:nth-child(-2n+31), 
+#chess div:nth-child(32) ~ div:nth-child(-2n+40), 
+#chess div:nth-child(40) ~ div:nth-child(-2n+47), 
+#chess div:nth-child(48) ~ div:nth-child(-2n+56), 
+#chess div:nth-child(56) ~ div:nth-child(-2n+63) {
+    background-color: #F2F2F2;
+    color: green;
+}
+
