@@ -89,5 +89,3 @@ function showOnBrowser(divName: string, name: string) {
   const elt = document.getElementById(divName);
   elt.innerText = name + "Hello World!";
 }
-
-showOnBrowser("greeting", "TypeScript");

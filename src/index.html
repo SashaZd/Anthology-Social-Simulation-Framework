@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <p id="greeting">Loading ...</p>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="bundle.js"></script>
+    <title>SocialSim</title>
+  </head>
+
+  <body>
+    <center>
+  	<h1>SocialSim</h1>
+  	</center>
+
+    <!-- <div > -->
+    	<center>
+
+    	<!-- Gameboard Here -->
+    		<div id="chess" style="display: inline-block;">
+    		    <div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div>
+    		    <div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div>
+    		    <div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div>
+    		    <div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div>
+    		    <div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div>
+    		    <div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div><div class="playerMove"></div>
+    		</div>
+
+    		<!-- Scoreboard Here -->
+    		<div style="display: inline-block; vertical-align: top;">
+    			<h2 style="">Details</h2>
+    			<h3 id="timeLabel" style="">Time : <div id="time" style="display: inline-block;">0</div></h3>
+    		</div>
+
+    	</center>
   </body>
+
 </html>
