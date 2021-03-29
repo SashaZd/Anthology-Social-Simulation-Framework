@@ -22,6 +22,7 @@ export interface Motive {
 	[key: string]: number;		// lets us lookup a value by a string key
 }
 
+
 // convenient list of keys of the motive types we have which we can iterate through
 const motiveTypes: string[] = Object.keys(MotiveType).filter(k => typeof MotiveType[k as any] === "number");
 
@@ -65,6 +66,12 @@ export interface PeopleReq {
 // Requirements on the executing agen't current motive scores.
 // eg: eg must have money (financial motive > 0) to do this
 // Discuss: This should be using the interface and not an enum
+
+// export interface SingleMotive {
+// 	motive: MotiveType,
+// 	valence: number 
+// }
+
 export interface MotiveReq {
 	motive: MotiveType,
 	op:     BinOp,
@@ -125,13 +132,12 @@ export interface Location {
 		agent: the agent being tested
 		return: a boolean answering the question */
 
-
-// const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) =>
-//   obj[key];
+// To do: this way. 
+// const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
 export function isContent(agent:Agent):boolean {
 	for(let motiveType in motiveTypes){
-		// const getUserName = getKeyValue<keyof Motive, Motive>(motiveType)(agent.motive);
+		// const getmotive = getKeyValue<keyof Motive, Motive>(motiveType)(agent.motive);
 		if(agent.motive[motiveType] != exec.MAX_METER){
 			return false;
 		}
