@@ -1,6 +1,7 @@
 import * as npc from "./agent";
 import {wait_action} from "./action_specs";
 import {travel_action} from "./action_specs";
+import * as ui from "./ui";
 
 export var time:number = 0;
 export const MAX_METER = 5;
@@ -113,6 +114,7 @@ export function run_sim(agentList:npc.Agent[], actionList:npc.Action[], location
       npc.turn(agentList[i], actionList, locationList, time);
     }
     time += 1;
+    ui.updateUI(agentList, locationList, time);
   }
   console.log("Finished.");
 }

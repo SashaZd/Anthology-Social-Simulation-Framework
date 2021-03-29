@@ -1,6 +1,7 @@
 import * as engine from "./execution_engine";
 import * as actions from "./action_specs";
 import * as npc from "./agent";
+import * as ui from "./ui";
 
 // List of available actions in sim
 var actionList:npc.Action[] = [actions.eat_action, actions.movie_action, actions.eat_friend_action, actions.movie_friend_action, actions.work_action, actions.hobby_action];
@@ -82,10 +83,14 @@ function condition():boolean {
   return check;
 }
 
-engine.run_sim(agentList, actionList, locationList, condition);
-
 // Displays text on the browser? I assume
-function showOnBrowser(divName: string, name: string) {
+export function showOnBrowser(divName: string, name: string) {
   const elt = document.getElementById(divName);
-  elt.innerText = name + "Hello World!";
+  elt.innerText = name;
 }
+
+window.onload = () => {
+  ui.updateUI(agentList, locationList, 0);
+}
+
+engine.run_sim(agentList, actionList, locationList, condition);
