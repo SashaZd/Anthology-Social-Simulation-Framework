@@ -111,22 +111,26 @@ export interface Agent {
 	// Agent Properties
 	name: string,
 	motive: Motive,
-	xPos: number,
-	yPos: number,
+	currentLocation: SimpleLocation | Location,
 	occupiedCounter: number,
 	currentAction: Action,
-	destination: Location
+	destination: SimpleLocation | Location | null
 }
 
-// Locations are a position, a name, and a list of tags
+// Locations can be an unnamed position, with just an associated x,y coordinate
+interface SimpleLocation {
+	xPos: number,
+	yPos: number
+}
+
+// Locations can also be a named position, a name, and a list of tags
 // eg: a specific restaurant
 // Discuss: There should be a point Interface since some locations are not named. 
-export interface Location {
-	name: string,
-	xPos: number,
-	yPos: number,
+interface Location extends SimpleLocation {
+	name: string
 	tags: string[]
 }
+
 
 /*  Checks to see if an agent has maximum motives
 		agent: the agent being tested
@@ -167,11 +171,11 @@ export function select_action(agent:Agent, actionList:Action[], locationList:Loc
 		for (k = 0; k<actionList[i].requirements.length; k++) {
 			if (actionList[i].requirements[k].type == 0){
 				var requirement:LocationReq = actionList[i].requirements[k].req as LocationReq;
-				dest = exec.getNearestLocation(requirement, locationList, agent.xPos, agent.yPos);
+				dest = exec.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
 				if (dest == null) {
 					check = false;
 				} else {
-					travelTime = Math.abs(dest.xPos - agent.xPos) + Math.abs(dest.yPos - agent.yPos);
+					travelTime = Math.abs(dest.xPos - agent.currentLocation.xPos) + Math.abs(dest.yPos - agent.currentLocation.yPos);
 				}
 			}
 		}
@@ -238,21 +242,20 @@ export function turn(agent:Agent, actionList:Action[], locationList:Location[], 
 			for (k = 0; k<choice.requirements.length; k++) {
 				if (choice.requirements[k].type == 0) {
 					var requirement:LocationReq = choice.requirements[k].req as LocationReq;
-					dest = exec.getNearestLocation(requirement, locationList, agent.xPos, agent.yPos);
+					dest = exec.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
 				}
 			}
 			//set action to choice or to travel if agent is not at location for choice
-			if (dest === null || (dest.xPos == agent.xPos && dest.yPos == agent.yPos)) {
+			if (dest === null || (dest.xPos == agent.currentLocation.xPos && dest.yPos == agent.currentLocation.yPos)) {
 				agent.currentAction = choice;
 				agent.occupiedCounter = choice.time_min;
 				// console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
 			} else {
-				var travelTime:number = Math.abs(dest.xPos - agent.xPos) + Math.abs(dest.yPos - agent.yPos);
+				var travelTime:number = Math.abs(dest.xPos - agent.currentLocation.xPos) + Math.abs(dest.yPos - agent.currentLocation.yPos);
 				agent.currentAction = travel_action;
-				agent.occupiedCounter = Math.abs(dest.xPos - agent.xPos) + Math.abs(dest.yPos - agent.yPos);
-				dest.xPos = agent.xPos;
-				dest.yPos = agent.yPos;
-				// console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + dest.name);
+				agent.occupiedCounter = Math.abs(dest.xPos - agent.currentLocation.xPos) + Math.abs(dest.yPos - agent.currentLocation.yPos);
+				dest.xPos = agent.currentLocation.xPos;
+				dest.yPos = agent.currentLocation.yPos;
 			}
 		}
 	}
