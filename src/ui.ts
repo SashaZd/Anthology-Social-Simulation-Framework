@@ -1,5 +1,6 @@
 import * as npc from "./agent";
 import * as main from "./main";
+import * as exec from "./execution_engine";
 
 var n:number = 8;
 var board:string[][] = [];
@@ -10,19 +11,12 @@ for(var i:number=0; i<n; i++){
 	}
 }
 
-function sleep(milliseconds:number) {
-  var start:number = new Date().getTime();
-  for (var i:number = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
-
-
-
-//Executed every turn
-export function updateUI(agentList:npc.Agent[], locationList:npc.Location[], time:number){
+//Executed every turn, calls the next turn if applicable
+export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean, time:number){
   main.showOnBrowser("time", time.toString());
-  sleep(10);
+	if (continueFunction()) {
+		setTimeout(() => {exec.run_sim(agentList, actionList, locationList, continueFunction)}, 10);
+	} else {
+		console.log("Finished.");
+	}
 }

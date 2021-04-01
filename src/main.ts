@@ -90,7 +90,5 @@ export function showOnBrowser(divName: string, name: string) {
 }
 
 window.onload = () => {
-  ui.updateUI(agentList, locationList, 0);
+  ui.updateUI(agentList, actionList, locationList, condition, 0);
 }
-
-engine.run_sim(agentList, actionList, locationList, condition);
