@@ -26,7 +26,10 @@ export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locatio
   main.showOnBrowser("time", time.toString());
 	clearBoard();
 	for (let l of locationList){
-		board[l.xPos][l.yPos] += l.name[0];
+		board[l.xPos][l.yPos] += l.name[0] + ": ";
+	}
+	for (let a of agentList){
+		board[a.xPos][a.yPos] += a.name[0] + ", ";
 	}
 	for(var i:number=0; i<n; i++){
 		for(var j:number=0; j<n; j++){
