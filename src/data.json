@@ -1,0 +1,44 @@
+{
+	"agents": [
+		{
+			"name": "John Doe",
+			"motive": {
+				"physical": 1,
+				"emotional": 1,
+				"social": 1,
+				"financial": 1,
+				"accomplishment": 1
+			},
+			"currentLocation": {
+				"xPos": 0,
+				"yPos": 0
+			},
+			"occupiedCounter": 0,
+			"currentAction": "wait_action",
+			"destination": {
+				"xPos": 0,
+				"yPos": 0
+			}
+		},
+		{
+			"name": "Jane Doe",
+			"motive": {
+				"physical": 4,
+				"emotional": 1,
+				"social": 4,
+				"financial": 1,
+				"accomplishment": 4
+			},
+			"currentLocation": {
+				"xPos": 5,
+				"yPos": 5
+			},
+			"occupiedCounter": 0,
+			"currentAction": "wait_action",
+			"destination": {
+				"xPos": 0,
+				"yPos": 0
+			}
+		}
+	]
+}

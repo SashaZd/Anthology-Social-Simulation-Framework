@@ -90,3 +90,8 @@ export var hobby_action : Action =
   effects:      [{motive:4, delta:2}],
   time_min:     60
 };
+
+// List of available actions in sim
+export var actionList: Action[] = [wait_action, travel_action, eat_action, movie_action, eat_friend_action, movie_friend_action, work_action, hobby_action];
+
+

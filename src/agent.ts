@@ -114,11 +114,11 @@ export interface Agent {
 	currentLocation: SimpleLocation | Location,
 	occupiedCounter: number,
 	currentAction: Action,
-	destination: SimpleLocation | Location | null
+	destination: SimpleLocation | Location
 }
 
 // Locations can be an unnamed position, with just an associated x,y coordinate
-interface SimpleLocation {
+export interface SimpleLocation {
 	xPos: number,
 	yPos: number
 }
@@ -126,7 +126,7 @@ interface SimpleLocation {
 // Locations can also be a named position, a name, and a list of tags
 // eg: a specific restaurant
 // Discuss: There should be a point Interface since some locations are not named. 
-interface Location extends SimpleLocation {
+export interface Location extends SimpleLocation {
 	name: string
 	tags: string[]
 }
