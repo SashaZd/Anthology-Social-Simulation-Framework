@@ -13,6 +13,21 @@ import { Agent } from "./agent";
 // The following actions are required for the current structure of the execution execution_engine
 //When modifying this file for more test scenarios, DO NOT CHANGE THESE action_specs
 
+var actionsData = {
+  "actions": [
+    {
+      name: "wait_action",
+      requirements: [],
+      effects: [],
+      time_min: 0
+    }
+  ]
+}
+
+
+
+
+
 // The wait action is used when an agent has maximal motives
 export var wait_action : Action =
 {
