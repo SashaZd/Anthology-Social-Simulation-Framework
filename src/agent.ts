@@ -258,7 +258,7 @@ export function execute_action(agent:Agent, action:Action):void {
   }
 }
 
-/*  updates movement and occupation counters for an agent. chooses and executes a new action if necessary 
+/*  updates movement and occupation counters for an agent. chooses and executes a new action if necessary
     agent: agent executing a turn
     actionList: the list of valid actions
     locationList: all locations in the world
@@ -275,6 +275,22 @@ export function turn(agent:Agent, actionList:Action[], locationList:Location[], 
   }
   if (agent.occupiedCounter > 0) {
     agent.occupiedCounter--;
+    if (agent.destination != null) {
+      var dest:Location = agent.destination;
+      if (agent.xPos != dest.xPos) {
+        if (agent.xPos > dest.xPos) {
+          agent.xPos -= 1;
+        } else {
+          agent.xPos += 1;
+        }
+      } else if (agent.yPos != dest.yPos) {
+        if (agent.yPos > dest.yPos) {
+          agent.yPos -= 1;
+        } else {
+          agent.yPos += 1;
+        }
+      }
+    }
   } else {
     if (!isContent(agent)) {
       agent.destination = null;
@@ -297,9 +313,8 @@ export function turn(agent:Agent, actionList:Action[], locationList:Location[], 
       } else {
         var travelTime:number = Math.abs(dest.xPos - agent.xPos) + Math.abs(dest.yPos - agent.yPos);
         agent.currentAction = travel_action;
-        agent.occupiedCounter = Math.abs(dest.xPos - agent.xPos) + Math.abs(dest.yPos - agent.yPos);
-        dest.xPos = agent.xPos;
-        dest.yPos = agent.yPos;
+        agent.occupiedCounter = travelTime;
+        agent.destination = dest;
         console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + dest.name);
       }
     }
