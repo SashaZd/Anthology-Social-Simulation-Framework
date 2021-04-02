@@ -1,7 +1,7 @@
 
 # Git ignore test - Typescript 
 # Dependency directory
-node_modules
+/node_modules
 
 # Editors
 .idea
@@ -12,5 +12,5 @@ node_modules
 Thumbs.db
 
 # Ignore built ts files
-# Users can generate this themselves by calling gulp. 
-dist/**/*
+# Users can generate this themselves by running $ gulp
+/dist

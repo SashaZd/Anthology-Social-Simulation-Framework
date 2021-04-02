@@ -116,3 +116,5 @@ export function run_sim(agentList:npc.Agent[], actionList:npc.Action[], location
   time += 1;
   ui.updateUI(agentList, actionList, locationList, continueFunction, time);
 }
+
+

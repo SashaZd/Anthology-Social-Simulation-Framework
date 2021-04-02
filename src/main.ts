@@ -7,14 +7,17 @@ import * as ui from "./ui";
 var actionList:npc.Action[] = [actions.eat_action, actions.movie_action, actions.eat_friend_action, actions.movie_friend_action, actions.work_action, actions.hobby_action];
 
 // agents
+
 var agent1:npc.Agent =
 {
   name: "John Doe",
-  physical: 1,
-  emotional: 1,
-  social: 1,
-  financial: 1,
-  accomplishment: 1,
+  motive: {
+    physical: 1,
+    emotional: 1,
+    social: 1,
+    financial: 1,
+    accomplishment: 1,
+  },
   xPos: 0,
   yPos: 0,
   occupiedCounter: 0,
@@ -26,11 +29,13 @@ var agent1:npc.Agent =
 var agent2:npc.Agent =
 {
   name: "Jane Doe",
-  physical: 4,
-  emotional: 1,
-  social: 4,
-  financial: 1,
-  accomplishment: 4,
+  motive: {
+    physical: 4,
+    emotional: 1,
+    social: 4,
+    financial: 1,
+    accomplishment: 4,
+  },
   xPos: 5,
   yPos: 5,
   occupiedCounter: 0,
@@ -59,23 +64,23 @@ function condition():boolean {
   var i:number = 0;
   // check the meter levels for each agent in the sim
   for (i = 0; i< agentList.length; i++) {
-    if (agentList[i].physical < engine.MAX_METER) {
+    if (agentList[i].motive.physical < engine.MAX_METER) {
       check = true;
       break;
     }
-    if (agentList[i].emotional < engine.MAX_METER) {
+    if (agentList[i].motive.emotional < engine.MAX_METER) {
       check = true;
       break;
     }
-    if (agentList[i].social < engine.MAX_METER) {
+    if (agentList[i].motive.social < engine.MAX_METER) {
       check = true;
       break;
     }
-    if (agentList[i].financial < engine.MAX_METER) {
+    if (agentList[i].motive.financial < engine.MAX_METER) {
       check = true;
       break;
     }
-    if (agentList[i].accomplishment < engine.MAX_METER) {
+    if (agentList[i].motive.accomplishment < engine.MAX_METER) {
       check = true;
       break;
     }
