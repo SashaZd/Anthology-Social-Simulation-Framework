@@ -28,7 +28,7 @@ var agent1:npc.Agent =
 // agents
 var agent2:npc.Agent =
 {
-  name: "Jane Doe",
+  name: "Anne Doe",
   motive: {
     physical: 4,
     emotional: 1,
