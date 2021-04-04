@@ -1,6 +1,8 @@
 import * as npc from "./agent";
-import {wait_action} from "./action_specs";
-import {travel_action} from "./action_specs";
+// import {wait_action} from "./action_specs";
+// import {travel_action} from "./action_specs";
+
+// import {actionList} from "./main";
 
 export var time:number = 0;
 export const MAX_METER = 5;
@@ -108,9 +110,8 @@ export function getNearestLocation(req:npc.LocationReq, list:npc.Location[], x:n
 export function run_sim(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean):void {
   while (continueFunction()) {
     shuffleArray(agentList);
-    var i:number = 0;
-    for (i = 0; i < agentList.length; i++ ) {
-      npc.turn(agentList[i], actionList, locationList, time);
+    for (var agent of agentList) {
+      npc.turn(agent, actionList, locationList, time);
     }
     time += 1;
   }
