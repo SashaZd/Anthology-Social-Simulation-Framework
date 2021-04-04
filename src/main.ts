@@ -9,8 +9,8 @@ export var locationList: npc.Location[] = utility.loadLocationsFromJSON(json_dat
 export var actionList: npc.Action[] = utility.loadActionsFromJSON(json_data['actions'])
 export var agentList: npc.Agent[] = utility.loadAgentsFromJSON(json_data["agents"]);
 
-// condition function.
-// Stops the sim when all agents are at full meters
+// Stopping condition for Simulation function.
+// Stops the sim when all agents are content
 function condition():boolean {
 	for (var agent of agentList){
 		// If any agent is not content, continue running sim

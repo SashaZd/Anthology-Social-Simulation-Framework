@@ -8,6 +8,7 @@ export var time:number = 0;
 export const MAX_METER = 5;
 export const MIN_METER = 1;
 
+
 /*  Simple mathematical clamp function.
     n: number being tested
     m: maximum value of number
@@ -53,49 +54,50 @@ export function inList(item:string, list:string[]):boolean {
 
 /*  returns the nearest location that satisfies the given requirement, or null.
     distance measured by manhattan distance
-    req: a location requirement to satisfy
-    list: a list of locations to check
+    locReq: a location requirement to satisfy
+    locationList: a list of locations to check
     x & y: coordinate pair to determine distance against.
     return: the location in question or null */
-export function getNearestLocation(req:npc.LocationReq, list:npc.Location[], x:number, y:number):npc.Location {
+export function getNearestLocation(locationReq:npc.LocationReq, locationList:npc.Location[], x:number, y:number):npc.Location {
   var ret:npc.Location = null;
   var minDist:number = -1;
   var i:number = 0;
-  for (i = 0; i<list.length; i++){
+  for (i = 0; i<locationList.length; i++){
     var valid:boolean = true;
     var check1:boolean = true;
     var j:number = 0;
-    for (j = 0; j<req.hasAllOf.length; j++){
-      if (!(inList(req.hasAllOf[j],list[i].tags))) {
+
+    for (j = 0; j<locationReq.hasAllOf.length; j++){
+      if (!(inList(locationReq.hasAllOf[j],locationList[i].tags))) {
         check1 = false;
       }
     }
     var check2:boolean = false;
-    for (j = 0; j<req.hasOneOrMoreOf.length; j++){
-      if (inList(req.hasOneOrMoreOf[j],list[i].tags)) {
+    for (j = 0; j<locationReq.hasOneOrMoreOf.length; j++){
+      if (inList(locationReq.hasOneOrMoreOf[j],locationList[i].tags)) {
         check2 = true;
       }
     }
-    if (req.hasOneOrMoreOf.length == 0) {
+    if (locationReq.hasOneOrMoreOf.length == 0) {
       check2 = true;
     }
     var check3:boolean = true;
-    for (j = 0; j<req.hasNoneOf.length; j++){
-      if (inList(req.hasNoneOf[j],list[i].tags)) {
+    for (j = 0; j<locationReq.hasNoneOf.length; j++){
+      if (inList(locationReq.hasNoneOf[j],locationList[i].tags)) {
         check3 = false;
       }
     }
-    if (req.hasNoneOf.length == 0) {
+    if (locationReq.hasNoneOf.length == 0) {
       check3 = true;
     }
     if (!(check1 && check2 && check3)) {
       valid = false;
     }
     if (valid) {
-      var travelDist: number = Math.abs(list[i].xPos - x) + Math.abs(list[i].yPos - y);
+      var travelDist: number = Math.abs(locationList[i].xPos - x) + Math.abs(locationList[i].yPos - y);
       if ((minDist > travelDist) || (minDist = -1)) {
         minDist = travelDist;
-        ret = list[i];
+        ret = locationList[i];
       }
     }
   }

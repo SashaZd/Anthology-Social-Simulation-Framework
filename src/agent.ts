@@ -180,14 +180,15 @@ export function select_action(agent:Agent, actionList:Action[], locationList:Loc
 
 	// Talk to Jen about this method 
 	// Finds the utility for each action to the given agent
-	for (var i = 0; i<actionList.length; i++){
+	for (var eachAction of actionList){
 		var dest:Location = null;
 		var travelTime:number = 0;
 		var check:boolean = true;
 
-		for (var k:number = 0; k<actionList[i].requirements.length; k++) {
-			if (actionList[i].requirements[k].type == ReqType.location){
-				var requirement:LocationReq = actionList[i].requirements[k].req as LocationReq;
+		for (var eachRequirement of eachAction.requirements){
+		// for (var k:number = 0; k<eachAction.requirements.length; k++) {
+			if (eachRequirement.type == ReqType.location){
+				var requirement:LocationReq = eachRequirement.req as LocationReq;
 				dest = exec.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
 				if (dest == null) {
 					// Don't have to travel, already there???
@@ -197,22 +198,22 @@ export function select_action(agent:Agent, actionList:Action[], locationList:Loc
 				}
 			}
 		}
-		// if an action has satisfiable requirements
+		// if an eachAction has satisfiable requirements
 		if (check) {
 			var deltaUtility:number = 0;
 			
-			for (var j:number=0; j<actionList[i].effects.length; j++){
-				var _delta = actionList[i].effects[j].delta;
-				var _motivetype = MotiveType[actionList[i].effects[j].motive];
-			   deltaUtility += exec.clamp(_delta + agent.motive[_motivetype], exec.MAX_METER, exec.MIN_METER) - agent.motive[_motivetype];
+			for (var eachEffect of eachAction.effects){
+				var _delta = eachEffect.delta;
+				var _motivetype = MotiveType[eachEffect.motive];
+				deltaUtility += exec.clamp(_delta + agent.motive[_motivetype], exec.MAX_METER, exec.MIN_METER) - agent.motive[_motivetype];
 			}
 
 			// adjust for time (including travel time)
-			deltaUtility = deltaUtility/(actionList[i].time_min + travelTime);
+			deltaUtility = deltaUtility/(eachAction.time_min + travelTime);
 			/// update choice if new utility is maximum seen so far
 			if (deltaUtility > maxDeltaUtility) {
 				maxDeltaUtility = deltaUtility;
-				currentChoice = actionList[i];
+				currentChoice = eachAction;
 			}
 		}
 	}

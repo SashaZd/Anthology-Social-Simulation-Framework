@@ -1,22 +1,7 @@
 // Utilties File
 
 import * as simTypes from "./agent";
-import {actionList} from "./main";
-
-
-// Currently using global actionList, but can also pass param to function: actionList:simTypes.Action[]
-export function getActionByName(name:string):simTypes.Action {
-	var possible_actions = actionList.filter((action: simTypes.Action) => action.name === name);
-
-	// if theres an action with this name, return the first one
-	if (possible_actions.length > 0){
-		return possible_actions[0]
-	}
-	else{
-		// returns false if there is no listed action with this name
-		console.log("getActionByName => Couldn't find action with name: ", name);
-	}
-}
+import {actionList, locationList, agentList} from "./main";
 
 
 // Returns a Agent[] using data from the data.json file 
@@ -40,6 +25,20 @@ export function loadAgentsFromJSON(agent_json:any): simTypes.Agent[]{
 	}
 	console.log("agents: ", agents);
 	return agents;
+}
+
+// Currently using global actionList, but can also pass param to function: actionList:simTypes.Action[]
+export function getAgentByName(name:string):simTypes.Agent {
+	var possible_agents = agentList.filter((agent: simTypes.Agent) => agent.name === name);
+
+	// if theres an action with this name, return the first one
+	if (possible_agents.length > 0){
+		return possible_agents[0]
+	}
+	else{
+		// returns false if there is no listed action with this name
+		console.log("getAgentByName => Couldn't find agent with name: ", name);
+	}
 }
 
 
@@ -80,6 +79,20 @@ export function loadActionsFromJSON(actions_json:any): simTypes.Action[]{
 	return actions;
 }
 
+// Currently using global actionList, but can also pass param to function: actionList:simTypes.Action[]
+export function getActionByName(name:string):simTypes.Action {
+	var possible_actions = actionList.filter((action: simTypes.Action) => action.name === name);
+
+	// if theres an action with this name, return the first one
+	if (possible_actions.length > 0){
+		return possible_actions[0]
+	}
+	else{
+		// returns false if there is no listed action with this name
+		console.log("getActionByName => Couldn't find action with name: ", name);
+	}
+}
+
 
 export function loadLocationsFromJSON(locations_json:any): simTypes.Location[]{
 	var locations: simTypes.Location[] = [];
@@ -95,6 +108,19 @@ export function loadLocationsFromJSON(locations_json:any): simTypes.Location[]{
 	}
 	console.log("locations: ", locations);
 	return locations;
+}
+
+export function getLocationByName(name: string): simTypes.Location{
+	var possible_locations = locationList.filter((location: simTypes.Location) => location.name === name);
+
+	// if theres an action with this name, return the first one
+	if (possible_locations.length > 0){
+		return possible_locations[0]
+	}
+	else{
+		// returns false if there is no listed action with this name
+		console.log("getLocationByName => Couldn't find location with name: ", name);
+	}
 }
 
 
