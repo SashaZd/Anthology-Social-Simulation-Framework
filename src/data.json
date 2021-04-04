@@ -1,0 +1,123 @@
+{
+	"agents": [
+		{
+			"name": "John Doe",
+			"motive": {
+				"physical": 1,
+				"emotional": 1,
+				"social": 1,
+				"financial": 1,
+				"accomplishment": 1
+			},
+			"currentLocation": {
+				"xPos": 0,
+				"yPos": 0
+			},
+			"occupiedCounter": 0,
+			"currentAction": "wait_action",
+			"destination": {
+				"xPos": 5,
+				"yPos": 5
+			}
+		},
+		{
+			"name": "Jane Doe",
+			"motive": {
+				"physical": 5,
+				"emotional": 1,
+				"social": 4,
+				"financial": 1,
+				"accomplishment": 4
+			},
+			"currentLocation": {
+				"xPos": 5,
+				"yPos": 5
+			},
+			"occupiedCounter": 0,
+			"currentAction": "wait_action",
+			"destination": {
+				"xPos": 0,
+				"yPos": 0
+			}
+		}
+	],
+	"actions": [
+	  {
+		"name": "wait_action",
+		"requirements": [],
+		"effects": [],
+		"time_min": 0
+	  },
+	  {
+		"name": "travel_action",
+		"requirements": [],
+		"effects": [],
+		"time_min": 0
+	  },
+	  {
+		"name": "eat_action",
+		"requirements": [{"type":"location", "req":{"hasAllOf":["restaurant"], "hasOneOrMoreOf":[], "hasNoneOf":[]}}],
+		"effects":      [{"motive":"physical", "delta":2}],
+		"time_min":     60
+	  },
+	  {
+	    "name": "movie_action",
+	    "requirements": [
+	    	{ "type":"location", "req":{"hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]}}
+    	],
+	    "effects":      [{"motive":"emotional", "delta":3}],
+	    "time_min":     120
+	  },
+	  {
+	    "name": "eat_friend_action",
+	    "requirements": [
+	    	{"type":"location", "req":{"hasAllOf":["restaurant"], "hasOneOrMoreOf":[], "hasNoneOf":[]}},
+			{"type":"people", "req":{"minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}}
+		],
+	    "effects":      [{"motive":"physical", "delta":2}, {"motive":"social", "delta":2}],
+	    "time_min":     70
+	  },
+	  {
+	    "name": "movie_friend_action",
+	    "requirements": [
+	    	{"type":"location", "req":{"hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]}},
+			{"type":"people", "req":{"minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}}
+		],
+	    "effects":      [{"motive":"emotional", "delta":3}, {"motive":"social", "delta":2}],
+	    "time_min":     130
+	  },
+	  {
+	    "name": "work_action",
+	    "requirements": [
+	    	{"type":"location", "req":{"hasAllOf":["employment"], "hasOneOrMoreOf":[], "hasNoneOf":[]}}
+    	],
+	    "effects":      [{"motive":"financial", "delta":1}],
+	    "time_min":     240
+	  },
+	  {
+	    "name": "hobby_action",
+	    "requirements": [
+	    	{"type":"location", "req":{"hasAllOf":["home"], "hasOneOrMoreOf":[], "hasNoneOf":[]}}
+    	],
+	    "effects":      [{"motive":"accomplishment", "delta":2}],
+	    "time_min":     60
+	  }
+	],
+	"locations": [
+		{
+			"name": "restaurant", 
+			"xPos": 5, "yPos": 5, 
+			"tags": ["restaurant", "employment"]
+		},
+		{
+			"name": "movie theatre", 
+			"xPos": 0, "yPos": 5, 
+			"tags": ["movie theatre", "employment"]
+		},
+		{
+			"name": "home", 
+			"xPos": 5, "yPos": 0, 
+			"tags": ["home"]
+		}
+	]
+}
