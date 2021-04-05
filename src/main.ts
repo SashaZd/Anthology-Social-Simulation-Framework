@@ -9,6 +9,8 @@ export var locationList: npc.Location[] = utility.loadLocationsFromJSON(json_dat
 export var actionList: npc.Action[] = utility.loadActionsFromJSON(json_data['actions'])
 export var agentList: npc.Agent[] = utility.loadAgentsFromJSON(json_data["agents"]);
 
+console.log("Testing getRequirementByType: ", utility.getRequirementByType(utility.getActionByName("eat_friend_action").requirements, npc.ReqType.location));
+
 // Stopping condition for Simulation function.
 // Stops the sim when all agents are content
 function condition():boolean {
