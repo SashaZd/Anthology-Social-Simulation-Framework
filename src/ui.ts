@@ -29,7 +29,7 @@ export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locatio
 		board[l.xPos][l.yPos] += l.name[0] + ": ";
 	}
 	for (let a of agentList){
-		board[a.xPos][a.yPos] += a.name[0] + ", ";
+		board[a.currentLocation.xPos][a.currentLocation.yPos] += a.name[0] + ", ";
 	}
 	for(var i:number=0; i<n; i++){
 		for(var j:number=0; j<n; j++){
