@@ -5,7 +5,7 @@ var watchify = require("watchify");
 var tsify = require("tsify");
 var fancy_log = require("fancy-log");
 var paths = {
-  pages: ["src/*.html"],
+  pages: ["src/*.html","src/*.css"],
 };
 
 var watchedBrowserify = watchify(

@@ -5,8 +5,8 @@ import * as utility from "./utilities";
 
 
 // Five motive types
-// Discuss: This is an enum, but we don't use it. We pass 0,1,2 into the action specs file. 
-// Discuss: While this can be an enum -- renamed to MotiveType | Change: declare a union type for Motive 
+// Discuss: This is an enum, but we don't use it. We pass 0,1,2 into the action specs file.
+// Discuss: While this can be an enum -- renamed to MotiveType | Change: declare a union type for Motive
 export enum MotiveType {
 	physical = "physical",
 	emotional = "emotional",
@@ -41,7 +41,7 @@ export enum BinOp {
 }
 
 // Three types of requirements
-// Discuss: This is an enum, but we don't use it. We pass 0,1,2 into the action specs file. 
+// Discuss: This is an enum, but we don't use it. We pass 0,1,2 into the action specs file.
 export enum ReqType {
 	location = "location",
 	people = "people",
@@ -75,7 +75,7 @@ export interface PeopleReq {
 
 // export interface SingleMotive {
 // 	motive: MotiveType,
-// 	valence: number 
+// 	valence: number
 // }
 
 export interface MotiveReq {
@@ -133,7 +133,7 @@ export interface SimpleLocation {
 
 // Locations can also be a named position, a name, and a list of tags
 // eg: a specific restaurant
-// Discuss: There should be a point Interface since some locations are not named. 
+// Discuss: There should be a point Interface since some locations are not named.
 export interface Location extends SimpleLocation {
 	name: string
 	tags: string[]
@@ -144,7 +144,7 @@ export interface Location extends SimpleLocation {
 		agent: the agent being tested
 		return: a boolean answering the question */
 
-// To do: this way. 
+// To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
 export function isContent(agent:Agent, motive?:keyof Motive):boolean {
@@ -173,11 +173,10 @@ export function isContent(agent:Agent, motive?:keyof Motive):boolean {
 export function select_action(agent:Agent, actionList:Action[], locationList:Location[]):Action {
 	// initialized to 0 (no reason to do an action if it will harm you)
 	var maxDeltaUtility:number = 0;
-	
+
 	// initialized to the inaction
 	var currentChoice:Action = utility.getActionByName("wait_action");
-	
-	// Talk to Jen about this method 
+
 	// Finds the utility for each action to the given agent
 	for (var eachAction of actionList){
 		var dest:Location = null;
@@ -199,7 +198,7 @@ export function select_action(agent:Agent, actionList:Action[], locationList:Loc
 		// if an eachAction has satisfiable requirements
 		if (check) {
 			var deltaUtility:number = 0;
-			
+
 			for (var eachEffect of eachAction.effects){
 				var _delta = eachEffect.delta;
 				var _motivetype = MotiveType[eachEffect.motive];
@@ -232,7 +231,7 @@ export function execute_action(agent:Agent, action:Action):void {
 	}
 }
 
-/*  updates movement and occupation counters for an agent. chooses and executes a new action if necessary 
+/*  updates movement and occupation counters for an agent. chooses and executes a new action if necessary
 		agent: agent executing a turn
 		actionList: the list of valid actions
 		locationList: all locations in the world
@@ -242,38 +241,53 @@ export function turn(agent:Agent, actionList:Action[], locationList:Location[], 
 		if (!isContent(agent)) {
 			for(var motiveType of motiveTypes) {
 				agent.motive[motiveType] = exec.clamp(agent.motive[motiveType] - 1, exec.MAX_METER, exec.MIN_METER);
-			}	
+			}
 		}
 	}
-	if (agent.occupiedCounter > 0) {
-		agent.occupiedCounter--;
-	} 
-	else {
+  if (agent.occupiedCounter > 0) {
+    agent.occupiedCounter--;
+    if (agent.destination != null) {
+      var dest:SimpleLocation = agent.destination;
+      if (agent.currentLocation.xPos != dest.xPos) {
+        if (agent.currentLocation.xPos > dest.xPos) {
+          agent.currentLocation.xPos -= 1;
+        } else {
+          agent.currentLocation.xPos += 1;
+        }
+      } else if (agent.currentLocation.yPos != dest.yPos) {
+        if (agent.currentLocation.yPos > dest.yPos) {
+          agent.currentLocation.yPos -= 1;
+        } else {
+          agent.currentLocation.yPos += 1;
+        }
+      }
+    }
+	} else {
 		if (!isContent(agent)) {
 			agent.destination = null;
 			execute_action(agent, agent.currentAction);
 			console.log("time: " + time.toString() + " | " + agent.name + ": Finished " + agent.currentAction.name);
 			var choice:Action = select_action(agent, actionList, locationList);
-			var dest:Location = null;
+			var dest2:Location = null;
 			var k:number = 0;
 			for (k = 0; k<choice.requirements.length; k++) {
 				if (choice.requirements[k].type == ReqType.location) {
 					var requirement:LocationReq = choice.requirements[k].req as LocationReq;
-					dest = exec.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
+					dest2 = exec.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
 				}
 			}
 			//set action to choice or to travel if agent is not at location for choice
-			if (dest === null || (dest.xPos == agent.currentLocation.xPos && dest.yPos == agent.currentLocation.yPos)) {
+			if (dest2 === null || (dest2.xPos == agent.currentLocation.xPos && dest2.yPos == agent.currentLocation.yPos)) {
 				agent.currentAction = choice;
 				agent.occupiedCounter = choice.time_min;
 				console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
 			} else {
-				var travelTime:number = Math.abs(dest.xPos - agent.currentLocation.xPos) + Math.abs(dest.yPos - agent.currentLocation.yPos);
-				agent.currentAction = utility.getActionByName("travel_action");
-				agent.occupiedCounter = Math.abs(dest.xPos - agent.currentLocation.xPos) + Math.abs(dest.yPos - agent.currentLocation.yPos);
-				dest.xPos = agent.currentLocation.xPos;
-				dest.yPos = agent.currentLocation.yPos;
-			}
-		}
-	}
+        var travelTime:number = Math.abs(dest2.xPos - agent.currentLocation.xPos) + Math.abs(dest2.yPos - agent.currentLocation.yPos);
+        agent.currentAction = utility.getActionByName("travel_action");
+        agent.occupiedCounter = travelTime;
+        agent.destination = dest2;
+        console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + dest2.name);
+      }
+    }
+  }
 }

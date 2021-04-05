@@ -1,6 +1,7 @@
 import * as npc from "./agent";
 // import {wait_action} from "./action_specs";
 // import {travel_action} from "./action_specs";
+import * as ui from "./ui";
 
 // import {actionList} from "./main";
 
@@ -108,16 +109,16 @@ export function getNearestLocation(locationReq:npc.LocationReq, locationList:npc
     agentList: list of agents in the sim
     actionList: the list of valid actions
     locationList: all locations in the world
-    continueFunction: boolean function that is used as a check as to whether or not to keep running the sim */
+    continueFunction: boolean function that is used as a check as to whether or not to keep running the sim
+    executes a single turn and then is called from ui for the next, no more loop */
 export function run_sim(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean):void {
-  while (continueFunction()) {
-    shuffleArray(agentList);
-    for (var agent of agentList) {
-      npc.turn(agent, actionList, locationList, time);
-    }
-    time += 1;
+  shuffleArray(agentList);
+  var i:number = 0;
+  for (i = 0; i < agentList.length; i++ ) {
+    npc.turn(agentList[i], actionList, locationList, time);
   }
-  console.log("Finished.");
+  time += 1;
+  ui.updateUI(agentList, actionList, locationList, continueFunction, time);
 }
 
 
