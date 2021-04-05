@@ -123,7 +123,10 @@ export function getLocationByName(name: string): simTypes.Location{
 	}
 }
 
-
+export function getRequirementByType(requirements: simTypes.Requirement[], reqType: simTypes.ReqType): simTypes.Requirement[]{
+	var possible_reqs = requirements.filter((requirement: simTypes.Requirement) => requirement.type === reqType);
+	return possible_reqs;
+}
 
 
 

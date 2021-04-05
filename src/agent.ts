@@ -30,15 +30,6 @@ export interface Motive {
 // convenient list of keys of the motive types we have which we can iterate through
 const motiveTypes: string[] = Object.keys(MotiveType).filter(k => typeof MotiveType[k as keyof typeof MotiveType] === "string");
 
-// const StringIsNumber = value => isNaN(Number(value)) === false;
-// function ToArray(enumme) {
-//     return Object.keys(enumme)
-//         .filter(StringIsNumber)
-//         .map(key => enumme[key]);
-// }
-
-// const motiveTypes = ToArray(MotiveType);
-
 
 // Binary Operations used primarily in requirements
 export enum BinOp {
@@ -61,6 +52,7 @@ export enum ReqType {
 // Based on a tags system for locations.
 // eg: must be at a restaurant
 export interface LocationReq {
+	// type: "location",
 	hasAllOf: string[],
 	hasOneOrMoreOf: string[],
 	hasNoneOf: string[]
@@ -94,6 +86,8 @@ export interface MotiveReq {
 
 // General requirement type.
 // eg: any of the above three
+// Meeting: type should be inside Location/People/Motive Req. Not a separate key 
+// Right now everytime you create a new requirement, you're changing 3 different things. Will be less complex 
 export interface Requirement {
 	type: ReqType,
 	req: LocationReq | PeopleReq | MotiveReq
@@ -153,11 +147,17 @@ export interface Location extends SimpleLocation {
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
-export function isContent(agent:Agent):boolean {
-	for(var motiveType of motiveTypes){
-		// const getmotive = getKeyValue<keyof Motive, Motive>(motiveType)(agent.motive);
-		if(agent.motive[motiveType] < exec.MAX_METER){
+export function isContent(agent:Agent, motive?:keyof Motive):boolean {
+	if(motive){
+		if(agent.motive[motive] < exec.MAX_METER){
 			return false;
+		}
+	}
+	else{
+		for(var motiveType of motiveTypes){
+			if(agent.motive[motiveType] < exec.MAX_METER){
+				return false;
+			}
 		}
 	}
 	return true;
@@ -177,8 +177,6 @@ export function select_action(agent:Agent, actionList:Action[], locationList:Loc
 	// initialized to the inaction
 	var currentChoice:Action = utility.getActionByName("wait_action");
 
-
-	// Talk to Jen about this method
 	// Finds the utility for each action to the given agent
 	for (var eachAction of actionList){
 		var dest:Location = null;
@@ -186,7 +184,6 @@ export function select_action(agent:Agent, actionList:Action[], locationList:Loc
 		var check:boolean = true;
 
 		for (var eachRequirement of eachAction.requirements){
-		// for (var k:number = 0; k<eachAction.requirements.length; k++) {
 			if (eachRequirement.type == ReqType.location){
 				var requirement:LocationReq = eachRequirement.req as LocationReq;
 				dest = exec.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
@@ -283,7 +280,7 @@ export function turn(agent:Agent, actionList:Action[], locationList:Location[], 
 			if (dest2 === null || (dest2.xPos == agent.currentLocation.xPos && dest2.yPos == agent.currentLocation.yPos)) {
 				agent.currentAction = choice;
 				agent.occupiedCounter = choice.time_min;
-				// console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
+				console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
 			} else {
         var travelTime:number = Math.abs(dest2.xPos - agent.currentLocation.xPos) + Math.abs(dest2.yPos - agent.currentLocation.yPos);
         agent.currentAction = utility.getActionByName("travel_action");
