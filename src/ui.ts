@@ -1,4 +1,4 @@
-import * as npc from "./agent";
+import * as types from "./types";
 import * as main from "./main";
 import * as exec from "./execution_engine";
 
@@ -22,7 +22,7 @@ function clearBoard() {
 }
 
 //Executed every turn, calls the next turn if applicable
-export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean, time:number){
+export function updateUI(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, time:number){
   main.showOnBrowser("time", time.toString());
 	clearBoard();
 	for (let l of locationList){
