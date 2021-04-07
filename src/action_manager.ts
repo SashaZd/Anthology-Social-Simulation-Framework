@@ -5,37 +5,12 @@ import {actionList} from "./main";
 // The following actions are required for the current structure of the execution execution_engine
 //When modifying this file for more test scenarios, DO NOT CHANGE THESE action_specs
 
-export function loadActionsFromJSON(actions_json:any): types.Action[]{
-	// var _actions_json = JSON.parse(actions_json);
-	var actions: types.Action[] = [];
-	for (var parseAction of actions_json){
-		var requirementList: types.Requirement[] = [];
-		for (var parseReq of parseAction['requirements']){
-			var _reqType: keyof typeof types.ReqType = parseReq["type"];
-			var requirement: types.Requirement = {
-				type: types.ReqType[_reqType],
-				req: parseReq['req']
-			}
-			requirementList.push(requirement);
-		}
 
-		var effectsList: types.Effect[] = [];
-		for (var parseEffect of parseAction['effects']){
-			var _motType: keyof typeof types.MotiveType = parseEffect["motive"];
-			var effect: types.Effect = {
-				motive: (types.MotiveType as any)[_motType],
-				delta: parseEffect['delta']
-			}
-			effectsList.push(effect);
-		}
-
-		var action : types.Action = {
-			name: parseAction["name"],
-			requirements: requirementList,
-			effects: effectsList,
-			time_min: parseAction["time_min"]
-		}
-
+// Loads actions 
+export function loadActionsFromJSON(actions_json:types.Action[]): types.Action[] {
+	let actions: types.Action[] = [];
+	for (let parse_action of actions_json){
+		var action:types.Action = Object.assign({}, parse_action);
 		actions.push(action);
 	}
 	console.log("actions: ", actions);
@@ -44,7 +19,7 @@ export function loadActionsFromJSON(actions_json:any): types.Action[]{
 
 // Currently using global actionList, but can also pass param to function: actionList:types.Action[]
 export function getActionByName(name:string):types.Action {
-	var possible_actions = actionList.filter((action: types.Action) => action.name === name);
+	let possible_actions = actionList.filter((action: types.Action) => action.name === name);
 
 	// if theres an action with this name, return the first one
 	if (possible_actions.length > 0){
@@ -53,6 +28,16 @@ export function getActionByName(name:string):types.Action {
 	else{
 		// returns false if there is no listed action with this name
 		console.log("getActionByName => Couldn't find action with name: ", name);
+		console.log("getActionByName => Returning Default: wait_action");
+		return getActionByName("wait_action");
 	}
 }
 
+
+// Returns a list of requirements of the required type from an action
+// Eg. getRequirementByType(action, types.ReqType.location) 
+// 			returns types.Requirement[] as types.LocationReq[]
+export function getRequirementByType(action: types.Action, reqType: types.ReqType): types.Requirement[]{
+	let possible_reqs = action.requirements.filter((requirement: types.Requirement) => requirement.reqType === reqType);
+	return possible_reqs;
+}

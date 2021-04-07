@@ -58,7 +58,7 @@ export enum ReqType {
 export interface LocationReq {
 	reqType: "location",
 	hasAllOf: string[],
-	hasOneOrMoreOf: string[],
+	hasOneOrMoreOf: string[],		// Propose: Rename to hasSomeOf (to match Typescript array methods)
 	hasNoneOf: string[]
 }
 
@@ -94,11 +94,12 @@ export interface MotiveReq {
 // eg: any of the above three
 // Meeting: type should be inside Location/People/Motive Req. Not a separate key 
 // Right now everytime you create a new requirement, you're changing 3 different things. Will be less complex 
-export interface Requirement {
-	type: ReqType,
-	req: LocationReq | PeopleReq | MotiveReq
-}
+// export interface Requirement {
+// 	type: ReqType,
+// 	req: LocationReq | PeopleReq | MotiveReq
+// }
 
+export type Requirement = LocationReq | PeopleReq | MotiveReq;
 
 // Action effect type.
 // eg: sleep increases the physical motive
@@ -134,6 +135,16 @@ export interface Agent {
 	currentLocation: SimLocation,
 	occupiedCounter: number,
 	currentAction: Action,
+	destination: SimLocation | null
+}
+
+// JSON agent type: currentAction:string is converted to currentAction:Action by parser
+export interface JSONAgent {
+	name: string,
+	motive: Motive,
+	currentLocation: SimLocation,
+	occupiedCounter: number,
+	currentAction: string,
 	destination: SimLocation | null
 }
 

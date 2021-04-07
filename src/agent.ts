@@ -3,6 +3,7 @@ import * as exec from "./execution_engine";
 // import {travel_action} from "./action_specs";
 import * as action_manager from "./action_manager";
 import * as utility from "./utilities";
+import * as location_manager from "./location_manager";
 
 import * as types from "./types";
 
@@ -14,11 +15,11 @@ import * as types from "./types";
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
+
+// Returns whether the agent is content
 export function isContent(agent:types.Agent, motive?:keyof types.Motive):boolean {
 	if(motive){
-		if(agent.motive[motive] < exec.MAX_METER){
-			return false;
-		}
+		return agent.motive[motive] == exec.MAX_METER;
 	}
 	else{
 		for(var motiveType of types.motiveTypes){
@@ -39,6 +40,7 @@ export function isContent(agent:types.Agent, motive?:keyof types.Motive):boolean
 		locationList: all locations in the world
 		return: The single action chosen from the list */
 export function select_action(agent:types.Agent, actionList:types.Action[], locationList:types.SimLocation[]):types.Action {
+	
 	// initialized to 0 (no reason to do an action if it will harm you)
 	var maxDeltaUtility:number = 0;
 
@@ -51,10 +53,15 @@ export function select_action(agent:types.Agent, actionList:types.Action[], loca
 		var travelTime:number = 0;
 		var check:boolean = true;
 
+		let location_requirements: types.LocationReq[] = action_manager.getRequirementByType(eachAction, types.ReqType.location) as types.LocationReq[];
+		let people_requirements: types.PeopleReq[] = action_manager.getRequirementByType(eachAction, types.ReqType.people) as types.PeopleReq[];
+		let motive_requirements: types.MotiveReq[] = action_manager.getRequirementByType(eachAction, types.ReqType.motive) as types.MotiveReq[];
+
+
 		for (var eachRequirement of eachAction.requirements){
-			if (eachRequirement.type == types.ReqType.location){
-				var requirement:types.LocationReq = eachRequirement.req as types.LocationReq;
-				dest = exec.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
+			if (eachRequirement.reqType == types.ReqType.location){
+				var requirement:types.LocationReq = eachRequirement as types.LocationReq;
+				dest = location_manager.getNearestLocation(requirement, locationList, agent.currentLocation.xPos, agent.currentLocation.yPos);
 				if (dest == null) {
 					// Don't have to travel, already there???
 					check = false;
@@ -142,9 +149,9 @@ export function turn(agent:types.Agent, actionList:types.Action[], locations:typ
 			var dest2:types.SimLocation = null;
 			var k:number = 0;
 			for (k = 0; k<choice.requirements.length; k++) {
-				if (choice.requirements[k].type == types.ReqType.location) {
-					var requirement: types.LocationReq = choice.requirements[k].req as types.LocationReq;
-					dest = exec.getNearestLocation(requirement, locations, agent.currentLocation.xPos, agent.currentLocation.yPos);
+				if (choice.requirements[k].reqType == types.ReqType.location) {
+					var requirement: types.LocationReq = choice.requirements[k] as types.LocationReq;
+					dest = location_manager.getNearestLocation(requirement, locations, agent.currentLocation.xPos, agent.currentLocation.yPos);
 				}
 			}
 			//set action to choice or to travel if agent is not at location for choice
