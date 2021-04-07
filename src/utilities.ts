@@ -7,30 +7,24 @@ import {actionList, locationList, agentList} from "./main";
 
 // Returns a Agent[] using data from the data.json file 
 // matches the string:action_name against existing actions and returns the same
-export function loadAgentsFromJSON(agent_json:any): types.Agent[]{
-	var agents: types.Agent[] = [];
-	for (var parseAgent of agent_json){
-		var possible_action = action_manager.getActionByName(parseAgent.currentAction)
-		if (possible_action){
-			var agent : types.Agent = {
-				name: parseAgent['name'],
-				motive: parseAgent['motive'],
-				occupiedCounter: parseAgent['occupiedCounter'],
-				currentAction: possible_action,
-				destination: parseAgent['destination'],
-				currentLocation: parseAgent['currentLocation']
-			}
-			agents.push(agent);
-		}
-		
+// JSON object needs to be of type: any, since we're accepting a string name 
+export function loadAgentsFromJSON(agent_json:types.JSONAgent[]): types.Agent[] {
+	let agents: types.Agent[] = [];
+	for (let parse_agent of agent_json){
+		let possible_action: types.Action = action_manager.getActionByName(parse_agent.currentAction);
+		let agent:types.Agent = Object.assign({}, parse_agent, {
+			currentAction: possible_action
+		});
+		agents.push(agent);
 	}
 	console.log("agents: ", agents);
 	return agents;
 }
 
+
 // Currently using global actionList, but can also pass param to function: actionList:types.Action[]
 export function getAgentByName(name:string):types.Agent {
-	var possible_agents = agentList.filter((agent: types.Agent) => agent.name === name);
+	let possible_agents = agentList.filter((agent: types.Agent) => agent.name === name);
 
 	// if theres an action with this name, return the first one
 	if (possible_agents.length > 0){
@@ -41,41 +35,6 @@ export function getAgentByName(name:string):types.Agent {
 		console.log("getAgentByName => Couldn't find agent with name: ", name);
 	}
 }
-
-export function loadLocationsFromJSON(locations_json:any): types.SimLocation[]{
-	var locations: types.SimLocation[] = [];
-
-	for (var parseLocation of locations_json) {
-		var location: types.SimLocation = {
-			name: (parseLocation as any)['name'],
-			xPos: (parseLocation as any)['xPos'],
-			yPos: (parseLocation as any)['yPos'],
-			tags: (parseLocation as any)['tags']
-		}
-		locations.push(location);
-	}
-	console.log("locations: ", locations);
-	return locations;
-}
-
-export function getLocationByName(name: string): types.SimLocation{
-	var possible_locations = locationList.filter((location: types.SimLocation) => location.name === name);
-
-	// if theres an action with this name, return the first one
-	if (possible_locations.length > 0){
-		return possible_locations[0]
-	}
-	else{
-		// returns false if there is no listed action with this name
-		console.log("getLocationByName => Couldn't find location with name: ", name);
-	}
-}
-
-export function getRequirementByType(requirements: types.Requirement[], reqType: types.ReqType): types.Requirement[]{
-	var possible_reqs = requirements.filter((requirement: types.Requirement) => requirement.type === reqType);
-	return possible_reqs;
-}
-
 
 /*  Simple mathematical clamp function.
 		test: number being tested
@@ -96,9 +55,9 @@ export function clamp(test:number, max:number, min:number):number {
 		https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 		*/
 export function shuffleArray(array:any[]):void {
-		for (var i:number = array.length - 1; i > 0; i--) {
-				var j = Math.floor(Math.random() * (i + 1));
-				var temp:any = array[i];
+		for (let i:number = array.length - 1; i > 0; i--) {
+				let j = Math.floor(Math.random() * (i + 1));
+				let temp:any = array[i];
 				array[i] = array[j];
 				array[j] = temp;
 		}
@@ -106,12 +65,27 @@ export function shuffleArray(array:any[]):void {
 
 /*  Array contains all elements of the search array
 		https://stackoverflow.com/questions/53606337/check-if-array-contains-all-elements-of-another-array
+	Returns true if the array, arr[], includes every element of the target array, all[]
 */
-export function isTargetInArray(arr:any[], target:any[]){
-	return target.every(v => arr.includes(v));
+export function arrayIncludesAllOf(arr:any[], other:any[]): boolean{
+	return other.every(v => arr.includes(v));
 }
 
-console.log("isTargetInArray() Test: ", isTargetInArray([1,2,3,4],[1,2,4]))
 
+export function arrayIncludesSomeOf(arr:any[], other:any[]): boolean{
+	return other.some(v => arr.includes(v));
+}
+
+
+
+
+/*  checks membership in a list. 
+		item: an item to be checked
+		list: a list of strings to check against
+		return: a boolean answering the question 
+*/
+export function arrayIncluesItem(arr:any[], item:any):boolean {
+	return arr.includes(item)
+}
 
 

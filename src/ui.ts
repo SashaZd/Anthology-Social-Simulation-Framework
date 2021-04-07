@@ -25,11 +25,11 @@ function clearBoard() {
 export function updateUI(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, time:number){
   main.showOnBrowser("time", time.toString());
 	clearBoard();
-	for (let l of locationList){
-		board[l.xPos][l.yPos] += l.name[0] + ": ";
+	for (let location of locationList){
+		board[location.xPos][location.yPos] += location.name[0] + ": ";
 	}
-	for (let a of agentList){
-		board[a.currentLocation.xPos][a.currentLocation.yPos] += a.name[0] + ", ";
+	for (let agent of agentList){
+		board[agent.currentLocation.xPos][agent.currentLocation.yPos] += agent.name[0] + ", ";
 	}
 	for(var i:number=0; i<n; i++){
 		for(var j:number=0; j<n; j++){

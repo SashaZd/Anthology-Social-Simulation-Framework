@@ -4,10 +4,12 @@ import * as npc from "./agent";
 import * as utility from "./utilities";
 import * as ui from "./ui";
 import * as types from "./types";
+import * as location_manager from "./location_manager";
 
 // import * as json_data from "./data.json";
 const json_data = require("./data.json");
-export var locationList: types.SimLocation[] = utility.loadLocationsFromJSON(json_data['locations'])
+
+export var locationList: types.SimLocation[] = location_manager.loadLocationsFromJSON(json_data['locations'])
 export var actionList: types.Action[] = action_manager.loadActionsFromJSON(json_data['actions'])
 export var agentList: types.Agent[] = utility.loadAgentsFromJSON(json_data["agents"]);
 
