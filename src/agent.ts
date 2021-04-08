@@ -239,7 +239,8 @@ export function execute_action(agent:Agent, action:Action):void {
 		actionList: the list of valid actions
 		locationList: all locations in the world
 		time: current tick time */
-export function turn(agent:Agent, actionList:Action[], locationList:Location[], time:number):void {
+export function turn(agent:Agent, actionList:Action[], locationList:Location[], time:number):boolean{
+	var movement:boolean = false;
 	if (time%600 == 0) {
 		if (!isContent(agent)) {
 			for(var motiveType of motiveTypes) {
@@ -250,6 +251,7 @@ export function turn(agent:Agent, actionList:Action[], locationList:Location[], 
   if (agent.occupiedCounter > 0) {
     agent.occupiedCounter--;
     if (agent.destination != null) {
+			movement = true;
       var dest:SimpleLocation = agent.destination;
       if (agent.currentLocation.xPos != dest.xPos) {
         if (agent.currentLocation.xPos > dest.xPos) {
@@ -293,4 +295,5 @@ export function turn(agent:Agent, actionList:Action[], locationList:Location[], 
       }
     }
   }
+	return movement;
 }

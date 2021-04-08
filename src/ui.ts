@@ -1,9 +1,9 @@
 import * as npc from "./agent";
-import * as main from "./main";
 import * as exec from "./execution_engine";
 
 var n:number = 6;
-var sleep:number = 1000;
+export var sleepMove:number = 1000;
+export var sleepStill:number = 10;
 var board:string[][] = [];
 
 for(var i:number=0; i<n; i++){
@@ -21,9 +21,31 @@ function clearBoard() {
 	}
 }
 
+// Displays text on the browser? I assume
+function showOnBrowser(divName: string, name: string) {
+  const elt = document.getElementById(divName);
+  elt.innerText = name;
+}
+
+// Displays text on the browser? I assume
+export function changeValueOnBrowser(divName: string, val: number) {
+  const elt:HTMLInputElement = <HTMLInputElement>document.getElementById(divName);
+  elt.value = val.toString();
+}
+
+export function inputSleepMove() {
+	const elt:HTMLInputElement = <HTMLInputElement>document.getElementById("sleepMove");
+	sleepMove = parseFloat(elt.value);
+}
+
+export function inputSleepStill() {
+	const elt:HTMLInputElement = <HTMLInputElement>document.getElementById("sleepStill");
+	sleepStill = parseFloat(elt.value);
+}
+
 //Executed every turn, calls the next turn if applicable
-export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean, time:number){
-  main.showOnBrowser("time", time.toString());
+export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean, time:number, movement:boolean){
+  showOnBrowser("time", time.toString());
 	clearBoard();
 	for (let l of locationList){
 		board[l.xPos][l.yPos] += l.name[0] + ": ";
@@ -34,11 +56,15 @@ export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locatio
 	for(var i:number=0; i<n; i++){
 		for(var j:number=0; j<n; j++){
 			var div:string = "space " + i.toString() + "-" + j.toString();
-			main.showOnBrowser(div, board[i][j]);
+			showOnBrowser(div, board[i][j]);
 		}
 	}
 	if (continueFunction()) {
-		setTimeout(() => {exec.run_sim(agentList, actionList, locationList, continueFunction)}, sleep);
+		if (movement) {
+			setTimeout(() => {exec.run_sim(agentList, actionList, locationList, continueFunction)}, sleepMove);
+		} else {
+			setTimeout(() => {exec.run_sim(agentList, actionList, locationList, continueFunction)}, sleepStill);
+		}
 	} else {
 		console.log("Finished.");
 	}

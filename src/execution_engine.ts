@@ -114,11 +114,10 @@ export function getNearestLocation(locationReq:npc.LocationReq, locationList:npc
 export function run_sim(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean):void {
   shuffleArray(agentList);
   var i:number = 0;
+  var movement:boolean = false;
   for (i = 0; i < agentList.length; i++ ) {
-    npc.turn(agentList[i], actionList, locationList, time);
+    movement = movement || npc.turn(agentList[i], actionList, locationList, time);
   }
   time += 1;
-  ui.updateUI(agentList, actionList, locationList, continueFunction, time);
+  ui.updateUI(agentList, actionList, locationList, continueFunction, time, movement);
 }
-
-
