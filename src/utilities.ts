@@ -4,7 +4,7 @@ import * as simTypes from "./agent";
 import {actionList, locationList, agentList} from "./main";
 
 
-// Returns a Agent[] using data from the data.json file 
+// Returns a Agent[] using data from the data.json file
 // matches the string:action_name against existing actions and returns the same
 export function loadAgentsFromJSON(agent_json:any): simTypes.Agent[]{
 	var agents: simTypes.Agent[] = [];
@@ -21,7 +21,7 @@ export function loadAgentsFromJSON(agent_json:any): simTypes.Agent[]{
 			}
 			agents.push(agent);
 		}
-		
+
 	}
 	console.log("agents: ", agents);
 	return agents;
@@ -122,8 +122,3 @@ export function getLocationByName(name: string): simTypes.Location{
 		console.log("getLocationByName => Couldn't find location with name: ", name);
 	}
 }
-
-
-
-
-

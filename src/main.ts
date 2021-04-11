@@ -29,4 +29,8 @@ window.onload = () => {
 	ui.changeValueOnBrowser("sleepStill", ui.sleepStill);
 	document.getElementById("sleepMove").addEventListener("input", ui.inputSleepMove);
 	document.getElementById("sleepStill").addEventListener("input", ui.inputSleepStill);
+	for (var agent of agentList){
+		ui.addOption(agent.name);
+	}
+	document.getElementById("agent").addEventListener("change", ui.activeAgentChange);
 }
