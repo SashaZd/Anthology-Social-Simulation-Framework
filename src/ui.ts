@@ -3,7 +3,7 @@ import * as main from "./main";
 import * as exec from "./execution_engine";
 
 var n:number = 6;
-var sleep:number = 1000;
+var sleep:number = 10;
 var board:string[][] = [];
 
 for(var i:number=0; i<n; i++){

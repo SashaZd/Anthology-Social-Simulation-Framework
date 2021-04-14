@@ -68,8 +68,8 @@ export interface PeopleReq {
 	reqType: "people",
 	minNumPeople: number,
 	maxNumPeople: number,
-	specificPeoplePresent: string[],
-	specificPeopleAbsent: string[],
+	specificPeoplePresent: Agent[],
+	specificPeopleAbsent: Agent[],
 	relationshipsPresent: string[],
 	relationshipsAbsent: string[]
 }
@@ -111,6 +111,7 @@ export interface Effect {
 // General action type.
 // Name, requiremnts, effects, and minimum time taken.
 // eg: sleep
+// Assumptions: 1 LocationReq, 1 People Req, MotiveReq[]
 export interface Action {
 	name: string,
 	requirements: Requirement[],
@@ -128,6 +129,7 @@ export interface Action {
 //General agent type.
 // Name and Current Motive Scores.
 // eg: any npc character
+// destination = null ---> No location requirement for action, or agent already at location.
 export interface Agent {
 	// Agent Properties
 	name: string,
