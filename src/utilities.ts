@@ -64,28 +64,55 @@ export function shuffleArray(array:any[]):void {
 }
 
 /*  Array contains all elements of the search array
-		https://stackoverflow.com/questions/53606337/check-if-array-contains-all-elements-of-another-array
-	Returns true if the array, arr[], includes every element of the target array, all[]
+		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+	Returns true if the array, arr[], includes every element of the target array, other[]
 */
 export function arrayIncludesAllOf(arr:any[], other:any[]): boolean{
 	return other.every(v => arr.includes(v));
 }
 
+// console.log("Test: arrayIncludesAllOf: ", arrayIncludesAllOf(["home"],["restaurant"]), arrayIncludesAllOf([1,2,3,4],[5,6,2]), arrayIncludesAllOf([1,2,3,4],[5]), arrayIncludesAllOf([1,2,3,4],[]))
 
+
+/*  Array contains all elements of the search array
+		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+	Returns true if the array, arr[], includes none of the target array, other[]
+*/
+export function arrayIncludesNoneOf(arr:any[], other:any[]): boolean{
+	return other.every(v => !arr.includes(v));
+}
+
+// console.log("Test: arrayIncludesNoneOf: ", arrayIncludesNoneOf([1,2,3,4],[3]), arrayIncludesNoneOf([1,2,3,4],[5,6,2]), arrayIncludesNoneOf([1,2,3,4],[5]), arrayIncludesNoneOf([1,2,3,4],[]))
+
+
+/*  Array contains some elements of the search array
+		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+	Returns true if the array, arr[], includes at least one (some) element of the target array, other[]
+*/
 export function arrayIncludesSomeOf(arr:any[], other:any[]): boolean{
+	if(other.length == 0)
+		return true
 	return other.some(v => arr.includes(v));
 }
 
-
+// console.log("Test: arrayIncludesSomeOf: ", arrayIncludesSomeOf([1,2,3,4],[3]), arrayIncludesSomeOf([1,2,3,4],[5,6,2]), arrayIncludesSomeOf([1,2,3,4],[5]), arrayIncludesSomeOf([1,2,3,4],[]))
 
 
 /*  checks membership in a list. 
-		item: an item to be checked
-		list: a list of strings to check against
-		return: a boolean answering the question 
+		item: an item:any to be checked
+		list: a list:any[] to check against
+		return: true if item is in the list | false if not 
+		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
 */
-export function arrayIncluesItem(arr:any[], item:any):boolean {
+export function arrayIncludesItem(arr:any[], item:any):boolean {
 	return arr.includes(item)
+}
+
+
+// Intersection of two arrays 
+// Eg. arrayIntersectionWithOther([1,2,3], [2,3,4,5]) => [2,3]
+export function arrayIntersectionWithOther(arr:any[], other:any[]): any[]{
+	return arr.filter(item => other.includes(item));
 }
 
 

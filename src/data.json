@@ -1,13 +1,13 @@
 {
 	"agents": [
 		{
-			"name": "John Doe",
+			"name": "Alice Doe",
 			"motive": {
-				"physical": 1,
-				"emotional": 1,
-				"social": 1,
-				"financial": 1,
-				"accomplishment": 1
+				"physical": 2,
+				"emotional": 5,
+				"social": 4,
+				"financial": 3,
+				"accomplishment": 3
 			},
 			"currentLocation": {
 				"xPos": 0,
@@ -21,12 +21,12 @@
 			}
 		},
 		{
-			"name": "Jane Doe",
+			"name": "Bob Doe",
 			"motive": {
 				"physical": 5,
-				"emotional": 1,
+				"emotional": 5,
 				"social": 4,
-				"financial": 1,
+				"financial": 3,
 				"accomplishment": 4
 			},
 			"currentLocation": {

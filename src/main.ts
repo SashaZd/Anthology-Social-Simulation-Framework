@@ -18,7 +18,12 @@ export var agentList: types.Agent[] = utility.loadAgentsFromJSON(json_data["agen
 function condition():boolean {
 	for (var agent of agentList){
 		// If any agent is not content, continue running sim
+		if(npc.isContent(agent)){
+			console.log(agent.name, " IS content.")
+		}
+
 		if(!npc.isContent(agent)){
+			// console.log(agent.name, " IS NOT content.")
 			return true;
 		}
 	}
