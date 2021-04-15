@@ -1,3 +1,5 @@
+import * as types from "./types";
+import * as main from "./main";
 import * as npc from "./agent";
 import * as utility from "./utilities";
 import * as exec from "./execution_engine";
@@ -5,6 +7,7 @@ import * as exec from "./execution_engine";
 var n:number = 6;
 export var sleepMove:number = 1000;
 export var sleepStill:number = 10;
+
 var board:string[][] = [];
 var activeAgent:string = "-None-";
 
@@ -59,14 +62,14 @@ export function activeAgentChange() {
 }
 
 //Executed every turn, calls the next turn if applicable
-export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locationList:npc.Location[], continueFunction: () => boolean, time:number, movement:boolean){
-  showOnBrowser("time", time.toString());
+export function updateUI(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, time:number, movement:boolean){
+  	showOnBrowser("time", time.toString());
 	clearBoard();
-	for (let l of locationList){
-		board[l.xPos][l.yPos] += l.name[0] + ": ";
+	for (let location of locationList){
+		board[location.xPos][location.yPos] += location.name[0] + ": ";
 	}
-	for (let a of agentList){
-		board[a.currentLocation.xPos][a.currentLocation.yPos] += a.name[0] + ", ";
+	for (let agent of agentList){
+		board[agent.currentLocation.xPos][agent.currentLocation.yPos] += agent.name[0] + ", ";
 	}
 	for(var i:number=0; i<n; i++){
 		for(var j:number=0; j<n; j++){
@@ -74,7 +77,7 @@ export function updateUI(agentList:npc.Agent[], actionList:npc.Action[], locatio
 			showOnBrowser(div, board[i][j]);
 		}
 	}
-	var agent:npc.Agent = utility.getAgentByName(activeAgent);
+	var agent:types.Agent = utility.getAgentByName(activeAgent);
 	if (agent != null) {
 		showOnBrowser("occupied", agent.occupiedCounter.toString());
 		showOnBrowser("action", agent.currentAction.name);
