@@ -21,21 +21,6 @@ export function loadAgentsFromJSON(agent_json:types.JSONAgent[]): types.Agent[] 
 	return agents;
 }
 
-
-// Currently using global actionList, but can also pass param to function: actionList:types.Action[]
-export function getAgentByName(name:string):types.Agent {
-	let possible_agents = agentList.filter((agent: types.Agent) => agent.name === name);
-
-	// if theres an action with this name, return the first one
-	if (possible_agents.length > 0){
-		return possible_agents[0]
-	}
-	else{
-		// returns false if there is no listed action with this name
-		console.log("getAgentByName => Couldn't find agent with name: ", name);
-	}
-}
-
 /*  Simple mathematical clamp function.
 		test: number being tested
 		max: maximum value of number

@@ -1,6 +1,6 @@
 import * as exec from "./execution_engine";
 // import {wait_action} from "./action_specs";
-import {locationList, actionList} from "./main";
+import {locationList, actionList, agentList} from "./main";
 import * as action_manager from "./action_manager";
 import * as utility from "./utilities";
 import * as location_manager from "./location_manager";
@@ -15,6 +15,24 @@ import * as types from "./types";
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
+
+// Currently using global actionList, but can also pass param to function: actionList:types.Action[]
+export function getAgentByName(name:string):types.Agent {
+	if(name=="None"){
+		return null
+	}
+
+	let possible_agents = agentList.filter((agent: types.Agent) => agent.name === name);
+
+	if (possible_agents.length > 0){
+		return possible_agents[0]		// if theres multiple agents with this name, return the first one
+	}
+	else{
+		// returns false if there is no listed action with this name
+		console.log("getAgentByName => Couldn't find agent with name: ", name);
+		return null
+	}
+}
 
 // Returns whether the agent is content
 export function isContent(agent:types.Agent):boolean {
@@ -33,14 +51,6 @@ export function isMotiveFull(agent:types.Agent, motive:keyof types.Motive):boole
 export function isMotiveNotFull(agent:types.Agent, motive:keyof types.Motive): boolean {
 	return agent.motive[motive]	< exec.MAX_METER;
 }
-
-
-// export function selectNextAction(agent:types.Agent){
-// 	var selected_action:types.Action = action_manager.getActionByName("wait_action"); 
-
-// 	// get types of motive not at max for agent 
-// 	// location_manager.getLocationsMatchingRequirement()
-// }
 
 
 /*  Selects an action from a list of valid actions to be preformed by a specific agent.
@@ -86,8 +96,7 @@ export function selectNextActionForAgent(agent:types.Agent): {"selected_action":
 		}
 
 		if(possible_locations.length > 0 && motive_requirements.length > 0){
-			console.log("Motive Requirement Not Implemented")
-			continue;
+			// Todo
 		}
 
 		// If there is a location possible that meets all the requriements 
@@ -123,8 +132,9 @@ export function decrement_motives(agent: types.Agent) {
 		agent: agent executing a turn
 		actionList: the list of valid actions
 		locationList: all locations in the world
-		time: current tick time */
-
+		time: current tick time 
+		movement: changes the speed at which the simulation runs
+*/
 export function turn(agent:types.Agent, actionList:types.Action[], locations:types.SimLocation[], time:number):boolean {
 	var movement:boolean = false;
 	if (time%600 == 0) {
@@ -135,8 +145,8 @@ export function turn(agent:types.Agent, actionList:types.Action[], locations:typ
 
 	if (agent.occupiedCounter > 0) {
 		agent.occupiedCounter--;
+
 		// If the agent is traveling 
-		// currentAction == action_manager.getActionByName("travel_action") && !location_manager.isAgentAtLocation(agent, agent.destination)
 		if(agent.destination != null){
 			movement = true;
 			location_manager.moveAgentCloserToDestination(agent);

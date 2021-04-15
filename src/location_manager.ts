@@ -42,11 +42,9 @@ export function isAgentAtLocation(agent:types.Agent, location:types.SimLocation)
 	if(location == null){
 		return true 
 	}
-
 	else if(agent.currentLocation.xPos == location.xPos && agent.currentLocation.yPos == location.yPos){
 		return true;
 	}
-
 	return false;
 }
 
@@ -56,7 +54,7 @@ export function isAgentAtLocation(agent:types.Agent, location:types.SimLocation)
 /*  returns the nearest location that satisfies the given requirement, or [] if none match. 
 	The distance measured by manhattan distance
 		locationReq: a location requirement to satisfy
-		return: the locations that match this requirement or []
+		return: the locations that match this requirement or [] sorted by distance from agent
 */
 export function locationsSatisfyingLocationRequirement(agent:types.Agent, locations:types.SimLocation[], locationReq: types.LocationReq): types.SimLocation[]{
 	var hasAllOf:types.SimLocation[] = []
@@ -73,6 +71,7 @@ export function locationsSatisfyingLocationRequirement(agent:types.Agent, locati
 
 	return getLocationsSortedByDistanceFromOther(hasNoneOf, agent.currentLocation);
 }
+
 
 // Returns the closest SimLocation from any other SimLocation
 // If two points are equidistance, return one of them randomly. 
@@ -129,89 +128,33 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 	// Filtering for minNumPeople
 	if(_locations.length > 0 && people_requirement.minNumPeople > 1){
 		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length > people_requirement.minNumPeople-1);
-		// console.log("Matching min: ", _locations)
 	}
 	
+	// Filtering for maxNumPeople
 	if(_locations.length > 0 && people_requirement.maxNumPeople > 1){
 		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length < people_requirement.maxNumPeople-1);
-		// console.log("Matching max: ", _locations)
 	}
 
+	// Filtering for specificPeoplePresent
 	if(_locations.length > 0 && people_requirement.specificPeoplePresent.length > 0){
 		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesAllOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
-		// console.log("Matching specific present: ", _locations)
 	}
 
+	// Filtering for specificPeopleAbsent
 	if(_locations.length > 0 && people_requirement.specificPeopleAbsent.length > 0){
 		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
-		// console.log("Matching specific absent: ", _locations)
 	}
 
-	// Todo: 
+	// Todo: relationshipsPresent
 	if(_locations.length > 0 && people_requirement.relationshipsPresent.length > 0){
-		// console.log("PeopleReq.relationshipsPresent not been handled");
+
 	}
 
-	// Todo: 
+	// Todo: relationshipsAbsent
 	if(_locations.length > 0 && people_requirement.relationshipsAbsent.length > 0){
-		// console.log("PeopleReq.relationshipsAbsent not been handled");
+		
 	}
-	// debugger;
 
 	return _locations
 
 }
-
-
-// export function getNearestLocation(locationReq:types.LocationReq, locationList:types.SimLocation[], x:number, y:number):types.SimLocation {
-// 	var ret:types.SimLocation = null;
-// 	var minDist:number = -1;
-// 	var i:number = 0;
-
-// 	for (var location of locationList){
-// 	// for (i = 0; i<locationList.length; i++){
-// 		var valid:boolean = true;
-// 		var check1:boolean = true;
-// 		var check2:boolean = false;
-// 		var check3:boolean = true;
-// 		// var j:number = 0;
-
-// 		// utility.arrayIncludesAll(locationReq.hasAllOf, location.tags);
-
-// 		// for (j = 0; j<locationReq.hasAllOf.length; j++){
-// 		if (!(utility.arrayIncludesAllOf(location.tags, locationReq.hasAllOf))) {
-// 			check1 = false;
-// 		}
-// 		// }
-		
-// 		// for (j = 0; j<locationReq.hasOneOrMoreOf.length; j++){
-// 		if (utility.arrayIncludesAllOf(location.tags, locationReq.hasOneOrMoreOf)) {
-// 			check2 = true;
-// 		}
-// 		// }
-// 		if (locationReq.hasOneOrMoreOf.length == 0) {
-// 			check2 = true;
-// 		}
-
-		
-// 		// for (j = 0; j<locationReq.hasNoneOf.length; j++){
-// 		if (utility.arrayIncludesAllOf(location.tags,locationReq.hasNoneOf)) {
-// 			check3 = false;
-// 		}
-// 		// }
-// 		if (locationReq.hasNoneOf.length == 0) {
-// 			check3 = true;
-// 		}
-// 		if (!(check1 && check2 && check3)) {
-// 			valid = false;
-// 		}
-// 		if (valid) {
-// 			var travelDist: number = Math.abs(location.xPos - x) + Math.abs(location.yPos - y);
-// 			if ((minDist > travelDist) || (minDist = -1)) {
-// 				minDist = travelDist;
-// 				ret = location;
-// 			}
-// 		}
-// 	}
-// 	return ret;
-// }

@@ -77,7 +77,7 @@ export function updateUI(agentList:types.Agent[], actionList:types.Action[], loc
 			showOnBrowser(div, board[i][j]);
 		}
 	}
-	var agent:types.Agent = utility.getAgentByName(activeAgent);
+	var agent:types.Agent = npc.getAgentByName(activeAgent);
 	if (agent != null) {
 		showOnBrowser("occupied", agent.occupiedCounter.toString());
 		showOnBrowser("action", agent.currentAction.name);
