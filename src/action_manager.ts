@@ -57,12 +57,6 @@ export function getEffectDeltaForAgentAction(agent:types.Agent, action:types.Act
 	return deltaUtility;
 }
 
-// Returns the locations that satisfy the LocationRequirement, sorted by distance from agent
-// export function canActionSatisfyLocReq(action:types.Action, locationReq:types.LocationReq, agent:types.Agent){
-// 	let possible_locations:types.SimLocation[] = location_manager.getLocationsMatchingRequirement(locationReq)
-// 	return possible_locations
-// }
-
 
 /*  applies the effects of an action to an agent.
 		agent: the agent in question
