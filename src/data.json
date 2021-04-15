@@ -85,7 +85,8 @@
 	    	{"reqType":"location", "hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
 		],
-	    "effects":      [{"motive":"emotional", "delta":3}, {"motive":"social", "delta":2}],
+	    "effects":      [{"motive":"emotional", "delta":3}, 
+	    				{"motive":"social", "delta":2}],
 	    "time_min":     130
 	  },
 	  {
@@ -103,6 +104,13 @@
     	],
 	    "effects":      [{"motive":"accomplishment", "delta":2}],
 	    "time_min":     60
+	  },
+	  {
+	  	"name": "text_friend",
+	  	"requirements": [
+    	],
+	    "effects": [{"motive":"social", "delta":1}],
+	    "time_min":     10
 	  }
 	],
 	"locations": [

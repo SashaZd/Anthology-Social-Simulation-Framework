@@ -5,7 +5,7 @@ import * as action_manager from "./action_manager"
 import {actionList, locationList, agentList} from "./main";
 
 
-// Returns a Agent[] using data from the data.json file 
+// Returns a Agent[] using data from the data.json file
 // matches the string:action_name against existing actions and returns the same
 // JSON object needs to be of type: any, since we're accepting a string name 
 export function loadAgentsFromJSON(agent_json:types.JSONAgent[]): types.Agent[] {
@@ -114,5 +114,4 @@ export function arrayIncludesItem(arr:any[], item:any):boolean {
 export function arrayIntersectionWithOther(arr:any[], other:any[]): any[]{
 	return arr.filter(item => other.includes(item));
 }
-
 

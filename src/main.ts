@@ -31,12 +31,14 @@ function condition():boolean {
 	return false;
 }
 
-// Displays text on the browser? I assume
-export function showOnBrowser(divName: string, name: string) {
-  const elt = document.getElementById(divName);
-  elt.innerText = name;
-}
-
 window.onload = () => {
-  ui.updateUI(agentList, actionList, locationList, condition, 0);
+  ui.updateUI(agentList, actionList, locationList, condition, 0, false);
+	ui.changeValueOnBrowser("sleepMove", ui.sleepMove);
+	ui.changeValueOnBrowser("sleepStill", ui.sleepStill);
+	document.getElementById("sleepMove").addEventListener("input", ui.inputSleepMove);
+	document.getElementById("sleepStill").addEventListener("input", ui.inputSleepStill);
+	for (var agent of agentList){
+		ui.addOption(agent.name);
+	}
+	document.getElementById("agent").addEventListener("change", ui.activeAgentChange);
 }

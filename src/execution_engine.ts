@@ -18,13 +18,12 @@ export const MIN_METER = 1;
 		continueFunction: boolean function that is used as a check as to whether or not to keep running the sim
 		executes a single turn and then is called from ui for the next, no more loop */
 export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
-	utility.shuffleArray(agentList);
-	var i:number = 0;
-	for (i = 0; i < agentList.length; i++ ) {
-		npc.turn(agentList[i], actionList, locationList, time);
-	}
-	time += 1;
-	ui.updateUI(agentList, actionList, locationList, continueFunction, time);
+  utility.shuffleArray(agentList);
+  var i:number = 0;
+  var movement:boolean = false;
+  for (i = 0; i < agentList.length; i++ ) {
+    movement = movement || npc.turn(agentList[i], actionList, locationList, time);
+  }
+  time += 1;
+  ui.updateUI(agentList, actionList, locationList, continueFunction, time, movement);
 }
-
-

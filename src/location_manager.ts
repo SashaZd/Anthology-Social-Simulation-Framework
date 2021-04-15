@@ -58,7 +58,7 @@ export function isAgentAtLocation(agent:types.Agent, location:types.SimLocation)
 		locationReq: a location requirement to satisfy
 		return: the locations that match this requirement or []
 */
-export function getLocationsMatchingRequirement(locationReq: types.LocationReq): types.SimLocation[]{
+export function locationsSatisfyingLocationRequirement(agent:types.Agent, locations:types.SimLocation[], locationReq: types.LocationReq): types.SimLocation[]{
 	var hasAllOf:types.SimLocation[] = []
 	var hasOneOrMoreOf:types.SimLocation[] = []
 	var hasNoneOf:types.SimLocation[] = []
@@ -71,7 +71,7 @@ export function getLocationsMatchingRequirement(locationReq: types.LocationReq):
 	if(hasOneOrMoreOf.length > 0)
 		hasNoneOf = hasOneOrMoreOf.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(location.tags, locationReq.hasNoneOf));
 
-	return hasNoneOf;
+	return getLocationsSortedByDistanceFromOther(hasNoneOf, agent.currentLocation);
 }
 
 // Returns the closest SimLocation from any other SimLocation
@@ -119,19 +119,6 @@ export function moveAgentCloserToDestination(agent: types.Agent) {
 
 export function numberOfAgentsAtLocation(location:types.SimLocation): number{
 	return agentList.filter(agent => isAgentAtLocation(agent, location)).length;
-}
-
-
-// Currently people requirement is tested by checking if the apt. agents are present at the location 
-export function locationsSatisfyingLocationRequirement(locationReq: types.LocationReq, agent:types.Agent, action:types.Action): types.SimLocation[]{
-	var maxDeltaUtility:number = 0;
-	var current_choice:types.Action = action_manager.getActionByName("wait_action");
-	var nearest_location:types.SimLocation = null;
-
-	let deltaUtility:number = action_manager.getEffectDeltaForAgentAction(agent, action);
-	let possible_locations:types.SimLocation[] = getLocationsMatchingRequirement(locationReq)
-
-	return getLocationsSortedByDistanceFromOther(possible_locations, agent.currentLocation);
 }
 
 

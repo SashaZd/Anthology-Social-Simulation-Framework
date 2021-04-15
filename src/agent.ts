@@ -65,7 +65,7 @@ export function selectNextActionForAgent(agent:types.Agent): {"selected_action":
 		// var nearest_location:types.SimLocation = null;
 		var travel_time:number = 0;
 
-		var possible_locations: types.SimLocation[] = [];
+		var possible_locations: types.SimLocation[] = locationList;
 		
 		let location_requirement: types.LocationReq[] = action_manager.getRequirementByType(each_action, types.ReqType.location) as types.LocationReq[];
 		let people_requirement: types.PeopleReq[] = action_manager.getRequirementByType(each_action, types.ReqType.people) as types.PeopleReq[];
@@ -74,7 +74,7 @@ export function selectNextActionForAgent(agent:types.Agent): {"selected_action":
 		if(location_requirement.length > 0){
 			// Get the delta_utility for the nearest location that satisfies this action's location requirement.
 			// Get possible locations for this action, sorted by distance from agent.
-			possible_locations = location_manager.locationsSatisfyingLocationRequirement(location_requirement[0], agent, each_action)
+			possible_locations = location_manager.locationsSatisfyingLocationRequirement(agent, possible_locations, location_requirement[0])
 		}
 		
 		// If location requirement is met, 
@@ -124,8 +124,10 @@ export function decrement_motives(agent: types.Agent) {
 		actionList: the list of valid actions
 		locationList: all locations in the world
 		time: current tick time */
-export function turn(agent:types.Agent, actionList:types.Action[], locations:types.SimLocation[], time:number):void {
-	if (time%600 == 0){
+
+export function turn(agent:types.Agent, actionList:types.Action[], locations:types.SimLocation[], time:number):boolean {
+	var movement:boolean = false;
+	if (time%600 == 0) {
 		if (!isContent(agent)) {
 			decrement_motives(agent);
 		}
@@ -133,22 +135,22 @@ export function turn(agent:types.Agent, actionList:types.Action[], locations:typ
 
 	if (agent.occupiedCounter > 0) {
 		agent.occupiedCounter--;
-
 		// If the agent is traveling 
 		// currentAction == action_manager.getActionByName("travel_action") && !location_manager.isAgentAtLocation(agent, agent.destination)
 		if(agent.destination != null){
+			movement = true;
 			location_manager.moveAgentCloserToDestination(agent);
 		}
 	} 
 
 	// If not traveling (i.e. arrived at destination), and end of occupied, execute planned action effects, select/start next.
 	else {
-		action_manager.execute_action(agent, agent.currentAction, time);
-		
 		if (!isContent(agent)) {
 			// Find next action to do
+			action_manager.execute_action(agent, agent.currentAction, time);
 			var {selected_action, destination} = selectNextActionForAgent(agent);
 			action_manager.start_action(agent, selected_action, destination, time)
 		}
   	}
+  	return movement;
 }
