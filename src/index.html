@@ -29,7 +29,19 @@
     		<!-- Scoreboard Here -->
     		<div style="display: inline-block; vertical-align: top;">
     			<h2 style="">Details</h2>
-    			<h3 id="timeLabel" style="">Time : <div id="time" style="display: inline-block;">0</div></h3>
+    			<h3 id="timeLabel" style="">Time: <div id="time" style="display: inline-block;">0</div></h3>
+          <h4 style=""><label for="sleepMove">Movement Speed (ms):</label><input type="number" id="sleepMove" name="sleepMove" min="0" max="9999"></h4>
+          <h4 style=""><label for="sleepStill">Wait Speed (ms):</label><input type="number" id="sleepStill" name="sleepStill" min="0" max="9999"></h4>
+          <h3 style=""><label for="agent">Agent: </label><select id="agent" name="agent">
+            <option value="none" selected>-None-</option>
+          </select></h3>
+          <h4 id="occupiedLabel" style="">Occupied Counter: <div id="occupied" style="display: inline-block;"></div></h4>
+          <h4 id="actionLabel" style="">Current Action: <div id="action" style="display: inline-block;"></div></h4>
+          <h4 id="physicalLabel" style="">Physical Motive: <div id="physical" style="display: inline-block;"></div></h4>
+          <h4 id="emotionalLabel" style="">Emotional Motive: <div id="emotional" style="display: inline-block;"></div></h4>
+          <h4 id="socialLabel" style="">Social Motive: <div id="social" style="display: inline-block;"></div></h4>
+          <h4 id="financialLabel" style="">Financial Motive: <div id="financial" style="display: inline-block;"></div></h4>
+          <h4 id="accomplishmentLabel" style="">Accomplishment Motive: <div id="accomplishment" style="display: inline-block;"></div></h4>
     		</div>
 
     	</center>
