@@ -4,10 +4,14 @@ import * as types from "./types";
 import * as action_manager from "./action_manager"
 import {actionList, locationList, agentList} from "./main";
 
-
-// Returns a Agent[] using data from the data.json file
-// matches the string:action_name against existing actions and returns the same
-// JSON object needs to be of type: any, since we're accepting a string name 
+/**
+ * Load agents for the simulation from the JSON file object
+ *
+ * Returns a Agent[] using data from the data.json file
+ * matches the string:action_name against existing actions and returns the same to avoid duplicating information
+ * @param  {types.JSONAgent[]} agent_json raw JSON array of agents
+ * @returns {types.Agent[]}                array of agents for the simulation run
+ */
 export function loadAgentsFromJSON(agent_json:types.JSONAgent[]): types.Agent[] {
 	let agents: types.Agent[] = [];
 	for (let parse_agent of agent_json){
@@ -21,11 +25,22 @@ export function loadAgentsFromJSON(agent_json:types.JSONAgent[]): types.Agent[] 
 	return agents;
 }
 
-/*  Simple mathematical clamp function.
-		test: number being tested
-		max: maximum value of number
-		min: minimum value of number
-		return: either the number, or the max/min if it was outside of the range */
+
+/**
+ * Clamps the value between a known minmum and maximum
+ *
+ * @example Example of this method
+ * 
+ * ```
+ * // Returns 5
+ * console.log(clamp(6, 5, 0);
+ * ```
+ * 
+ * @param  {number} test Value to test
+ * @param  {number} max  Maximum value allowed
+ * @param  {number} min  Minimum value allowed
+ * @returns {number}      Value returned within min-max bounds 
+ */
 export function clamp(test:number, max:number, min:number):number {
 	if (test > max) {
 		return max;
@@ -39,63 +54,140 @@ export function clamp(test:number, max:number, min:number):number {
 /*  Randomize array in-place using Durstenfeld shuffle algorithm
 		https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 		*/
+	
+/**
+ * Shuffle an array of objects
+ * @param {any[]} array array of type any to be shuffled
+ */
 export function shuffleArray(array:any[]):void {
-		for (let i:number = array.length - 1; i > 0; i--) {
-				let j = Math.floor(Math.random() * (i + 1));
-				let temp:any = array[i];
-				array[i] = array[j];
-				array[j] = temp;
-		}
+	for (let i:number = array.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1));
+		let temp:any = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
 }
 
-/*  Array contains all elements of the search array
-		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
-	Returns true if the array, arr[], includes every element of the target array, other[]
-*/
-export function arrayIncludesAllOf(arr:any[], other:any[]): boolean{
-	return other.every(v => arr.includes(v));
+
+
+/**
+ * Test if a given array includes all the items in another array 
+ *
+ * @example Example of this method
+ * 
+ * ```
+ * // Returns false
+ * console.log(arrayIncludesAllOf([1,2,3], [2,3,4,5]));
+ * ```
+ *
+ * ```
+ * // Returns true
+ * console.log(arrayIncludesAllOf([1,2,3], [1,2]));
+ * ``` 
+ *
+ * {@link TSDoc | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every}
+ * @param  {any[]}   arr   Array to be tested
+ * @param  {any[]}   search Array to be tested against 
+ * @return {boolean}       True if array contains all the elements of search; Else false
+ */
+export function arrayIncludesAllOf(arr:any[], search:any[]): boolean{
+	return search.every(v => arr.includes(v));
 }
 
-// console.log("Test: arrayIncludesAllOf: ", arrayIncludesAllOf(["home"],["restaurant"]), arrayIncludesAllOf([1,2,3,4],[5,6,2]), arrayIncludesAllOf([1,2,3,4],[5]), arrayIncludesAllOf([1,2,3,4],[]))
-
-
-/*  Array contains all elements of the search array
-		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
-	Returns true if the array, arr[], includes none of the target array, other[]
-*/
-export function arrayIncludesNoneOf(arr:any[], other:any[]): boolean{
-	return other.every(v => !arr.includes(v));
+/**
+ * Test that the array includes none of the search array
+ *
+ * @example Example of this method
+ * 
+ * ```
+ * // Returns false
+ * console.log(arrayIncludesNoneOf([1,2,3], [2,3,4,5]));
+ * ```
+ *
+ * ```
+ * // Returns true
+ * console.log(arrayIncludesNoneOf([1,2,3], [4,5,6]));
+ * ```
+ * 
+ * @param  {any[]}   arr   Array to be tested	
+ * @param  {any[]}   search Array to be tested against
+ * @return {boolean}       True if array contains none the elements of search; Else false
+ */
+export function arrayIncludesNoneOf(arr:any[], search:any[]): boolean{
+	return search.every(v => !arr.includes(v));
 }
 
 // console.log("Test: arrayIncludesNoneOf: ", arrayIncludesNoneOf([1,2,3,4],[3]), arrayIncludesNoneOf([1,2,3,4],[5,6,2]), arrayIncludesNoneOf([1,2,3,4],[5]), arrayIncludesNoneOf([1,2,3,4],[]))
 
 
-/*  Array contains some elements of the search array
-		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
-	Returns true if the array, arr[], includes at least one (some) element of the target array, other[]
-*/
+/**
+ * Tests that the array includes at least some of (eg. one or more of) the elements in the search array
+ *
+ * @example Example of this method
+ * 
+ * ```
+ * // Returns true
+ * console.log(arrayIncludesSomeOf([1,2,3], [2,3,4,5]));
+ * ```
+ *
+ * ```
+ * // Returns false
+ * console.log(arrayIncludesSomeOf([1,2,3], [4,5,6]));
+ * ```
+ * 
+ * {@link TSDoc | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some}
+ * @param  {any[]}   arr   Array to be tested
+ * @param  {any[]}   other Array to be tested against
+ * @return {boolean}       True if the array contains some elements of the search array; Else false 
+ */
 export function arrayIncludesSomeOf(arr:any[], other:any[]): boolean{
 	if(other.length == 0)
 		return true
 	return other.some(v => arr.includes(v));
 }
 
-// console.log("Test: arrayIncludesSomeOf: ", arrayIncludesSomeOf([1,2,3,4],[3]), arrayIncludesSomeOf([1,2,3,4],[5,6,2]), arrayIncludesSomeOf([1,2,3,4],[5]), arrayIncludesSomeOf([1,2,3,4],[]))
-
-
-/*  checks membership in a list. 
-		item: an item:any to be checked
-		list: a list:any[] to check against
-		return: true if item is in the list | false if not 
-		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
-*/
+/**
+ * Tests if the array includes the searchItem (ie. for membership in a list)
+ * @example Example of this method
+ * 
+ * ```
+ * // Returns true
+ * console.log(arrayIncludesItem([1,2,3], 3));
+ * ```
+ *
+ * ```
+ * // Returns false
+ * console.log(arrayIncludesItem([1,2,3], 6));
+ * ```
+ * {@link TSDoc | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes}
+ * @param  {any[]}   arr  Array to be tested
+ * @param  {any}     item Item searched for
+ * @return {boolean}      True if array includes the item; Else false
+ */
 export function arrayIncludesItem(arr:any[], item:any):boolean {
 	return arr.includes(item)
 }
 
 
-// Intersection of two arrays 
-// Eg. arrayIntersectionWithOther([1,2,3], [2,3,4,5]) => [2,3]
+/**
+ * Finds the intersection between two arrays
+ *
+ * @example Example of this method
+ * 
+ * ```
+ * // Returns [2,3]:
+ * console.log(arrayIntersectionWithOther([1,2,3], [2,3,4,5]));
+ * ```
+ *
+ * ```
+ * // Returns []:
+ * console.log(arrayIntersectionWithOther([1,2,3], [4,5,6]));
+ * ```
+ * 
+ * @param  {any[]} arr   First array
+ * @param  {any[]} other Second array 
+ * @return {any[]}       Intersected elements 
+ */
 export function arrayIntersectionWithOther(arr:any[], other:any[]): any[]{
 	return arr.filter(item => other.includes(item));
 }
