@@ -18,6 +18,9 @@ for(var i:number=0; i<n; i++){
 	}
 }
 
+/**
+ * Clears the board GUI and fills all the cells with blanks
+ */
 function clearBoard() {
 	for(var i:number=0; i<n; i++){
 		for(var j:number=0; j<n; j++){
@@ -26,7 +29,11 @@ function clearBoard() {
 	}
 }
 
-// Displays text on the browser? I assume
+/**
+ * Display text on the browser
+ * @param {string} divName Where to display text
+ * @param {string} name    What to display
+ */
 function showOnBrowser(divName: string, name: string) {
   const elt = document.getElementById(divName);
   elt.innerText = name;
