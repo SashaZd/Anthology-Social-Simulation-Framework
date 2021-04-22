@@ -29,6 +29,7 @@
     "watchify": "^3.11.1"
   },
   "dependencies": {
+    "@microsoft/tsdoc": "^0.13.0",
     "class-transformer": "^0.4.0",
     "es6-shim": "^0.35.6",
     "fs": "^0.0.1-security",

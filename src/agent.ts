@@ -8,17 +8,22 @@ import * as location_manager from "./location_manager";
 import * as types from "./types";
 
 
-/*  Checks to see if an agent has maximum motives
-		agent: the agent being tested
-		return: a boolean answering the question */
-
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
 
-// Currently using global actionList, but can also pass param to function: actionList:types.Action[]
+/**
+ * Iterates through all initiated agents in global agentList,
+ * and returns the agent with a specific name being searched for
+ * 
+ * @remarks 
+ * Currently using global agentList, but can also pass param to function: actionList:types.Action[]
+ * 
+ * @param  {string} name - name of the agent to be retrieved
+ * @returns {types.Agent} agent - returns the first agent that matches the name searched for 
+ */
 export function getAgentByName(name:string):types.Agent {
-	if(name=="None"){
+	if(name=="-None-"){
 		return null
 	}
 
@@ -34,7 +39,13 @@ export function getAgentByName(name:string):types.Agent {
 	}
 }
 
-// Returns whether the agent is content
+
+/**
+ * Returns whether the agent is content, ie. checks to see if an agent has maximum motives
+ * 
+ * @param  {types.Agent} agent - Agent being checked
+ * @returns {boolean} true if agent has maximum motives; false if agent does not have maximum motives 
+ */
 export function isContent(agent:types.Agent):boolean {
 	for(var motiveType of types.motiveTypes){
 		if(agent.motive[motiveType] < exec.MAX_METER){
@@ -44,21 +55,38 @@ export function isContent(agent:types.Agent):boolean {
 	return true;
 }
 
+/**
+ * Checks to see whether a specific motive (with keyof type.Motive) of an agent is maximum or not. 
+ * 
+ * @param  {types.Agent} agent - agent being checked or tested 
+ * @param  {keyof    types.Motive} motive - type of motive (types.Motive) that is being checked to see if the value is maximum
+ * @returns {boolean} true if the agent's motive is maximum; false if it is not 
+ */
 export function isMotiveFull(agent:types.Agent, motive:keyof types.Motive):boolean {
 	return agent.motive[motive] == exec.MAX_METER;
 }
 
+/**
+ * Checks to see whether a specific motive (with keyof type.Motive) of an agent is not maxed out. 
+ * 
+ * @param  {types.Agent} agent - agent being checked or tested 
+ * @param  {keyof    types.Motive} motive - type of motive (types.Motive) that is being checked to see if the value is not maxed
+ * @returns {boolean} true if the agent's motive is not maximum; false if it is
+ */
 export function isMotiveNotFull(agent:types.Agent, motive:keyof types.Motive): boolean {
 	return agent.motive[motive]	< exec.MAX_METER;
 }
 
 
-/*  Selects an action from a list of valid actions to be preformed by a specific agent.
-		Choses the action with the maximal utility of the agent (motive increase/time).
-		agent: the agent in question
-		actionList: the list of valid actions
-		locationList: all locations in the world
-		return: The single action chosen from the list */
+/**
+ * Selects an action from a list of valid actions to be preformed by a specific agent.
+	Selects the action with the maximal utility of the agent (motive increase/time).
+
+ * @param {types.Agent} agent - agent for whom the next action must be determined
+ * @returns 
+ * selected_action - next action to be executed, 
+ * destination - the destination the agent must travel to for the action
+ */
 export function selectNextActionForAgent(agent:types.Agent): {"selected_action": types.Action, "destination": types.SimLocation} {
 	
 	// initialized to 0 (no reason to do an action if it will harm you)
@@ -83,8 +111,9 @@ export function selectNextActionForAgent(agent:types.Agent): {"selected_action":
 
 		if(location_requirement.length > 0){
 			// Get the delta_utility for the nearest location that satisfies this action's location requirement.
-			// Get possible locations for this action, sorted by distance from agent.
-			possible_locations = location_manager.locationsSatisfyingLocationRequirement(agent, possible_locations, location_requirement[0])
+			// Get possible locations for this action
+			possible_locations = location_manager.locationsSatisfyingLocationRequirement(possible_locations, location_requirement[0])
+			// possible_locations = location_manager.getLocationsSortedByDistanceFromOther(possible_locations, agent.currentLocation);
 		}
 		
 		// If location requirement is met, 
@@ -121,6 +150,12 @@ export function selectNextActionForAgent(agent:types.Agent): {"selected_action":
 	return {"selected_action":current_choice, "destination":current_destination};
 }
 
+
+/**
+ * Decrements all the motives of the specified agent 
+ * 
+ * @param {types.Agent} agent - agent whose motives must be decremented
+ */
 export function decrement_motives(agent: types.Agent) {
 	for(var motiveType of types.motiveTypes) {
 		agent.motive[motiveType] = utility.clamp(agent.motive[motiveType] - 1, exec.MAX_METER, exec.MIN_METER);
@@ -128,14 +163,16 @@ export function decrement_motives(agent: types.Agent) {
 }
 
 
-/*  updates movement and occupation counters for an agent. chooses and executes a new action if necessary
-		agent: agent executing a turn
-		actionList: the list of valid actions
-		locationList: all locations in the world
-		time: current tick time 
-		movement: changes the speed at which the simulation runs
-*/
-export function turn(agent:types.Agent, actionList:types.Action[], locations:types.SimLocation[], time:number):boolean {
+/**
+ * Updates movement and occupation counters for an agent. 
+ * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary. 
+ * 
+ * @param  {types.Agent} agent - agent whose turn is being executed
+ * @param  {number} time - the current time for log purposes 
+ * 
+ * @returns {boolean} true if the agent is traveling; false if not. Used to determine the speed of the simulation
+ */
+export function turn(agent:types.Agent, time:number):boolean {
 	var movement:boolean = false;
 	if (time%600 == 0) {
 		if (!isContent(agent)) {

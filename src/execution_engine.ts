@@ -11,19 +11,20 @@ export const MAX_METER = 5;
 export const MIN_METER = 1;
 
 
-/*  randomizes order and executes a turn for each agent every tick.
-		agentList: list of agents in the sim
-		actionList: the list of valid actions
-		locationList: all locations in the world
-		continueFunction: boolean function that is used as a check as to whether or not to keep running the sim
-		executes a single turn and then is called from ui for the next, no more loop */
+/**
+ * Executes a turn for each agent every tick.
+ * Executes a single turn and then is called from ui for the next, no more loop
+ * 
+ * @param {types.Agent[]} agentList - list of agents in the simulation
+ * @param {types.Action[]} actionList - list of valid actions in the simulation 
+ * @param {types.SimLocation[]} locationList - list of locations in the simulation 
+ * @param {() => boolean} continueFunction - boolean function that is used as a check as to whether or not to keep running the sim
+ */
 export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
-  utility.shuffleArray(agentList);
-  var i:number = 0;
-  var movement:boolean = false;
-  for (i = 0; i < agentList.length; i++ ) {
-    movement = movement || npc.turn(agentList[i], actionList, locationList, time);
-  }
-  time += 1;
-  ui.updateUI(agentList, actionList, locationList, continueFunction, time, movement);
+	var movement:boolean = false;
+	for (var agent of agentList){
+		movement = movement || npc.turn(agent, time);
+	}
+	time += 1;
+	ui.updateUI(agentList, actionList, locationList, continueFunction, time, movement);
 }

@@ -13,8 +13,13 @@ export var locationList: types.SimLocation[] = location_manager.loadLocationsFro
 export var actionList: types.Action[] = action_manager.loadActionsFromJSON(json_data['actions'])
 export var agentList: types.Agent[] = utility.loadAgentsFromJSON(json_data["agents"]);
 
-// Stopping condition for Simulation function.
-// Stops the sim when all agents are content
+
+/**
+ * Stopping condition for the simulation
+ * Stops the sim when all agents are content
+ * 
+ * @returns {boolean} true if the simulation cna continue; false if the simulation can stop
+ */
 function condition():boolean {
 	for (var agent of agentList){
 		// If any agent is not content, continue running sim
@@ -30,6 +35,7 @@ function condition():boolean {
 	// If all agents are content, stop running
 	return false;
 }
+
 
 window.onload = () => {
   ui.updateUI(agentList, actionList, locationList, condition, 0, false);

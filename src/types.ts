@@ -4,8 +4,15 @@
 
 
 // Five motive types
-// Discuss: This is an enum, but we don't use it. We pass 0,1,2 into the action specs file. 
-// Discuss: While this can be an enum -- renamed to MotiveType | Change: declare a union type for Motive 
+/**
+ * Motive Type Enum 
+ * Current has a preset list of 5 motives: 
+ * - physical - deals with the agent's physical needs - eg. eat or sleep 
+ * - emotional - deals with the agent's emotional needs - eg. happiness from watching a movie
+ * - social - deals with the agent's social needs - eg. spending time with other agents 
+ * - Financial - deals with the agent's financial needs - eg. working for a living 
+ * - accomplishment - deals with the agent's sense of accomplishement - eg. skill learnt by doing a hobby
+ */
 export enum MotiveType {
 	physical = "physical",
 	emotional = "emotional",
@@ -16,6 +23,16 @@ export enum MotiveType {
 
 // This is more of a need and less of a motive since it's a set of them all
 
+
+/**
+ * Motive Type Interface 
+ * Current has a preset list of 5 motives: 
+ * - physical - deals with the agent's physical needs - eg. eat or sleep 
+ * - emotional - deals with the agent's emotional needs - eg. happiness from watching a movie
+ * - social - deals with the agent's social needs - eg. spending time with other agents 
+ * - Financial - deals with the agent's financial needs - eg. working for a living 
+ * - accomplishment - deals with the agent's sense of accomplishement - eg. skill learnt by doing a hobby
+ */
 export interface Motive {
 	physical: number;
 	emotional: number;
@@ -35,26 +52,34 @@ export const motiveTypes: string[] = Object.keys(MotiveType).filter(k => typeof 
 ////////////////////////////////////////////////////////
 
 
-// Binary Operations used primarily in requirements
+// 
+/**
+ * Binary Operations 
+ * Used primarily in requirements
+ */
 export enum BinOp {
 	equals,
-	greater_than,
-	less_than,
+	gt,
+	lt,
 	geq,
 	leq
 }
 
 // Three types of requirements
-// Discuss: This is an enum, but we don't use it. We pass 0,1,2 into the action specs file. 
-export enum ReqType {
-	location = "location",
-	people = "people",
-	motive = "motive"
-}
+export type ReqType = "location" | "people" | "motive"; 
 
-// Requirements on the type of location the action takes place in.
-// Based on a tags system for locations.
-// eg: must be at a restaurant
+// export enum ReqType {
+// 	location = "location",
+// 	people = "people",
+// 	motive = "motive"
+// }
+
+/**
+ * Location Requirement
+ * Requirements on the type of location the action takes place in.
+ * Based on a tags system for locations.
+ * eg: hasAllOf:['restaurant'] implies to execute the action, one must be at a restaurant
+ */
 export interface LocationReq {
 	reqType: "location",
 	hasAllOf: string[],
@@ -62,8 +87,14 @@ export interface LocationReq {
 	hasNoneOf: string[]
 }
 
-// Requirements on who is present for an action.
+// 
 // eg: must be with a sepcific person
+
+/**
+ * People Requirement
+ * Requirements on who is or must be present for an action.
+ * eg: minNumPeople:2 implies that at least 2 people must be present for this action to occur
+ */
 export interface PeopleReq {
 	reqType: "people",
 	minNumPeople: number,
@@ -74,15 +105,15 @@ export interface PeopleReq {
 	relationshipsAbsent: string[]
 }
 
-// Requirements on the executing agen't current motive scores.
-// eg: eg must have money (financial motive > 0) to do this
+// 
+// 
 // Discuss: This should be using the interface and not an enum
 
-// export interface SingleMotive {
-// 	motive: MotiveType,
-// 	valence: number 
-// }
-
+/**
+ * Motive Requirement
+ * Requirements on the executing agen't current motive scores.
+ * eg: motive:"financial" > 2 implies the agent must must have at least 2 money units to execute the action
+ */
 export interface MotiveReq {
 	reqType: "motive",
 	motive: MotiveType,
@@ -99,6 +130,11 @@ export interface MotiveReq {
 // 	req: LocationReq | PeopleReq | MotiveReq
 // }
 
+/**
+ * Requirement Type 
+ * Union type of Location Requirements, People Requirements or Motive Requirements
+ * @type {[type]}
+ */
 export type Requirement = LocationReq | PeopleReq | MotiveReq;
 
 // Action effect type.
