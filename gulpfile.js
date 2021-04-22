@@ -33,3 +33,38 @@ function bundle() {
 gulp.task("default", gulp.series(gulp.parallel("copy-html"), bundle));
 watchedBrowserify.on("update", bundle);
 watchedBrowserify.on("log", fancy_log);
+
+// var typedoc = require("gulp-typedoc");
+// gulp.task("typedoc", function () {
+//   return gulp.src(["src/**/*.ts"]).pipe(
+//     typedoc({
+//       out: "docs/",
+//       name: "SocialSim",
+//     })
+//   );
+// });
+// 
+// var typedoc = require("gulp-typedoc");
+
+// gulp.task("typedoc", function() {
+//   return gulp
+//     .src(["src/main.ts"])
+//     .pipe(typedoc({
+//       // TypeScript options (see typescript docs)
+//       module: "commonjs",
+//       target: "es5",
+//       includeDeclarations: true,
+
+//       // Output options (see typedoc docs)
+//       out: "./out",
+//       // json: "output/to/file.json",
+
+//       // TypeDoc options (see typedoc docs)
+//       name: "SocialSim",
+//       theme: "minimal",
+//       // plugins: ["my", "plugins"],
+//       ignoreCompilerErrors: false,
+//       version: true,
+//     }))
+//   ;
+// });
