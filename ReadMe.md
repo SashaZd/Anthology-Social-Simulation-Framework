@@ -17,4 +17,9 @@ This should create an index.html file in the dist folder.
 - $ gulp 
 
 
+!! Generate Documentation
+To generate documentation use tsdoc to add doc comments to the code 
 
+If there's a new TS module, add the file to the tsconfig.json files list. Then run 
+
+$ npx typedoc src/*.ts
