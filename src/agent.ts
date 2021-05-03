@@ -196,7 +196,13 @@ export function turn(agent:types.Agent, time:number):boolean {
 			// Find next action to do
 			action_manager.execute_action(agent, agent.currentAction, time);
 			var {selected_action, destination} = selectNextActionForAgent(agent);
-			action_manager.start_action(agent, selected_action, destination, time)
+
+			if (destination != null && !location_manager.isAgentAtLocation(agent, destination)) {
+				location_manager.startTravelToLocation(agent, destination, time);
+			}
+			else{
+				action_manager.start_action(agent, selected_action, destination, time)	
+			}
 		}
   	}
   	return movement;

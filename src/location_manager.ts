@@ -232,3 +232,18 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 
 	return _locations
 }
+
+
+/**
+ * Starts travel to the agent's current destination 
+ * 
+ * @param {types.Agent} agent - agent starting travel action 
+ * @param {types.SimLocation} destination - destination being travelled to 
+ * @param {number} time - time of execution for logs
+ */
+export function startTravelToLocation(agent: types.Agent, destination: types.SimLocation, time: number): void {
+	agent.destination = destination;
+	agent.currentAction = action_manager.getActionByName("travel_action");
+	agent.occupiedCounter = getManhattanDistance(agent.currentLocation, destination);
+	console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + destination.name);
+}

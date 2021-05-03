@@ -356,7 +356,7 @@ export type Agent = {
  * The action is provided as a string, and matched to the Agent.currentAction object accordingly 
  * @type {Object}
  */
-export type JSONAgent = {
+export type SerializableAgent = {
 	/** @type {string} initialized to the name of the agent */
 	name: string,
 	/** @type {Motive} motives initialized with values for the agent */

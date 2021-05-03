@@ -12,7 +12,7 @@ import {actionList, locationList, agentList} from "./main";
  * @param  {types.JSONAgent[]} agent_json raw JSON array of agents
  * @returns {types.Agent[]}                array of agents for the simulation run
  */
-export function loadAgentsFromJSON(agent_json:types.JSONAgent[]): types.Agent[] {
+export function loadAgentsFromJSON(agent_json:types.SerializableAgent[]): types.Agent[] {
 	let agents: types.Agent[] = [];
 	for (let parse_agent of agent_json){
 		let possible_action: types.Action = action_manager.getActionByName(parse_agent.currentAction);

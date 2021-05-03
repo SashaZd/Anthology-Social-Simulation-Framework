@@ -121,24 +121,9 @@ export function start_action(agent: types.Agent, selected_action: types.Action, 
 		agent.occupiedCounter = selected_action.time_min;
 		console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
 	}
-	else {
-		startTravelToLocation(agent, destination, time);
-	}
 }
 
-/**
- * Starts travel to the agent's current destination 
- * 
- * @param {types.Agent} agent - agent starting travel action 
- * @param {types.SimLocation} destination - destination being travelled to 
- * @param {number} time - time of execution for logs
- */
-export function startTravelToLocation(agent: types.Agent, destination: types.SimLocation, time: number): void {
-	agent.destination = destination;
-	agent.currentAction = getActionByName("travel_action");
-	agent.occupiedCounter = location_manager.getManhattanDistance(agent.currentLocation, destination);
-	console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + destination.name);
-}
+
 
 
 
