@@ -1,15 +1,8 @@
 import * as npc from "./agent";
 import * as types from "./types";
-// import {wait_action} from "./action_specs";
-import * as utility from "./utilities";
 import * as ui from "./ui";
 
-// import {actionList} from "./main";
-
-export var time:number = 0;
-export const MAX_METER = 5;
-export const MIN_METER = 1;
-
+export var TIME:number = 0;
 
 /**
  * Executes a turn for each agent every tick.
@@ -23,8 +16,23 @@ export const MIN_METER = 1;
 export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
 	var movement:boolean = false;
 	for (var agent of agentList){
-		movement = movement || npc.turn(agent, time);
+		movement = movement || npc.turn(agent, TIME);
 	}
-	time += 1;
-	ui.updateUI(agentList, actionList, locationList, continueFunction, time, movement);
+	increment_time()
+	ui.updateUI(agentList, actionList, locationList, continueFunction, TIME, movement);
+}
+
+/**
+ * Get the current simulation time
+ * @returns {number} TIME - simulation time 
+ */
+export function get_time():number {
+	return TIME;
+}
+
+/**
+ * Increment simulation time or ticks 
+ */
+export function increment_time():void {
+	TIME += 1;
 }

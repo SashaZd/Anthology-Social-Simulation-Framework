@@ -1,6 +1,4 @@
 import * as exec from "./execution_engine";
-// import {wait_action} from "./action_specs";
-import {locationList, actionList, agentList} from "./main";
 import * as action_manager from "./action_manager";
 import * as utility from "./utilities";
 import * as location_manager from "./location_manager";
@@ -10,6 +8,31 @@ import * as types from "./types";
 
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
+
+/** @type {types.Agent[]} list of agents available within the simulation */
+export var agentList: types.Agent[] = []
+
+
+/**
+ * Load agents for the simulation from the JSON file object
+ *
+ * Returns a Agent[] using data from the data.json file
+ * matches the string:action_name against existing actions and returns the same to avoid duplicating information
+ * @param  {types.JSONAgent[]} agent_json raw JSON array of agents
+ * @returns {types.Agent[]}                array of agents for the simulation run
+ */
+export function loadAgentsFromJSON(agent_json:types.SerializableAgent[]): void {
+	let agents: types.Agent[] = [];
+	for (let parse_agent of agent_json){
+		let possible_action: types.Action = action_manager.getActionByName(parse_agent.currentAction);
+		let agent:types.Agent = Object.assign({}, parse_agent, {
+			currentAction: possible_action
+		});
+		agents.push(agent);
+	}
+	console.log("agents: ", agents);
+	agentList = agents;
+}
 
 
 /**
@@ -48,7 +71,7 @@ export function getAgentByName(name:string):types.Agent {
  */
 export function isContent(agent:types.Agent):boolean {
 	for(var motiveType of types.motiveTypes){
-		if(agent.motive[motiveType] < exec.MAX_METER){
+		if(agent.motive[motiveType] < utility.MAX_METER){
 			return false;
 		}
 	}
@@ -63,7 +86,7 @@ export function isContent(agent:types.Agent):boolean {
  * @returns {boolean} true if the agent's motive is maximum; false if it is not 
  */
 export function isMotiveFull(agent:types.Agent, motive:keyof types.Motive):boolean {
-	return agent.motive[motive] == exec.MAX_METER;
+	return agent.motive[motive] == utility.MAX_METER;
 }
 
 /**
@@ -74,7 +97,7 @@ export function isMotiveFull(agent:types.Agent, motive:keyof types.Motive):boole
  * @returns {boolean} true if the agent's motive is not maximum; false if it is
  */
 export function isMotiveNotFull(agent:types.Agent, motive:keyof types.Motive): boolean {
-	return agent.motive[motive]	< exec.MAX_METER;
+	return agent.motive[motive]	< utility.MAX_METER;
 }
 
 
@@ -99,11 +122,11 @@ export function selectNextActionForAgent(agent:types.Agent): {"selected_action":
 	var current_destination:types.SimLocation = null;
 
 	// Finds the utility for each action to the given agent
-	for (var each_action of actionList){
+	for (var each_action of action_manager.actionList){
 		// var nearest_location:types.SimLocation = null;
 		var travel_time:number = 0;
 
-		var possible_locations: types.SimLocation[] = locationList;
+		var possible_locations: types.SimLocation[] = location_manager.locationList;
 		
 		let location_requirement: types.LocationReq[] = action_manager.getRequirementByType(each_action, types.ReqType.location) as types.LocationReq[];
 		let people_requirement: types.PeopleReq[] = action_manager.getRequirementByType(each_action, types.ReqType.people) as types.PeopleReq[];
@@ -158,7 +181,7 @@ export function selectNextActionForAgent(agent:types.Agent): {"selected_action":
  */
 export function decrement_motives(agent: types.Agent) {
 	for(var motiveType of types.motiveTypes) {
-		agent.motive[motiveType] = utility.clamp(agent.motive[motiveType] - 1, exec.MAX_METER, exec.MIN_METER);
+		agent.motive[motiveType] = utility.clamp(agent.motive[motiveType] - 1, utility.MAX_METER, utility.MIN_METER);
 	}
 }
 

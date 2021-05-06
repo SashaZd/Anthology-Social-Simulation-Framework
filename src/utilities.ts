@@ -1,30 +1,9 @@
 // Utilties File
-
 import * as types from "./types";
 import * as action_manager from "./action_manager"
-import {actionList, locationList, agentList} from "./main";
 
-/**
- * Load agents for the simulation from the JSON file object
- *
- * Returns a Agent[] using data from the data.json file
- * matches the string:action_name against existing actions and returns the same to avoid duplicating information
- * @param  {types.JSONAgent[]} agent_json raw JSON array of agents
- * @returns {types.Agent[]}                array of agents for the simulation run
- */
-export function loadAgentsFromJSON(agent_json:types.SerializableAgent[]): types.Agent[] {
-	let agents: types.Agent[] = [];
-	for (let parse_agent of agent_json){
-		let possible_action: types.Action = action_manager.getActionByName(parse_agent.currentAction);
-		let agent:types.Agent = Object.assign({}, parse_agent, {
-			currentAction: possible_action
-		});
-		agents.push(agent);
-	}
-	console.log("agents: ", agents);
-	return agents;
-}
-
+export const MAX_METER:number = 5;
+export const MIN_METER:number = 1;
 
 /**
  * Clamps the value between a known minmum and maximum

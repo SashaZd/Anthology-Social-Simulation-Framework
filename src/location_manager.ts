@@ -1,7 +1,10 @@
 import * as types from "./types";
-import {locationList, agentList} from "./main";
 import * as utility from "./utilities";
 import * as action_manager from "./action_manager"
+import * as agent_manager from "./agent"
+
+/** @type {types.SimLocation[]} List of locations used internally within the simulation */
+export var locationList: types.SimLocation[] = [];
 
 
 /**
@@ -9,9 +12,9 @@ import * as action_manager from "./action_manager"
  * These locations will be availble in the global locationList during the simulation run 
  * 
  * @param  {types.SimLocation[]} locations_json locations JSON Object
- * @returns {types.SimLocation[]}                array of locations of type types.SimLocation[]
+ * @returns {void} sets an internal array of locations available within the simulation of type types.SimLocation[]
  */
-export function loadLocationsFromJSON(locations_json:types.SimLocation[]): types.SimLocation[]{
+export function loadLocationsFromJSON(locations_json:types.SimLocation[]): void{
 	let locations: types.SimLocation[] = [];
 
 	for (let parse_location of locations_json) {
@@ -19,7 +22,7 @@ export function loadLocationsFromJSON(locations_json:types.SimLocation[]): types
 		locations.push(location);
 	}
 	console.log("locations: ", locations);
-	return locations;
+	locationList = locations;
 }
 
 
@@ -52,7 +55,7 @@ export function getPeopleAtLocation(location:types.SimLocation, exclude?: types.
 	if(!exclude)
 		exclude = [];
 
-	var available_agents:types.Agent[] = agentList.filter(agent => !exclude.includes(agent) && isAgentAtLocation(agent, location));
+	var available_agents:types.Agent[] = agent_manager.agentList.filter(agent => !exclude.includes(agent) && isAgentAtLocation(agent, location));
 	
 	return available_agents
 	
@@ -182,7 +185,7 @@ export function moveAgentCloserToDestination(agent: types.Agent) {
  * @returns {number}                    The number of agents at the specific location
  */
 export function numberOfAgentsAtLocation(location:types.SimLocation): number{
-	return agentList.filter(agent => isAgentAtLocation(agent, location)).length;
+	return agent_manager.agentList.filter(agent => isAgentAtLocation(agent, location)).length;
 }
 
 

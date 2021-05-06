@@ -1,25 +1,25 @@
 import * as types from "./types";
-import { actionList } from "./main";
-import * as agent_manager from "./agent";
+// import { actionList } from "./main";
 import * as utility from "./utilities";
-import * as exec from "./execution_engine";
 import * as location_manager from "./location_manager"
 
+/** @type {types.Action[]} List of actions available within the simulation. Loaded from a JSON input file. */
+export var actionList: types.Action[] = [];
 
 /**
  * Loads actions available in the simulation from the data.json file. 
  * 
  * @param  {types.Action[]} actions_json - JSON description of the actions
- * @returns types.Action[] - an array of actions of type types.Actions that are available in the simulation
+ * @returns {void} - sets an internal array of actions of type types.Actions that are available in the simulation
  */
-export function loadActionsFromJSON(actions_json: types.Action[]): types.Action[] {
+export function loadActionsFromJSON(actions_json: types.Action[]): void {
 	let actions: types.Action[] = [];
 	for (let parse_action of actions_json) {
 		var action: types.Action = Object.assign({}, parse_action);
 		actions.push(action);
 	}
 	console.log("actions: ", actions);
-	return actions;
+	actionList = actions;
 }
 
 
@@ -77,7 +77,7 @@ export function getEffectDeltaForAgentAction(agent: types.Agent, action: types.A
 	for (var eachEffect of action.effects) {
 		var _delta: number = eachEffect.delta;
 		var _motivetype: keyof types.Motive = eachEffect.motive;
-		deltaUtility += utility.clamp(_delta + agent.motive[_motivetype], exec.MAX_METER, exec.MIN_METER) - agent.motive[_motivetype];
+		deltaUtility += utility.clamp(_delta + agent.motive[_motivetype], utility.MAX_METER, utility.MIN_METER) - agent.motive[_motivetype];
 	}
 
 	return deltaUtility;
@@ -98,7 +98,7 @@ export function execute_action(agent: types.Agent, action: types.Action, time: n
 	for (var eachEffect of action.effects) {
 		var _delta: number = eachEffect.delta;
 		var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
-		agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, exec.MAX_METER, exec.MIN_METER);
+		agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
 	}
 	console.log("time: " + time.toString() + " | " + agent.name + ": Finished " + agent.currentAction.name);
 }
