@@ -1,4 +1,3 @@
-import * as exec from "./execution_engine";
 import * as action_manager from "./action_manager";
 import * as utility from "./utilities";
 import * as location_manager from "./location_manager";
@@ -211,7 +210,7 @@ export function turn(agent:types.Agent, time:number):boolean {
 			movement = true;
 			location_manager.moveAgentCloserToDestination(agent);
 		}
-	} 
+	}
 
 	// If not traveling (i.e. arrived at destination), and end of occupied, execute planned action effects, select/start next.
 	else {
@@ -221,6 +220,7 @@ export function turn(agent:types.Agent, time:number):boolean {
 			var {selected_action, destination} = selectNextActionForAgent(agent);
 
 			if (destination != null && !location_manager.isAgentAtLocation(agent, destination)) {
+				agent.currentAction = action_manager.getActionByName("travel_action");
 				location_manager.startTravelToLocation(agent, destination, time);
 			}
 			else{
@@ -230,3 +230,9 @@ export function turn(agent:types.Agent, time:number):boolean {
   	}
   	return movement;
 }
+
+
+
+
+
+

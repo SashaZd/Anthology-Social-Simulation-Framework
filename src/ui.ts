@@ -1,7 +1,5 @@
 import * as types from "./types";
-import * as main from "./main";
-import * as npc from "./agent";
-import * as utility from "./utilities";
+import * as agent_manager from "./agent";
 import * as exec from "./execution_engine";
 
 var n:number = 6; // the size of the ui grid (n * n)
@@ -112,7 +110,7 @@ export function updateUI(agentList:types.Agent[], actionList:types.Action[], loc
 			showOnBrowser(div, board[i][j]);
 		}
 	}
-	var agent:types.Agent = npc.getAgentByName(activeAgent);
+	var agent:types.Agent = agent_manager.getAgentByName(activeAgent);
 	if (agent != null) {
 		showOnBrowser("occupied", agent.occupiedCounter.toString());
 		showOnBrowser("action", agent.currentAction.name);

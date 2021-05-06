@@ -1,6 +1,5 @@
 import * as types from "./types";
 import * as utility from "./utilities";
-import * as action_manager from "./action_manager"
 import * as agent_manager from "./agent"
 
 /** @type {types.SimLocation[]} List of locations used internally within the simulation */
@@ -102,6 +101,37 @@ export function locationsSatisfyingLocationRequirement(locations:types.SimLocati
 		hasNoneOf = hasOneOrMoreOf.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(location.tags, locationReq.hasNoneOf));
 
 	return hasNoneOf;
+}
+
+/**
+ * Checks if a given location meets the location requirements
+ * @param  {types.SimLocation} location    Location to check
+ * @param  {types.LocationReq} locationReq Location Requirement to test against
+ * @returns {boolean}                       True if the location satisfies the location requirements; False if it doesn't
+ */
+export function doesLocationSatisfyLocationRequirement(location:types.SimLocation, locationReq:types.LocationReq): boolean {
+	
+	location = getListedLocationFromCoords(location);
+	let possibleLocs:types.SimLocation[] = locationsSatisfyingLocationRequirement([location], locationReq)
+	if (possibleLocs.length > 0 && location == possibleLocs[0]){
+		return true
+	}
+	return false
+}
+
+
+export function getListedLocationFromCoords(location:types.SimLocation): types.SimLocation{
+	if(location.tags == undefined){
+		// Check if there's a named location that actually exists
+		let possible_locations:types.SimLocation[] = locationList.filter((test: types.SimLocation) => location.xPos==test.xPos && location.yPos==test.yPos);
+		if (possible_locations.length > 0){
+			return possible_locations[0];
+		}
+		
+		location.tags = [];
+		return location;
+	}
+	return location;
 }
 
 
@@ -238,6 +268,24 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 
 
 /**
+ * Check if the agent's current location satisfies a given people requirement
+ * @param  {types.Agent}     agent              Agent to be tested
+ * @param  {types.PeopleReq} people_requirement People Requirement to be tested against
+ * @returns {boolean}                            True if the people requirement is satisfied at the current location; False if not 
+ */
+export function doesAgentCurrentLocationSatisfyPeopleRequirement(agent: types.Agent, people_requirement:types.PeopleReq): boolean{
+
+	let location:types.SimLocation[] = [getListedLocationFromCoords(agent.currentLocation)];
+	let possible_locations:types.SimLocation[] = locationsSatisfyingPeopleRequirement(agent, location, people_requirement);
+
+	if(possible_locations.length>0 && agent.currentLocation==possible_locations[0]){
+		return true;
+	}
+	return false;
+}
+
+
+/**
  * Starts travel to the agent's current destination 
  * 
  * @param {types.Agent} agent - agent starting travel action 
@@ -246,7 +294,10 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
  */
 export function startTravelToLocation(agent: types.Agent, destination: types.SimLocation, time: number): void {
 	agent.destination = destination;
-	agent.currentAction = action_manager.getActionByName("travel_action");
 	agent.occupiedCounter = getManhattanDistance(agent.currentLocation, destination);
 	console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + destination.name);
 }
+
+
+
+

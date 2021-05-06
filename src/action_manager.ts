@@ -3,7 +3,11 @@ import * as types from "./types";
 import * as utility from "./utilities";
 import * as location_manager from "./location_manager"
 
-/** @type {types.Action[]} List of actions available within the simulation. Loaded from a JSON input file. */
+/** 
+ * List of actions available within the simulation. 
+ * Loaded from a JSON input file.
+ * @type {types.Action[]}
+ */
 export var actionList: types.Action[] = [];
 
 /**
@@ -117,10 +121,47 @@ export function start_action(agent: types.Agent, selected_action: types.Action, 
 	//set action to selected_action or to travel if agent is not at location for selected_action
 	// destination could be null if there's no location requirement? Action can be done anywhere?
 	if (destination === null || location_manager.isAgentAtLocation(agent, destination)) {
+	// if (isActionRequirementSatisfied(selected_action, agent)){
 		agent.currentAction = selected_action;
 		agent.occupiedCounter = selected_action.time_min;
 		console.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
 	}
+}
+
+
+/**
+ * Checks if the action can be executed at the given location of the agent
+ * @param  {types.Action} action Action to be tested
+ * @param  {types.Agent}  agent  Agent for whom the action must be tested to see if it is executable
+ * @returns {boolean}             True if the action can be executed at the current location; False if not
+ */
+export function isActionRequirementSatisfied(action: types.Action, agent: types.Agent): boolean{
+	// Check if Location Requirements are met 
+	let location_requirement: types.LocationReq[] = getRequirementByType(action, types.ReqType.location) as types.LocationReq[];
+	if(location_requirement.length > 0){
+		if (!location_manager.doesLocationSatisfyLocationRequirement(agent.currentLocation, location_requirement[0])){
+			return false;
+		}
+	}
+
+	// Check if People Requirements are met
+	let people_requirement: types.PeopleReq[] = getRequirementByType(action, types.ReqType.people) as types.PeopleReq[];
+	if(people_requirement.length > 0){
+		if (!location_manager.doesAgentCurrentLocationSatisfyPeopleRequirement(agent, people_requirement[0])){
+			return false;
+		}
+	}
+
+	// Check if Motive requirements are met 
+	let motive_requirement: types.MotiveReq[] = getRequirementByType(action, types.ReqType.people) as types.MotiveReq[];
+	if(motive_requirement.length > 0){
+		// if (!location_manager.doesAgentCurrentLocationSatisfyPeopleRequirement(agent, motive_requirement[0])){
+			console.log("Motive Requirement Not Implemented");
+			return false;
+		// }
+	}
+
+	return true;
 }
 
 

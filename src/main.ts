@@ -1,17 +1,15 @@
-import * as engine from "./execution_engine";
 import * as action_manager from "./action_manager";
-import * as npc from "./agent";
-import * as utility from "./utilities";
-import * as ui from "./ui";
-import * as types from "./types";
+import * as agent_manager from "./agent";
 import * as location_manager from "./location_manager";
+import * as ui from "./ui";
+
 
 // import * as json_data from "./data.json";
 const json_data = require("./data.json");
 
 action_manager.loadActionsFromJSON(json_data['actions']);
 location_manager.loadLocationsFromJSON(json_data['locations']);
-npc.loadAgentsFromJSON(json_data["agents"]);
+agent_manager.loadAgentsFromJSON(json_data["agents"]);
 
 
 /**
@@ -21,13 +19,13 @@ npc.loadAgentsFromJSON(json_data["agents"]);
  * @returns {boolean} true if the simulation cna continue; false if the simulation can stop
  */
 function condition():boolean {
-	for (var agent of npc.agentList){
+	for (var agent of agent_manager.agentList){
 		// If any agent is not content, continue running sim
-		if(npc.isContent(agent)){
+		if(agent_manager.isContent(agent)){
 			console.log(agent.name, " IS content.")
 		}
 
-		if(!npc.isContent(agent)){
+		if(!agent_manager.isContent(agent)){
 			// console.log(agent.name, " IS NOT content.")
 			return true;
 		}
@@ -38,12 +36,12 @@ function condition():boolean {
 
 
 window.onload = () => {
-  ui.updateUI(npc.agentList, action_manager.actionList, location_manager.locationList, condition, 0, false);
+  ui.updateUI(agent_manager.agentList, action_manager.actionList, location_manager.locationList, condition, 0, false);
 	ui.changeValueOnBrowser("sleepMove", ui.sleepMove);
 	ui.changeValueOnBrowser("sleepStill", ui.sleepStill);
 	document.getElementById("sleepMove").addEventListener("input", ui.inputSleepMove);
 	document.getElementById("sleepStill").addEventListener("input", ui.inputSleepStill);
-	for (var agent of npc.agentList){
+	for (var agent of agent_manager.agentList){
 		ui.addOption(agent.name);
 	}
 	document.getElementById("agent").addEventListener("change", ui.activeAgentChange);

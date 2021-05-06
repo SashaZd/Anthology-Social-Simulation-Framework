@@ -1,4 +1,4 @@
-import * as npc from "./agent";
+import * as agent_manager from "./agent";
 import * as types from "./types";
 import * as ui from "./ui";
 
@@ -16,7 +16,7 @@ export var TIME:number = 0;
 export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
 	var movement:boolean = false;
 	for (var agent of agentList){
-		movement = movement || npc.turn(agent, TIME);
+		movement = movement || agent_manager.turn(agent, TIME);
 	}
 	increment_time()
 	ui.updateUI(agentList, actionList, locationList, continueFunction, TIME, movement);
