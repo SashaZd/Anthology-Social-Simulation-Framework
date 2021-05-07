@@ -1,8 +1,15 @@
 import * as agent_manager from "./agent";
+import * as action_manager from "./action_manager";
 import * as types from "./types";
 import * as ui from "./ui";
+import * as world from "./world"
 
-export var TIME:number = 0;
+// import * as json_data from "./data.json";
+const json_data = require("./data.json");
+
+world.loadActionsFromJSON(json_data['actions']);
+world.loadLocationsFromJSON(json_data['locations']);
+world.loadAgentsFromJSON(json_data["agents"]);
 
 /**
  * Executes a turn for each agent every tick.
@@ -16,11 +23,50 @@ export var TIME:number = 0;
 export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
 	var movement:boolean = false;
 	for (var agent of agentList){
-		movement = movement || agent_manager.turn(agent, TIME);
+		movement = movement || turn(agent);
 	}
-	increment_time()
-	ui.updateUI(agentList, actionList, locationList, continueFunction, TIME, movement);
+	world.increment_time()
+	ui.updateUI(agentList, actionList, locationList, continueFunction, movement);
 }
+
+/**
+ * Updates movement and occupation counters for an agent. 
+ * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary. 
+ * 
+ * @param  {types.Agent} agent - agent whose turn is being executed
+ * 
+ * @returns {boolean} true if the agent is traveling; false if not. Used to determine the speed of the simulation
+ */
+export function turn(agent:types.Agent):boolean {
+	var movement:boolean = false;
+	if (world.TIME%600 == 0) {
+		if (!agent_manager.isContent(agent)) {
+			agent_manager.decrement_motives(agent);
+		}
+	}
+
+	if (agent.occupiedCounter > 0) {
+		agent.occupiedCounter--;
+
+		// If the agent is traveling 
+		if(agent.destination != null){
+			movement = true;
+			action_manager.moveAgentCloserToDestination(agent);
+		}
+	}
+
+	// If not traveling (i.e. arrived at destination), and end of occupied, execute planned action effects, select/start next.
+	else {
+		if (!agent_manager.isContent(agent)) {
+			action_manager.execute_action(agent);
+			action_manager.selectNextActionForAgent(agent);
+		}
+  	}
+  	return movement;
+}
+
+
+
 
 // /**
 // * Get the current simulation time
@@ -30,9 +76,3 @@ export function run_sim(agentList:types.Agent[], actionList:types.Action[], loca
 // 	return TIME;
 // }
 
-/**
- * Increment simulation time or ticks 
- */
-export function increment_time():void {
-	TIME += 1;
-}

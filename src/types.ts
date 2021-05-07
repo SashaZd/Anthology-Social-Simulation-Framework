@@ -339,7 +339,7 @@ export type Agent = {
 	occupiedCounter: number;
 
 	/** @type {Action} The current action being executed */
-	currentAction: Action;
+	currentAction: Action | null;
 
 	/**
 	 * The destination that the agent is headed to 

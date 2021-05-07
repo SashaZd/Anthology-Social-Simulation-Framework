@@ -1,28 +1,6 @@
 import * as types from "./types";
 import * as utility from "./utilities";
-import * as agent_manager from "./agent"
-
-/** @type {types.SimLocation[]} List of locations used internally within the simulation */
-export var locationList: types.SimLocation[] = [];
-
-
-/**
- * Loads locations provided in the JSON object 
- * These locations will be availble in the global locationList during the simulation run 
- * 
- * @param  {types.SimLocation[]} locations_json locations JSON Object
- * @returns {void} sets an internal array of locations available within the simulation of type types.SimLocation[]
- */
-export function loadLocationsFromJSON(locations_json:types.SimLocation[]): void{
-	let locations: types.SimLocation[] = [];
-
-	for (let parse_location of locations_json) {
-		let location:types.SimLocation = Object.assign({}, parse_location);
-		locations.push(location);
-	}
-	console.log("locations: ", locations);
-	locationList = locations;
-}
+import * as world from "./world";
 
 
 /**
@@ -36,7 +14,7 @@ export function getPeopleAtLocation(location:types.SimLocation, exclude?: types.
 	if(!exclude)
 		exclude = [];
 
-	var available_agents:types.Agent[] = agent_manager.agentList.filter(agent => !exclude.includes(agent) && isAgentAtLocation(agent, location));
+	var available_agents:types.Agent[] = world.agentList.filter(agent => !exclude.includes(agent) && isAgentAtLocation(agent, location));
 	
 	return available_agents
 	
@@ -58,6 +36,7 @@ export function isAgentAtLocation(agent:types.Agent, location:types.SimLocation)
 	}
 	return false;
 }
+
 
 
 /**
@@ -105,7 +84,7 @@ export function doesLocationSatisfyLocationRequirement(location:types.SimLocatio
 export function getListedLocationFromCoords(location:types.SimLocation): types.SimLocation{
 	if(location.tags == undefined){
 		// Check if there's a named location that actually exists
-		let possible_locations:types.SimLocation[] = locationList.filter((test: types.SimLocation) => location.xPos==test.xPos && location.yPos==test.yPos);
+		let possible_locations:types.SimLocation[] = world.locationList.filter((test: types.SimLocation) => location.xPos==test.xPos && location.yPos==test.yPos);
 		if (possible_locations.length > 0){
 			return possible_locations[0];
 		}
@@ -167,27 +146,6 @@ export function getNearestLocationFromOther(locations:types.SimLocation[], other
  */
 export function getManhattanDistance(loc1:types.SimLocation, loc2:types.SimLocation): number{
 	return Math.abs(loc1.xPos - loc2.xPos) + Math.abs(loc1.yPos - loc2.yPos);
-}
-
-
-/**
- * Move an agent closer to another destination. 
- *
- * @remarks 
- * Uses the manhattan distance to move the agent. So either increments the x axis or the y axis during any time tick.
- * 
- * @param {types.Agent} agent agent that must be moved 
- */
-export function moveAgentCloserToDestination(agent: types.Agent) {
-	if (agent.destination != null) {
-		// var dest:types.SimLocation = agent.destination;
-		if (agent.currentLocation.xPos != agent.destination.xPos)
-			agent.currentLocation.xPos > agent.destination.xPos? agent.currentLocation.xPos -= 1: agent.currentLocation.xPos += 1;
-		
-		else if (agent.currentLocation.yPos != agent.destination.yPos) {
-			agent.currentLocation.yPos > agent.destination.yPos? agent.currentLocation.yPos -= 1: agent.currentLocation.yPos += 1;
-		}
-	}
 }
 
 
@@ -277,7 +235,7 @@ export function startTravelToLocation(agent: types.Agent, destination: types.Sim
 //  * @returns {number}                    The number of agents at the specific location
  
 // export function numberOfAgentsAtLocation(location:types.SimLocation): number{
-// 	return agent_manager.agentList.filter(agent => isAgentAtLocation(agent, location)).length;
+// 	return world.agentList.filter(agent => isAgentAtLocation(agent, location)).length;
 // }
 
 

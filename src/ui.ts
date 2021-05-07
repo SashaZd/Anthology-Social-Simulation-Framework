@@ -1,4 +1,5 @@
 import * as types from "./types";
+import * as world from "./world";
 import * as agent_manager from "./agent";
 import * as exec from "./execution_engine";
 
@@ -92,11 +93,10 @@ export function activeAgentChange() {
  * @param {types.Action[]} actionList - list of valid actions in the simulation
  * @param {types.SimLocation[]} locationList - list of locations in the simulation
  * @param {() => boolean} continueFunction - boolean function that is used as a check as to whether or not to keep running the sim
- * @param {number} time - time of execution
  * @param {boolean} movement - whether or not an agent moved
  */
-export function updateUI(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, time:number, movement:boolean){
-  	showOnBrowser("time", time.toString());
+export function updateUI(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, movement:boolean){
+  	showOnBrowser("time", world.TIME.toString());
 	clearBoard();
 	for (let location of locationList){
 		board[location.xPos][location.yPos] += location.name[0] + ": ";
@@ -137,4 +137,17 @@ export function updateUI(agentList:types.Agent[], actionList:types.Action[], loc
 	} else {
 		console.log("Finished.");
 	}
+}
+
+
+window.onload = () => {
+  updateUI(world.agentList, world.actionList, world.locationList, agent_manager.allAgentsContent, false);
+	changeValueOnBrowser("sleepMove", sleepMove);
+	changeValueOnBrowser("sleepStill", sleepStill);
+	document.getElementById("sleepMove").addEventListener("input", inputSleepMove);
+	document.getElementById("sleepStill").addEventListener("input", inputSleepStill);
+	for (var agent of world.agentList){
+		addOption(agent.name);
+	}
+	document.getElementById("agent").addEventListener("change", activeAgentChange);
 }

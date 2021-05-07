@@ -22,4 +22,24 @@ To generate documentation use tsdoc to add doc comments to the code
 
 If there's a new TS module, add the file to the tsconfig.json files list. Then run 
 
-$ npx typedoc src/*.ts
+$ npx typedoc src/*.ts 
+
+
+
+!! Check for unused code
+
+To find unused methods: 
+
+$ ts-prune -p tsconfig.ts-prune.json | grep -v 'used in module'
+
+
+To generate the Dependency Graph 
+
+$ depcruise --include-only "^src" --output-type dot src | dot -T svg > dependencygraph.svg
+
+
+or 
+
+
+$ npx depcruise --include-only "^src" --output-type dot src > dependency.dot
+

@@ -1,37 +1,11 @@
-import * as action_manager from "./action_manager";
+// import * as action_manager from "./action_manager";
 import * as utility from "./utilities";
-import * as location_manager from "./location_manager";
-
 import * as types from "./types";
+import * as world from "./world";
 
 
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
-
-/** @type {types.Agent[]} list of agents available within the simulation */
-export var agentList: types.Agent[] = []
-
-
-/**
- * Load agents for the simulation from the JSON file object
- *
- * Returns a Agent[] using data from the data.json file
- * matches the string:action_name against existing actions and returns the same to avoid duplicating information
- * @param  {types.JSONAgent[]} agent_json raw JSON array of agents
- * @returns {types.Agent[]}                array of agents for the simulation run
- */
-export function loadAgentsFromJSON(agent_json:types.SerializableAgent[]): void {
-	let agents: types.Agent[] = [];
-	for (let parse_agent of agent_json){
-		let possible_action: types.Action = action_manager.getActionByName(parse_agent.currentAction);
-		let agent:types.Agent = Object.assign({}, parse_agent, {
-			currentAction: possible_action
-		});
-		agents.push(agent);
-	}
-	console.log("agents: ", agents);
-	agentList = agents;
-}
 
 
 /**
@@ -49,7 +23,7 @@ export function getAgentByName(name:string):types.Agent {
 		return null
 	}
 
-	let possible_agents = agentList.filter((agent: types.Agent) => agent.name === name);
+	let possible_agents = world.agentList.filter((agent: types.Agent) => agent.name === name);
 
 	if (possible_agents.length > 0){
 		return possible_agents[0]		// if theres multiple agents with this name, return the first one
@@ -60,6 +34,30 @@ export function getAgentByName(name:string):types.Agent {
 		return null
 	}
 }
+
+
+/**
+ * Stopping condition for the simulation
+ * Stops the sim when all agents are content
+ * 
+ * @returns {boolean} true if the simulation cna continue; false if the simulation can stop
+ */
+export function allAgentsContent():boolean {
+	for (var agent of world.agentList){
+		// If any agent is not content, continue running sim
+		if(isContent(agent)){
+			console.log(agent.name, " IS content.")
+		}
+
+		if(!isContent(agent)){
+			// console.log(agent.name, " IS NOT content.")
+			return true;
+		}
+	}
+	// If all agents are content, stop running
+	return false;
+}
+
 
 
 /**
@@ -79,79 +77,6 @@ export function isContent(agent:types.Agent):boolean {
 
 
 /**
- * Selects an action from a list of valid actions to be preformed by a specific agent.
-	Selects the action with the maximal utility of the agent (motive increase/time).
-
- * @param {types.Agent} agent - agent for whom the next action must be determined
- * @returns 
- * selected_action - next action to be executed, 
- * destination - the destination the agent must travel to for the action
- */
-export function selectNextActionForAgent(agent:types.Agent): {"selected_action": types.Action, "destination": types.SimLocation} {
-	
-	// initialized to 0 (no reason to do an action if it will harm you)
-	// Should check what the max we'd need for this agent to be satisfied, 
-	// 			if that is attained, stop searching through actions? 
-	var max_delta_utility:number = 0;
-
-	// initialized to the inaction
-	var current_choice:types.Action = action_manager.getActionByName("wait_action");
-	var current_destination:types.SimLocation = null;
-
-	// Finds the utility for each action to the given agent
-	for (var each_action of action_manager.actionList){
-		// var nearest_location:types.SimLocation = null;
-		var travel_time:number = 0;
-
-		var possible_locations: types.SimLocation[] = location_manager.locationList;
-		
-		let location_requirement: types.LocationReq[] = action_manager.getRequirementByType(each_action, types.ReqType.location) as types.LocationReq[];
-		let people_requirement: types.PeopleReq[] = action_manager.getRequirementByType(each_action, types.ReqType.people) as types.PeopleReq[];
-		let motive_requirements: types.MotiveReq[] = action_manager.getRequirementByType(each_action, types.ReqType.motive) as types.MotiveReq[];
-
-		if(location_requirement.length > 0){
-			// Get the delta_utility for the nearest location that satisfies this action's location requirement.
-			// Get possible locations for this action
-			possible_locations = location_manager.locationsSatisfyingLocationRequirement(possible_locations, location_requirement[0])
-			// possible_locations = location_manager.getLocationsSortedByDistanceFromOther(possible_locations, agent.currentLocation);
-		}
-		
-		// If location requirement is met, 
-		// check for existing people_requirement at each location
-		// Todo: If no location possible with PeopleReq, invite people? 
-		if(possible_locations.length > 0 && people_requirement.length > 0){
-			// console.log("Testing People Requirement", possible_locations, each_action.name, people_requirement)
-			possible_locations = location_manager.locationsSatisfyingPeopleRequirement(agent, possible_locations, people_requirement[0]);
-		}
-
-		if(possible_locations.length > 0 && motive_requirements.length > 0){
-			// Todo
-		}
-
-		// If there is a location possible that meets all the requriements 
-		// The action can be implemented. Find delta_utility. 
-		// If not, check the next action
-		if(possible_locations.length > 0){
-			var nearest_location =  location_manager.getNearestLocationFromOther(possible_locations, agent.currentLocation)
-			var travel_time:number = location_manager.getManhattanDistance(nearest_location, agent.currentLocation);
-
-			// adjust for time (including travel time)
-			var delta_utility: number = action_manager.getEffectDeltaForAgentAction(agent, each_action);
-			delta_utility = delta_utility/(each_action.time_min + travel_time);
-
-			if (delta_utility > max_delta_utility) {
-				max_delta_utility = delta_utility;
-				current_choice = each_action;
-				current_destination = nearest_location;
-			}
-		}
-	}
-	
-	return {"selected_action":current_choice, "destination":current_destination};
-}
-
-
-/**
  * Decrements all the motives of the specified agent 
  * 
  * @param {types.Agent} agent - agent whose motives must be decremented
@@ -160,53 +85,6 @@ export function decrement_motives(agent: types.Agent) {
 	for(var motiveType of types.motiveTypes) {
 		agent.motive[motiveType] = utility.clamp(agent.motive[motiveType] - 1, utility.MAX_METER, utility.MIN_METER);
 	}
-}
-
-
-/**
- * Updates movement and occupation counters for an agent. 
- * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary. 
- * 
- * @param  {types.Agent} agent - agent whose turn is being executed
- * @param  {number} time - the current time for log purposes 
- * 
- * @returns {boolean} true if the agent is traveling; false if not. Used to determine the speed of the simulation
- */
-export function turn(agent:types.Agent, time:number):boolean {
-	var movement:boolean = false;
-	if (time%600 == 0) {
-		if (!isContent(agent)) {
-			decrement_motives(agent);
-		}
-	}
-
-	if (agent.occupiedCounter > 0) {
-		agent.occupiedCounter--;
-
-		// If the agent is traveling 
-		if(agent.destination != null){
-			movement = true;
-			location_manager.moveAgentCloserToDestination(agent);
-		}
-	}
-
-	// If not traveling (i.e. arrived at destination), and end of occupied, execute planned action effects, select/start next.
-	else {
-		if (!isContent(agent)) {
-			// Find next action to do
-			action_manager.execute_action(agent, agent.currentAction, time);
-			var {selected_action, destination} = selectNextActionForAgent(agent);
-
-			if (destination != null && !location_manager.isAgentAtLocation(agent, destination)) {
-				agent.currentAction = action_manager.getActionByName("travel_action");
-				location_manager.startTravelToLocation(agent, destination, time);
-			}
-			else{
-				action_manager.start_action(agent, selected_action, destination, time)	
-			}
-		}
-  	}
-  	return movement;
 }
 
 
