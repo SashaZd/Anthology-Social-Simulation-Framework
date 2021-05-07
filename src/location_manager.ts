@@ -26,24 +26,6 @@ export function loadLocationsFromJSON(locations_json:types.SimLocation[]): void{
 
 
 /**
- * Filters through available SimLocations by name, and returns the matching location 
- * @param  {string}            name - name of the location being searched for 
- * @returns {types.SimLocation}      - first location matched by name
- */
-export function getLocationByName(name: string): types.SimLocation{
-	let possible_locations = locationList.filter((location: types.SimLocation) => location.name === name);
-
-	// if theres an action with this name, return the first one
-	if (possible_locations.length > 0)
-		return possible_locations[0]
-
-	// returns false if there is no listed action with this name
-	console.log("getLocationByName => Couldn't find location with name: ", name);	
-	return null
-}
-
-
-/**
  * Returns the list of agents at a particular location at any instant 
  * 
  * @param  {types.SimLocation} location location to checking
@@ -165,13 +147,13 @@ export function getNearestLocationFromOther(locations:types.SimLocation[], other
  * @param  {types.SimLocation}   other     another SimLocation for comparison and measure of distance
  * @returns {types.SimLocation[]}           the sorted list of SimLocations
  */
-export function getLocationsSortedByDistanceFromOther(locations:types.SimLocation[], other:types.SimLocation): types.SimLocation[]{
-	return locations.sort(function(a, b){
-		let aDiff = getManhattanDistance(other, a);
-        let bDiff = getManhattanDistance(other, b);
-        return aDiff - bDiff;
-	})
-}
+// export function getLocationsSortedByDistanceFromOther(locations:types.SimLocation[], other:types.SimLocation): types.SimLocation[]{
+// 	return locations.sort(function(a, b){
+// 		let aDiff = getManhattanDistance(other, a);
+//         let bDiff = getManhattanDistance(other, b);
+//         return aDiff - bDiff;
+// 	})
+// }
 
 
 /**
@@ -206,16 +188,6 @@ export function moveAgentCloserToDestination(agent: types.Agent) {
 			agent.currentLocation.yPos > agent.destination.yPos? agent.currentLocation.yPos -= 1: agent.currentLocation.yPos += 1;
 		}
 	}
-}
-
-
-/**
- * Return the number of agents at a current location 
- * @param  {types.SimLocation} location a specified location to check
- * @returns {number}                    The number of agents at the specific location
- */
-export function numberOfAgentsAtLocation(location:types.SimLocation): number{
-	return agent_manager.agentList.filter(agent => isAgentAtLocation(agent, location)).length;
 }
 
 
@@ -299,5 +271,30 @@ export function startTravelToLocation(agent: types.Agent, destination: types.Sim
 }
 
 
+// *
+//  * Return the number of agents at a current location 
+//  * @param  {types.SimLocation} location a specified location to check
+//  * @returns {number}                    The number of agents at the specific location
+ 
+// export function numberOfAgentsAtLocation(location:types.SimLocation): number{
+// 	return agent_manager.agentList.filter(agent => isAgentAtLocation(agent, location)).length;
+// }
 
+
+// /**
+//  * Filters through available SimLocations by name, and returns the matching location 
+//  * @param  {string}            name - name of the location being searched for 
+//  * @returns {types.SimLocation}      - first location matched by name
+//  */
+// export function getLocationByName(name: string): types.SimLocation{
+// 	let possible_locations = locationList.filter((location: types.SimLocation) => location.name === name);
+
+// 	// if theres an action with this name, return the first one
+// 	if (possible_locations.length > 0)
+// 		return possible_locations[0]
+
+// 	// returns false if there is no listed action with this name
+// 	console.log("getLocationByName => Couldn't find location with name: ", name);	
+// 	return null
+// }
 

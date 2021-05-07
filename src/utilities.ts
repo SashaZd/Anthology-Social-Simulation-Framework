@@ -1,7 +1,4 @@
 // Utilties File
-import * as types from "./types";
-import * as action_manager from "./action_manager"
-
 export const MAX_METER:number = 5;
 export const MIN_METER:number = 1;
 
@@ -34,18 +31,18 @@ export function clamp(test:number, max:number, min:number):number {
 		https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 		*/
 	
-/**
- * Shuffle an array of objects
- * @param {any[]} array array of type any to be shuffled
- */
-export function shuffleArray(array:any[]):void {
-	for (let i:number = array.length - 1; i > 0; i--) {
-		let j = Math.floor(Math.random() * (i + 1));
-		let temp:any = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-}
+// /**
+//  * Shuffle an array of objects
+//  * @param {any[]} array array of type any to be shuffled
+//  */
+// export function shuffleArray(array:any[]):void {
+// 	for (let i:number = array.length - 1; i > 0; i--) {
+// 		let j = Math.floor(Math.random() * (i + 1));
+// 		let temp:any = array[i];
+// 		array[i] = array[j];
+// 		array[j] = temp;
+// 	}
+// }
 
 
 
@@ -125,49 +122,49 @@ export function arrayIncludesSomeOf(arr:any[], other:any[]): boolean{
 	return other.some(v => arr.includes(v));
 }
 
-/**
- * Tests if the array includes the searchItem (ie. for membership in a list)
- * @example Example of this method
- * 
- * ```
- * // Returns true
- * console.log(arrayIncludesItem([1,2,3], 3));
- * ```
- *
- * ```
- * // Returns false
- * console.log(arrayIncludesItem([1,2,3], 6));
- * ```
- * {@link TSDoc | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes}
- * @param  {any[]}   arr  Array to be tested
- * @param  {any}     item Item searched for
- * @return {boolean}      True if array includes the item; Else false
- */
-export function arrayIncludesItem(arr:any[], item:any):boolean {
-	return arr.includes(item)
-}
+// /**
+//  * Tests if the array includes the searchItem (ie. for membership in a list)
+//  * @example Example of this method
+//  * 
+//  * ```
+//  * // Returns true
+//  * console.log(arrayIncludesItem([1,2,3], 3));
+//  * ```
+//  *
+//  * ```
+//  * // Returns false
+//  * console.log(arrayIncludesItem([1,2,3], 6));
+//  * ```
+//  * {@link TSDoc | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes}
+//  * @param  {any[]}   arr  Array to be tested
+//  * @param  {any}     item Item searched for
+//  * @return {boolean}      True if array includes the item; Else false
+//  */
+// export function arrayIncludesItem(arr:any[], item:any):boolean {
+// 	return arr.includes(item)
+// }
 
 
-/**
- * Finds the intersection between two arrays
- *
- * @example Example of this method
- * 
- * ```
- * // Returns [2,3]:
- * console.log(arrayIntersectionWithOther([1,2,3], [2,3,4,5]));
- * ```
- *
- * ```
- * // Returns []:
- * console.log(arrayIntersectionWithOther([1,2,3], [4,5,6]));
- * ```
- * 
- * @param  {any[]} arr   First array
- * @param  {any[]} other Second array 
- * @return {any[]}       Intersected elements 
- */
-export function arrayIntersectionWithOther(arr:any[], other:any[]): any[]{
-	return arr.filter(item => other.includes(item));
-}
+// /**
+//  * Finds the intersection between two arrays
+//  *
+//  * @example Example of this method
+//  * 
+//  * ```
+//  * // Returns [2,3]:
+//  * console.log(arrayIntersectionWithOther([1,2,3], [2,3,4,5]));
+//  * ```
+//  *
+//  * ```
+//  * // Returns []:
+//  * console.log(arrayIntersectionWithOther([1,2,3], [4,5,6]));
+//  * ```
+//  * 
+//  * @param  {any[]} arr   First array
+//  * @param  {any[]} other Second array 
+//  * @return {any[]}       Intersected elements 
+//  */
+// export function arrayIntersectionWithOther(arr:any[], other:any[]): any[]{
+// 	return arr.filter(item => other.includes(item));
+// }
 

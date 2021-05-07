@@ -22,13 +22,13 @@ export function run_sim(agentList:types.Agent[], actionList:types.Action[], loca
 	ui.updateUI(agentList, actionList, locationList, continueFunction, TIME, movement);
 }
 
-/**
- * Get the current simulation time
- * @returns {number} TIME - simulation time 
- */
-export function get_time():number {
-	return TIME;
-}
+// /**
+// * Get the current simulation time
+// * @returns {number} TIME - simulation time 
+// */
+// export function get_time():number {
+// 	return TIME;
+// }
 
 /**
  * Increment simulation time or ticks 

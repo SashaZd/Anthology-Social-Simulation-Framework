@@ -77,28 +77,6 @@ export function isContent(agent:types.Agent):boolean {
 	return true;
 }
 
-/**
- * Checks to see whether a specific motive (with keyof type.Motive) of an agent is maximum or not. 
- * 
- * @param  {types.Agent} agent - agent being checked or tested 
- * @param  {keyof    types.Motive} motive - type of motive (types.Motive) that is being checked to see if the value is maximum
- * @returns {boolean} true if the agent's motive is maximum; false if it is not 
- */
-export function isMotiveFull(agent:types.Agent, motive:keyof types.Motive):boolean {
-	return agent.motive[motive] == utility.MAX_METER;
-}
-
-/**
- * Checks to see whether a specific motive (with keyof type.Motive) of an agent is not maxed out. 
- * 
- * @param  {types.Agent} agent - agent being checked or tested 
- * @param  {keyof    types.Motive} motive - type of motive (types.Motive) that is being checked to see if the value is not maxed
- * @returns {boolean} true if the agent's motive is not maximum; false if it is
- */
-export function isMotiveNotFull(agent:types.Agent, motive:keyof types.Motive): boolean {
-	return agent.motive[motive]	< utility.MAX_METER;
-}
-
 
 /**
  * Selects an action from a list of valid actions to be preformed by a specific agent.
@@ -232,6 +210,27 @@ export function turn(agent:types.Agent, time:number):boolean {
 }
 
 
+/**
+ * Checks to see whether a specific motive (with keyof type.Motive) of an agent is maximum or not. 
+ * 
+ * @param  {types.Agent} agent - agent being checked or tested 
+ * @param  {keyof    types.Motive} motive - type of motive (types.Motive) that is being checked to see if the value is maximum
+ * @returns {boolean} true if the agent's motive is maximum; false if it is not 
+ */
+// export function isMotiveFull(agent:types.Agent, motive:keyof types.Motive):boolean {
+// 	return agent.motive[motive] == utility.MAX_METER;
+// }
+
+/**
+ * Checks to see whether a specific motive (with keyof type.Motive) of an agent is not maxed out. 
+ * 
+ * @param  {types.Agent} agent - agent being checked or tested 
+ * @param  {keyof    types.Motive} motive - type of motive (types.Motive) that is being checked to see if the value is not maxed
+ * @returns {boolean} true if the agent's motive is not maximum; false if it is
+ */
+// export function isMotiveNotFull(agent:types.Agent, motive:keyof types.Motive): boolean {
+// 	return agent.motive[motive]	< utility.MAX_METER;
+// }
 
 
 
