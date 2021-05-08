@@ -14,27 +14,28 @@ world.loadAgentsFromJSON(json_data["agents"]);
 /**
  * Executes a turn for each agent every tick.
  * Executes a single turn and then is called from ui for the next, no more loop
- * 
+ *
  * @param {types.Agent[]} agentList - list of agents in the simulation
- * @param {types.Action[]} actionList - list of valid actions in the simulation 
- * @param {types.SimLocation[]} locationList - list of locations in the simulation 
+ * @param {types.Action[]} actionList - list of valid actions in the simulation
+ * @param {types.SimLocation[]} locationList - list of locations in the simulation
  * @param {() => boolean} continueFunction - boolean function that is used as a check as to whether or not to keep running the sim
  */
 export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
 	var movement:boolean = false;
 	for (var agent of agentList){
-		movement = movement || turn(agent);
+    var turnMove:boolean = turn(agent);
+		movement = movement || turnMove;
 	}
 	world.increment_time()
 	ui.updateUI(agentList, actionList, locationList, continueFunction, movement);
 }
 
 /**
- * Updates movement and occupation counters for an agent. 
- * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary. 
- * 
+ * Updates movement and occupation counters for an agent.
+ * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary.
+ *
  * @param  {types.Agent} agent - agent whose turn is being executed
- * 
+ *
  * @returns {boolean} true if the agent is traveling; false if not. Used to determine the speed of the simulation
  */
 export function turn(agent:types.Agent):boolean {
@@ -48,7 +49,7 @@ export function turn(agent:types.Agent):boolean {
 	if (agent.occupiedCounter > 0) {
 		agent.occupiedCounter--;
 
-		// If the agent is traveling 
+		// If the agent is traveling
 		if(agent.destination != null){
 			movement = true;
 			action_manager.moveAgentCloserToDestination(agent);
@@ -70,9 +71,8 @@ export function turn(agent:types.Agent):boolean {
 
 // /**
 // * Get the current simulation time
-// * @returns {number} TIME - simulation time 
+// * @returns {number} TIME - simulation time
 // */
 // export function get_time():number {
 // 	return TIME;
 // }
-
