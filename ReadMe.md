@@ -7,7 +7,7 @@
 - npm init
 - node -v 
 - npm -v
-- sudo npm install --save-dev typescript gulp@4.0.0 gulp-typescript
+- sudo npm install --save-dev typescript gulp gulp-typescript
 - sudo npm install gulp -g
 - sudo npm install --save-dev browserify tsify vinyl-source-stream
 - sudo npm install --save-dev watchify fancy-log
