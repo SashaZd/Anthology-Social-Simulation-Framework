@@ -3,8 +3,8 @@
 (Needed to use sudo on the mac to make sure they could be called globally since that's not the default)
 
 - make sure you have both Node (https://nodejs.org/en/) and NPM (https://www.npmjs.com/) installed on your machine
-- npm init
 - brew install node
+- npm init
 - node -v 
 - npm -v
 - sudo npm install --save-dev typescript gulp@4.0.0 gulp-typescript
