@@ -2,6 +2,7 @@
 
 (Needed to use sudo on the mac to make sure they could be called globally since that's not the default)
 
+- make sure you have both Node (https://nodejs.org/en/) and NPM (https://www.npmjs.com/) installed on your machine
 - npm init
 - brew install node
 - node -v 
