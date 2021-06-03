@@ -1,6 +1,6 @@
 {
   "files": [
-    "src/main.ts",
+    // "src/main.ts",
     "src/action_manager.ts",
     "src/agent.ts",
     "src/execution_engine.ts",
@@ -11,6 +11,10 @@
   ],
   "compilerOptions": {
     "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "target": "es5",
     "typeRoots": [
         "node_modules/@types"

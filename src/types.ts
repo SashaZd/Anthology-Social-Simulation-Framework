@@ -339,7 +339,7 @@ export type Agent = {
 	occupiedCounter: number;
 
 	/** @type {Action} The current action being executed */
-	currentAction: Action;
+	currentAction: Action | null;
 
 	/**
 	 * The destination that the agent is headed to 
@@ -392,9 +392,9 @@ export type SimLocation = {
 	xPos: number;
 	/** @type {number} y-coordinate of the location */
 	yPos: number;
-	/** @type {string} optional name of the location eg. Restaurant, Home, Movie Theatre, etc */
-	name?: string;
 	/** @type {string[]} optional list of tags associated with the location. Eg. Restaurant could have ['food', 'delivery'] as tags */
 	tags?: string[];
+	/** @type {string} optional name of the location eg. Restaurant, Home, Movie Theatre, etc */
+	name?: string;
 }
 

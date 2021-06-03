@@ -1,15 +1,15 @@
-import * as npc from "./agent";
+import * as agent_manager from "./agent";
+import * as action_manager from "./action_manager";
 import * as types from "./types";
-// import {wait_action} from "./action_specs";
-import * as utility from "./utilities";
 import * as ui from "./ui";
+import * as world from "./world"
 
-// import {actionList} from "./main";
+// import * as json_data from "./data.json";
+const json_data = require("./data.json");
 
-export var time:number = 0;
-export const MAX_METER = 5;
-export const MIN_METER = 1;
-
+world.loadActionsFromJSON(json_data['actions']);
+world.loadLocationsFromJSON(json_data['locations']);
+world.loadAgentsFromJSON(json_data["agents"]);
 
 /**
  * Executes a turn for each agent every tick.
@@ -23,8 +23,56 @@ export const MIN_METER = 1;
 export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
 	var movement:boolean = false;
 	for (var agent of agentList){
-		movement = movement || npc.turn(agent, time);
+		movement = movement || turn(agent);
 	}
-	time += 1;
-	ui.updateUI(agentList, actionList, locationList, continueFunction, time, movement);
+	world.increment_time()
+	ui.updateUI(agentList, actionList, locationList, continueFunction, movement);
 }
+
+/**
+ * Updates movement and occupation counters for an agent. 
+ * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary. 
+ * 
+ * @param  {types.Agent} agent - agent whose turn is being executed
+ * 
+ * @returns {boolean} true if the agent is traveling; false if not. Used to determine the speed of the simulation
+ */
+export function turn(agent:types.Agent):boolean {
+	var movement:boolean = false;
+	if (world.TIME%600 == 0) {
+		if (!agent_manager.isContent(agent)) {
+			agent_manager.decrement_motives(agent);
+		}
+	}
+
+	if (agent.occupiedCounter > 0) {
+		agent.occupiedCounter--;
+
+		// If the agent is traveling 
+		if(agent.destination != null){
+			movement = true;
+			action_manager.moveAgentCloserToDestination(agent);
+		}
+	}
+
+	// If not traveling (i.e. arrived at destination), and end of occupied, execute planned action effects, select/start next.
+	else {
+		if (!agent_manager.isContent(agent)) {
+			action_manager.execute_action(agent);
+			action_manager.selectNextActionForAgent(agent);
+		}
+  	}
+  	return movement;
+}
+
+
+
+
+// /**
+// * Get the current simulation time
+// * @returns {number} TIME - simulation time 
+// */
+// export function get_time():number {
+// 	return TIME;
+// }
+
