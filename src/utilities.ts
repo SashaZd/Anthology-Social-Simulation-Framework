@@ -183,10 +183,28 @@ export function arrayIncludesSomeOf(arr:any[], other:any[]): boolean{
  * [getRandomInt description]
  * @param  {number} min   minimum return value (exclusive)
  * @param  {number} max   maximum return value (inclusive)
- * @return {number}       resulting integer 
+ * @return {number}       resulting integer
  */
 export function getRandomInt(min:number, max:number):number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+var logList:string[] = [];
+var bufferedLog:boolean = true;
+
+export function log(item:string):void {
+    logList.push(item);
+    if (!bufferedLog) {
+      console.log(item);
+    }
+}
+
+export function print():void {
+  if (bufferedLog) {
+    for (var item of logList) {
+      console.log(item);
+    }
+  }
 }
