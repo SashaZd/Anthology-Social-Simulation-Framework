@@ -1,158 +1,78 @@
-export enum Motive {
-  physical,
-  emotional,
-  social,
-  financial,
-  accomplishment
+import * as agent_manager from "./agent";
+import * as action_manager from "./action_manager";
+import * as types from "./types";
+import * as ui from "./ui";
+import * as world from "./world"
+
+// import * as json_data from "./data.json";
+const json_data = require("./data.json");
+
+world.loadActionsFromJSON(json_data['actions']);
+world.loadLocationsFromJSON(json_data['locations']);
+world.loadAgentsFromJSON(json_data["agents"]);
+
+/**
+ * Executes a turn for each agent every tick.
+ * Executes a single turn and then is called from ui for the next, no more loop
+ *
+ * @param {types.Agent[]} agentList - list of agents in the simulation
+ * @param {types.Action[]} actionList - list of valid actions in the simulation
+ * @param {types.SimLocation[]} locationList - list of locations in the simulation
+ * @param {() => boolean} continueFunction - boolean function that is used as a check as to whether or not to keep running the sim
+ */
+export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
+	var movement:boolean = false;
+	for (var agent of agentList){
+    var turnMove:boolean = turn(agent);
+		movement = movement || turnMove;
+	}
+	world.increment_time()
+	ui.updateUI(agentList, actionList, locationList, continueFunction, movement);
 }
 
-export enum BinOp {
-  equals,
-  greater_than,
-  less_than,
-  geq,
-  leq
+/**
+ * Updates movement and occupation counters for an agent.
+ * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary.
+ *
+ * @param  {types.Agent} agent - agent whose turn is being executed
+ *
+ * @returns {boolean} true if the agent is traveling; false if not. Used to determine the speed of the simulation
+ */
+export function turn(agent:types.Agent):boolean {
+	var movement:boolean = false;
+	if (world.TIME%1200 == 0) {
+		if (!agent_manager.isContent(agent)) {
+			agent_manager.decrement_motives(agent);
+		}
+	}
+
+	if (agent.occupiedCounter > 0) {
+		agent.occupiedCounter--;
+
+		// If the agent is traveling
+		if(agent.destination != null){
+			movement = true;
+			action_manager.moveAgentCloserToDestination(agent);
+		}
+	}
+
+	// If not traveling (i.e. arrived at destination), and end of occupied, execute planned action effects, select/start next.
+	else {
+		if (!agent_manager.isContent(agent)) {
+			action_manager.execute_action(agent);
+			action_manager.selectNextActionForAgent(agent);
+		}
+  	}
+  	return movement;
 }
 
-export enum ReqType {
-  location,
-  people,
-  motive
-}
 
-export interface Thresh {
-  motive: Motive,
-  op:     BinOp,
-  thresh: number
-}
 
-export interface Requirement {
-  type: ReqType,
-  op: BinOp,
-  value: string | number
-}
 
-export interface Effect {
-  motive: Motive,
-  delta: number
-}
-
-export interface Action {
-  name: string,
-  requirements: Requirement[],
-  effects:      Effect[],
-  time_min:     number
-}
-
-export interface Agent {
-  name: string,
-  physical: number,
-  emotional: number,
-  social: number,
-  financial: number,
-  accomplishment: number
-}
-
-var time:number = 0;
-
-export function clamp(n:number, m:number, o:number):number {
-  if (n > m) {
-    return m;
-  } else if (n < o) {
-    return o;
-  } else {
-    return n;
-  }
-
-}
-
-export function select_action(a:Agent, n:Action[]):Action {
-  var mdu:number = -26;
-  var r:Action = n[0];
-  var i:number = 0;
-  for (i = 0; i<n.length; i++){
-    var du:number = 0;
-    var j:number = 0;
-    for (j = 0; j<n[i].effects.length; j++){
-      switch(n[i].effects[j].motive){
-        case 0: {
-          du += clamp(n[i].effects[j].delta + a.physical, 5, 1) - a.physical;
-          break;
-        }
-        case 1: {
-          du += clamp(n[i].effects[j].delta + a.emotional, 5, 1) - a.emotional;
-          break;
-        }
-        case 2: {
-          du += clamp(n[i].effects[j].delta + a.social, 5, 1) - a.social;
-          break;
-        }
-        case 3: {
-          du += clamp(n[i].effects[j].delta + a.accomplishment, 5, 1) - a.accomplishment;
-          break;
-        }
-        case 4: {
-          du += clamp(n[i].effects[j].delta + a.financial, 5, 1) - a.financial;
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-    }
-    du = du/n[i].time_min;
-    if (du > mdu) {
-      mdu = du;
-      r = n[i];
-    }
-  }
-  return r;
-}
-
-export function execute_action(a:Agent, n:Action):void {
-  console.log(a.name + ": " + n.name);
-  var i:number = 0;
-  for (i = 0; i<n.effects.length; i++){
-    switch(n.effects[i].motive){
-      case 0: {
-        a.physical = clamp(a.physical + n.effects[i].delta, 5, 1)
-        break;
-      }
-      case 1: {
-        a.emotional = clamp(a.emotional + n.effects[i].delta, 5, 1)
-        break;
-      }
-      case 2: {
-        a.social = clamp(a.social + n.effects[i].delta, 5, 1)
-        break;
-      }
-      case 3: {
-        a.accomplishment = clamp(a.accomplishment + n.effects[i].delta, 5, 1)
-        break;
-      }
-      case 4: {
-        a.financial = clamp(a.financial + n.effects[i].delta, 5, 1)
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-  }
-}
-
-export function run_sim(a:Agent[], n:Action[], c: () => boolean):any {
-  while (c()) {
-    console.log("time: " + time.toString());
-    time += 1;
-    var i:number = 0;
-    for (i = 0; i < a.length; i++ ) {
-      var choice:Action = select_action(a[i], n);
-      execute_action(a[i], choice);
-    }
-  }
-  console.log("Finished.");
-  
-  // Sasha: Unsure if this is needed
-  // return process.exit(0);
-}
+// /**
+// * Get the current simulation time
+// * @returns {number} TIME - simulation time
+// */
+// export function get_time():number {
+// 	return TIME;
+// }
