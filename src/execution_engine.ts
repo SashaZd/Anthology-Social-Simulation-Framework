@@ -40,7 +40,7 @@ export function run_sim(agentList:types.Agent[], actionList:types.Action[], loca
  */
 export function turn(agent:types.Agent):boolean {
 	var movement:boolean = false;
-	if (world.TIME%600 == 0) {
+	if (world.TIME%1200 == 0) {
 		if (!agent_manager.isContent(agent)) {
 			agent_manager.decrement_motives(agent);
 		}
