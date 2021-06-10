@@ -47,7 +47,11 @@
 		"requirements": [
 			{ "reqType":"location", "hasAllOf":["restaurant"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
 		],
-		"effects":      [{"motive":"physical", "delta":2}],
+		"effects": [
+			{"motive":"physical", "delta":2},
+			{"motive":"financial", "delta":-1}
+		],
+
 		"time_min":     60
 	  },
 	  {
@@ -55,27 +59,11 @@
 	    "requirements": [
 	    	{ "reqType":"location", "hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
     	],
-	    "effects":      [{"motive":"emotional", "delta":3}],
+	    "effects": [
+	    	{"motive":"emotional", "delta":3},
+	    	{"motive":"financial", "delta":-1}
+	    ],
 	    "time_min":     120
-	  },
-	  {
-	    "name": "eat_friend_action",
-	    "requirements": [
-	    	{"reqType":"location", "hasAllOf":["restaurant"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
-			{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
-		],
-	    "effects":      [{"motive":"physical", "delta":2}, {"motive":"social", "delta":2}],
-	    "time_min":     70
-	  },
-	  {
-	    "name": "movie_friend_action",
-	    "requirements": [
-	    	{"reqType":"location", "hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
-			{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
-		],
-	    "effects":      [{"motive":"emotional", "delta":3}, 
-	    				{"motive":"social", "delta":2}],
-	    "time_min":     130
 	  },
 	  {
 	    "name": "work_action",
@@ -88,7 +76,7 @@
 	  {
 	    "name": "hobby_action",
 	    "requirements": [
-	    	{"reqType":"location", "hasAllOf":["home"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
+	    	{"reqType":"location", "hasAllOf":[], "hasOneOrMoreOf":["art","music"], "hasNoneOf":[]}
     	],
 	    "effects":      [{"motive":"accomplishment", "delta":2}],
 	    "time_min":     60
@@ -105,17 +93,22 @@
 		{
 			"name": "restaurant", 
 			"xPos": 5, "yPos": 5, 
-			"tags": ["restaurant", "employment"]
+			"tags": ["restaurant"]
 		},
 		{
 			"name": "movie theatre", 
 			"xPos": 0, "yPos": 5, 
-			"tags": ["movie theatre", "employment"]
+			"tags": ["movie theatre"]
 		},
 		{
-			"name": "home", 
+			"name": "office", 
+			"xPos": 2, "yPos": 3, 
+			"tags": ["employment"]
+		},
+		{
+			"name": "art studio", 
 			"xPos": 5, "yPos": 0, 
-			"tags": ["home"]
+			"tags": ["art"]
 		}
 	]
 }
