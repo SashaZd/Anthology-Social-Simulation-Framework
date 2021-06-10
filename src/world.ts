@@ -37,6 +37,25 @@ export function loadActionsFromJSON(actions_json: types.Action[]): void {
 		var action: types.Action = Object.assign({}, parse_action);
 		actions.push(action);
 	}
+
+	let defaultActions: types.Action[] = [{
+			"name": "wait_action",
+			"requirements": [],
+			"effects": [],
+			"time_min": 0
+		},
+		{
+			"name": "travel_action",
+			"requirements": [],
+			"effects": [],
+			"time_min": 0
+		}]
+
+	for (let parse_action of defaultActions) {
+		var action: types.Action = Object.assign({}, parse_action);
+		actions.push(action);
+	}
+
 	console.log("actions: ", actions);
 	actionList = actions;
 }
