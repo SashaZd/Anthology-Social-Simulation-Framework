@@ -1,4 +1,5 @@
 import * as types from "./types";
+import * as utility from "./utilities";
 
 ////////////////////////////////////////////////////////
 /////////////// GLOBALS ///////////////////////////
@@ -11,23 +12,30 @@ import * as types from "./types";
 export var TIME:number = 0;
 
 /**
- * Increment simulation time or ticks 
+ * Increment simulation time or ticks
  */
 export function increment_time():void {
 	TIME += 1;
 }
 
 
-/** 
- * List of actions available within the simulation. 
+/**
+ * List of actions available within the simulation.
  * Loaded from a JSON input file.
  * @type {types.Action[]}
  */
 export var actionList: types.Action[] = [];
 
 /**
- * Loads actions available in the simulation from the data.json file. 
- * 
+ * Size parameter for the simulation grid (n x n)
+ * Loaded from a JSON input file.
+ * @type {types.number}
+ */
+export var n:number = 0;
+
+/**
+ * Loads actions available in the simulation from the data.json file.
+ *
  * @param  {types.Action[]} actions_json - JSON description of the actions
  * @returns {void} - sets an internal array of actions of type types.Actions that are available in the simulation
  */
@@ -60,7 +68,7 @@ export function loadActionsFromJSON(actions_json: types.Action[]): void {
 	actionList = actions;
 }
 
-/** 
+/**
  * List of agents available within the simulation
  * @type {types.Agent[]}
  */
@@ -84,13 +92,38 @@ export function loadAgentsFromJSON(agent_json:types.SerializableAgent[]): void {
 		});
 		agents.push(agent);
 	}
-	console.log("agents: ", agents);
 	agentList = agents;
 }
 
+/**
+ * Creates random agents (amount specified in json)
+ * @param {number}	agent_json Number of agents to create
+ * @returns {void} sets an internal array of locations available within the simulation of type types.SimLocation[]
+ */
+export function createRandomAgents(agent_json:number): void {
+	for(let i:number = 0; i<agent_json; i++) {
+		let name:string = "Agent " + i.toString();
+		let motive:types.Motive =
+			{
+				physical: utility.getRandomInt(1,5),
+				emotional: utility.getRandomInt(1,5),
+				social: utility.getRandomInt(1,5),
+				financial: utility.getRandomInt(1,5),
+				accomplishment: utility.getRandomInt(1,5)
+			};
+		let currentLocation:types.SimLocation =
+			{
+				xPos: utility.getRandomInt(0,n),
+				yPos: utility.getRandomInt(0,n)
+			};
+		let possible_action: types.Action = actionList.filter((action: types.Action) => action.name === "wait_action")[0] as types.Action;
+		let agent:types.Agent = {name:name, motive:motive, currentLocation:currentLocation, occupiedCounter:0, currentAction:possible_action, destination:null};
+		agentList.push(agent);
+	}
+	console.log("agents: ", agentList);
+}
 
-
-/** 
+/**
  * List of locations used internally within the simulation
  * @type {types.SimLocation[]}
  */
@@ -98,9 +131,9 @@ export var locationList: types.SimLocation[] = [];
 
 
 /**
- * Loads locations provided in the JSON object 
- * These locations will be availble in the global locationList during the simulation run 
- * 
+ * Loads locations provided in the JSON object
+ * These locations will be availble in the global locationList during the simulation run
+ *
  * @param  {types.SimLocation[]} locations_json locations JSON Object
  * @returns {void} sets an internal array of locations available within the simulation of type types.SimLocation[]
  */
@@ -111,8 +144,25 @@ export function loadLocationsFromJSON(locations_json:types.SimLocation[]): void{
 		let location:types.SimLocation = Object.assign({}, parse_location);
 		locations.push(location);
 	}
-	console.log("locations: ", locations);
 	locationList = locations;
 }
 
-
+/**
+ * Creates random locations (amount specified in json)
+ * @param {number}	locations_json	Number of locations to create
+ * @param {number}	n_json 					Size of simularion grid
+ * @returns {void} 									sets an internal array of locations available within the simulation of type types.SimLocation[]
+ */
+export function createRandomLocations(locations_json:number, n_json:number): void{
+	n = n_json;
+	let tagList:string[] = ["restaurant", "movie theatre", "home", "employment"];
+	for(let i:number = 0; i<locations_json; i++) {
+		let name:string = "location " + i.toString();
+		let tags:string[] = [tagList[i%4]];
+		let xPos:number = utility.getRandomInt(0,n);
+		let yPos:number = utility.getRandomInt(0,n);
+		let loc:types.SimLocation = {name:name, tags:tags, xPos:xPos, yPos:yPos};
+		locationList.push(loc);
+	}
+	console.log("locations: ", locationList);
+}

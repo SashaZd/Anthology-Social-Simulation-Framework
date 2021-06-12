@@ -110,5 +110,8 @@
 			"xPos": 5, "yPos": 0, 
 			"tags": ["art"]
 		}
-	]
+	],
+	"grid_size": 2,
+	"rand_locations": 4,
+	"rand_agents": 2
 }
