@@ -160,7 +160,44 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 		}
 
 		if(possible_locations.length > 0 && motive_requirements.length > 0){
-			// Todo
+			switch(motive_requirements[0].op) {
+			   case "equals": {
+					 if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
+						 possible_locations = [];
+					 }
+			      break;
+			   }
+			   case "lt": {
+					 if (!(agent.motive[motive_requirements[0].motive] < motive_requirements[0].thresh)) {
+						 possible_locations = [];
+					 }
+			      break;
+			   }
+				 case "gt": {
+					 if (!(agent.motive[motive_requirements[0].motive] > motive_requirements[0].thresh)) {
+						 possible_locations = [];
+					 }
+			      break;
+			   }
+				 case "leq": {
+					 if (!(agent.motive[motive_requirements[0].motive] <= motive_requirements[0].thresh)) {
+						 possible_locations = [];
+					 }
+			      break;
+			   }
+				 case "geq": {
+					 if (!(agent.motive[motive_requirements[0].motive] >= motive_requirements[0].thresh)) {
+						 possible_locations = [];
+					 }
+			      break;
+			   }
+			   default: {
+			      if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
+							possible_locations = [];
+						}
+			      break;
+			   }
+			}
 		}
 
 		// If there is a location possible that meets all the requriements
