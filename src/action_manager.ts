@@ -159,6 +159,11 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 			possible_locations = location_manager.locationsSatisfyingPeopleRequirement(agent, possible_locations, people_requirement[0]);
 		}
 
+		// If there is still a valid location, and there is a motive requiremnt, evaluate
+		// checks if the specified condition is false (ie motiveX >= 2)
+		// and empties the possible locations if so.
+		// If the condition is violated, the empty list will cause the action not to be considered valid
+		// otherwise nothing happens.
 		if(possible_locations.length > 0 && motive_requirements.length > 0){
 			switch(motive_requirements[0].op) {
 			   case "equals": {
