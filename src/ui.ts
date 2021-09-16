@@ -88,12 +88,9 @@ export function activeAgentChange() {
 /**
  * Main fuunction to update the ui elements.
  * Shows the current state of the board and any changes made in the dropdowns or input boxes.
- * Executed every turn, calls the next turn if applicable
+ * Executed every turn
  * @param  {types.Agent[]} agentList - list of agents in the simulation
- * @param {types.Action[]} actionList - list of valid actions in the simulation
  * @param {types.SimLocation[]} locationList - list of locations in the simulation
- * @param {() => boolean} continueFunction - boolean function that is used as a check as to whether or not to keep running the sim
- * @param {boolean} movement - whether or not an agent moved
  */
 export function updateUI(agentList:types.Agent[], locationList:types.SimLocation[]){
   	showOnBrowser("time", world.TIME.toString());

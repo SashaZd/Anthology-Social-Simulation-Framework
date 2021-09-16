@@ -69,6 +69,14 @@ export function turn(agent:types.Agent):boolean {
 	return movement;
 }
 
+/**
+ * [round_wait description]
+ * @param  {types.Agent[]}        agentList        list of agents in the simulation
+ * @param  {types.Action[]}       actionList       list of action available to the agents
+ * @param  {types.SimLocation[]}  locationList     list of locations in the simulation world
+ * @param  {() => boolean}        continueFunction function which returns true if the simulation should continue
+ * @param  {boolean}              movement         Whether or not any agents moved this turn
+ */
 export function round_wait(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, movement:boolean) {
   ui.updateUI(agentList, locationList);
   if (continueFunction()) {
