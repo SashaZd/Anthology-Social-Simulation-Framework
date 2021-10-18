@@ -192,7 +192,7 @@ export function getRandomInt(min:number, max:number):number {
 }
 
 var logList:string[] = [];
-var bufferedLog:boolean = true;
+var bufferedLog:boolean = false;
 
 export function log(item:string):void {
     logList.push(item);
