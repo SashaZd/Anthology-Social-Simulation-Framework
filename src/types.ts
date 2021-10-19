@@ -5,13 +5,13 @@
 
 // Five motive types
 /**
- * Motive Type Enum 
+ * Motive Type Enum
  * Currently has a preset list of 5 motives - physical, emotional, social, financial, accomplishment
- * In future, this will be pulled from the json file. 
+ * In future, this will be pulled from the json file.
  */
 export enum MotiveType {
 	/**
-	 * deals with the agent's physical needs - eg. eat or sleep 
+	 * deals with the agent's physical needs - eg. eat or sleep
 	 * @type {String}
 	 */
 	physical = "physical",
@@ -21,12 +21,12 @@ export enum MotiveType {
 	 */
 	emotional = "emotional",
 	/**
-	 * deals with the agent's social needs - eg. spending time with other agents 
+	 * deals with the agent's social needs - eg. spending time with other agents
 	 * @type {String}
 	 */
 	social = "social",
 	/**
-	 * deals with the agent's financial needs - eg. working for a living 
+	 * deals with the agent's financial needs - eg. working for a living
 	 * @type {String}
 	 */
 	financial = "financial",
@@ -46,13 +46,13 @@ export enum MotiveType {
 
 
 /**
- * Motive Type Interface 
- * Current has a preset list of 5 motives: 
+ * Motive Type Interface
+ * Current has a preset list of 5 motives:
  * @type {Object.<string, number>}
  */
 export type Motive = {
 	/**
-	 * deals with the agent's physical needs - 
+	 * deals with the agent's physical needs -
 	 * eg. eating or sleeping
 	 * @type {number}
 	 */
@@ -64,19 +64,19 @@ export type Motive = {
 	 */
 	emotional: number;
 	/**
-	 * deals with the agent's social needs 
-	 * eg. spending time with other agents 
+	 * deals with the agent's social needs
+	 * eg. spending time with other agents
 	 * @type {number}
 	 */
 	social: number;
 	/**
-	 * deals with the agent's financial needs 
-	 * eg. working for a living 
+	 * deals with the agent's financial needs
+	 * eg. working for a living
 	 * @type {number}
 	 */
 	financial: number;
 	/**
-	 * deals with the agent's sense of accomplishement 
+	 * deals with the agent's sense of accomplishement
 	 * eg. skill learnt by doing a hobby
 	 * @type {number}
 	 */
@@ -94,7 +94,7 @@ export type Motive = {
 
 
 
-// 
+//
 /**
  * List of keys of the motive types we have which we can iterate through
  * @param {[type]} keys of the Enum MotiveType
@@ -106,10 +106,10 @@ export const motiveTypes: string[] = Object.keys(MotiveType).filter(k => typeof 
 /////////////// REQUIREMENTS ///////////////////////////
 ////////////////////////////////////////////////////////
 
-// 
+//
 /**
- * Binary Operations 
- * Used primarily in requirements to test conditions 
+ * Binary Operations
+ * Used primarily in requirements to test conditions
  * Eg. MotiveReq: social motive must be greater than 5
  * @type {"equals" | "gt" | "lt" | "geq" | "leq"}
  */
@@ -117,11 +117,11 @@ export type BinOp = "equals" | "gt" | "lt" | "geq" | "leq";
 
 
 // Three types of requirements
-// export type ReqType = "location" | "people" | "motive"; 
+// export type ReqType = "location" | "people" | "motive";
 
 /**
- * Enum Requirement Type 
- * Consists of three types of requirements 
+ * Enum Requirement Type
+ * Consists of three types of requirements
  * Unnecessary, to be removed
  */
 export enum ReqType {
@@ -156,7 +156,7 @@ export type LocationReq = {
 	 */
 	reqType: "location";
 	/**
-	 * array of string tags that must be present in the location for the action to occur 
+	 * array of string tags that must be present in the location for the action to occur
 	 * @type {string[]}
 	 */
 	hasAllOf: string[];
@@ -166,13 +166,13 @@ export type LocationReq = {
 	 */
 	hasOneOrMoreOf: string[];
 	/**
-	 * array of string tags that should not be present in the location for the action to occur 
+	 * array of string tags that should not be present in the location for the action to occur
 	 * @type {string[]}
 	 */
 	hasNoneOf: string[];
 }
 
-// 
+//
 // eg: must be with a sepcific person
 
 /**
@@ -235,7 +235,7 @@ export type MotiveReq = {
 	reqType: "motive";
 	/**
 	 * Describes the type of motive that must be tested for this requirement
-	 * Eg. Emotional, Social, Financial, etc. 
+	 * Eg. Emotional, Social, Financial, etc.
 	 * @type {MotiveType}
 	 */
 	motive: MotiveType;
@@ -252,7 +252,7 @@ export type MotiveReq = {
 }
 
 /**
- * Requirement Type 
+ * Requirement Type
  * Union type of Location Requirements, People Requirements or Motive Requirements
  * @type {LocationReq | PeopleReq | MotiveReq}
  */
@@ -263,13 +263,13 @@ export type Requirement = LocationReq | PeopleReq | MotiveReq;
  * Effect Type
  * Contains the delta change in the motive of an agent implementing the action.
  * One effect per motive type.
- * Eg. Sleep action may affect the physical motive 
+ * Eg. Sleep action may affect the physical motive
  * @type {motive:MotiveType, delta:number}
  */
 export type Effect = {
 	/**
-	 * describes the motive affected by this effect. 
-	 * Eg. if an action affects the social motive of a character, 
+	 * describes the motive affected by this effect.
+	 * Eg. if an action affects the social motive of a character,
 	 * then motive:MotiveType.social
 	 * @type {MotiveType}
 	 */
@@ -280,6 +280,69 @@ export type Effect = {
 	 * @type {number}
 	 */
 	delta: number
+}
+
+/**
+ * Target Type Enum
+ * List of values that determine who the target effects of an action (if applicable),
+ * are applied to.
+ * This roughly mirrors the parameters of the people requirement
+ */
+export enum TargetType {
+	/**
+	 * all agents present when the action is started (ie at the action's associated
+	 * location when the the agent begins to perform it) recieve the target effects
+	 * This target type could be used for an agent making a public speech
+	 * @type {String}
+	 */
+	all = "all",
+  /**
+	 * only agents who are present when the action is started (ie at the action's associated
+	 * location when the the agent begins to perform it), and who fit the relationshipsPresent
+	 * criteria of the people requirement recieve the target effects
+	 * This could be used for an action that applies to all of the agents friends
+	 * at a restaurant, but not the other patrons.
+	 * @type {String}
+	 */
+	relationship = "relationship",
+  /**
+	 * a single, random agent who is present when the action is started (ie at the action's associated
+	 * location when the the agent begins to perform it), and who fits the relationshipsPresent
+	 * criteria of the people requirement recieves the target effects
+	 * This could be used for an action that has one agent chat with a single friend
+	 * @type {String}
+	 */
+	relationshipSingle = "relationshipSingle",
+  /**
+	 * only agents who are present when the action is started (ie at the action's associated
+	 * location when the the agent begins to perform it), and who fit the specificPeoplePresent
+	 * criteria of the people requirement recieve the target effects.
+	 * This is used for actions that only apply to a certain few people.
+	 * @type {String}
+	 */
+	specific = "specific",
+  /**
+	 * a single, random agent who is present when the action is started (ie at the action's associated
+	 * location when the the agent begins to perform it), and who fits the specificPeoplePresent
+	 * criteria of the people requirement recieves the target effects
+	 * This could be used for an action that has one agent chat with a single
+	 * friend out of a few specific options
+	 * @type {String}
+	 */
+	specificSingle = "specificSingle",
+  /**
+	 * a single, random agent who is present when the action is started (ie at the action's associated
+	 * location when the the agent begins to perform it) recieves the target effects
+	 * this can be used for an action such as asking a strnager for directions
+	 * @type {String}
+	 */
+	randomPresent = "randomPresent",
+  /**
+	 * a single, random agent from anywhere in the simulation recieves the target effects
+	 * this can be used for an action that involves inviting an agent to do something (TENTATIVE)
+	 * @type {String}
+	 */
+	random = "random"
 }
 
 // General action type.
@@ -298,7 +361,7 @@ export type Action = {
 	 */
 	name: 		  string;
 	/**
-	 * List of pre-conditions or requirements that must fullfilled for this action to be executed 
+	 * List of pre-conditions or requirements that must fullfilled for this action to be executed
 	 * @type {Requirement[]}
 	 */
 	requirements: Requirement[];
@@ -312,6 +375,17 @@ export type Action = {
 	 * @type {number}
 	 */
 	time_min:     number;
+  /**
+	 * List of resulting changes to the motives of any target agents that occur after an action is executed
+	 * @type {Effect[]}
+	 */
+	targetEffects?:      Effect[];
+  /**
+	 * the method of choosing which agent(s) will be the target of this action
+	 * NOTE: some target methods require the action to have apeople requirement to function properly
+	 * @type {TargetType}
+	 */
+  target?:  TargetType;
 }
 
 
@@ -321,14 +395,14 @@ export type Action = {
 
 
 /**
- * Agent type 
+ * Agent type
  * Describes the agent object or NPCs in the simulation
  * @type {Object}
  */
 export type Agent = {
 	/** @type {string} Name of the agent */
 	name: string;
-	
+
 	/** @type {Motive} list of all the motive properties of this agent */
 	motive: Motive;
 
@@ -342,7 +416,7 @@ export type Agent = {
 	currentAction: Action | null;
 
 	/**
-	 * The destination that the agent is headed to 
+	 * The destination that the agent is headed to
 	 * Can be null if the agent has reached their previous destination and is executing an action at the location.
 	 * @type {[type]}
 	 */
@@ -353,7 +427,7 @@ export type Agent = {
 
 /**
  * Agent type received from a JSON file
- * The action is provided as a string, and matched to the Agent.currentAction object accordingly 
+ * The action is provided as a string, and matched to the Agent.currentAction object accordingly
  * @type {Object}
  */
 export type SerializableAgent = {
@@ -376,15 +450,15 @@ export type SerializableAgent = {
 /////////////// LOCATIONS ///////////////////////////
 ////////////////////////////////////////////////////////
 
-// 
+//
 // eg: a specific restaurant
-// There should be a point Interface since some locations are not named. 
+// There should be a point Interface since some locations are not named.
 // Locations can be an unnamed position, with just an associated x,y coordinate
 
 /**
  * Locations in the simulation
  * Locations can be unamed and just comprise of a x-y coordinate
- * Locations can be named and/or have a list of tags eg. Restaurant 
+ * Locations can be named and/or have a list of tags eg. Restaurant
  * @type {Object}
  */
 export type SimLocation = {
@@ -397,4 +471,3 @@ export type SimLocation = {
 	/** @type {string} optional name of the location eg. Restaurant, Home, Movie Theatre, etc */
 	name?: string;
 }
-
