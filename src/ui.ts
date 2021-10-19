@@ -2,7 +2,6 @@ import * as types from "./types";
 import * as world from "./world";
 import * as agent_manager from "./agent";
 import * as exec from "./execution_engine";
-import * as utility from "./utilities";
 
 var n:number = 6; // the size of the ui grid (n * n)
 export var sleepMove:number = 1000; //
@@ -89,14 +88,11 @@ export function activeAgentChange() {
 /**
  * Main fuunction to update the ui elements.
  * Shows the current state of the board and any changes made in the dropdowns or input boxes.
- * Executed every turn, calls the next turn if applicable
+ * Executed every turn
  * @param  {types.Agent[]} agentList - list of agents in the simulation
- * @param {types.Action[]} actionList - list of valid actions in the simulation
  * @param {types.SimLocation[]} locationList - list of locations in the simulation
- * @param {() => boolean} continueFunction - boolean function that is used as a check as to whether or not to keep running the sim
- * @param {boolean} movement - whether or not an agent moved
  */
-export function updateUI(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, movement:boolean){
+export function updateUI(agentList:types.Agent[], locationList:types.SimLocation[]){
   	showOnBrowser("time", world.TIME.toString());
 	clearBoard();
 	for (let location of locationList){
@@ -129,21 +125,11 @@ export function updateUI(agentList:types.Agent[], actionList:types.Action[], loc
 		showOnBrowser("financial", "");
 		showOnBrowser("accomplishment", "");
 	}
-	if (continueFunction()) {
-		if (movement) {
-			setTimeout(() => {exec.run_sim(agentList, actionList, locationList, continueFunction)}, sleepMove);
-		} else {
-			setTimeout(() => {exec.run_sim(agentList, actionList, locationList, continueFunction)}, sleepStill);
-		}
-	} else {
-		utility.log("Finished.");
-		utility.print();
-	}
 }
 
 
 window.onload = () => {
-  updateUI(world.agentList, world.actionList, world.locationList, agent_manager.allAgentsContent, false);
+  updateUI(world.agentList, world.locationList);
 	changeValueOnBrowser("sleepMove", sleepMove);
 	changeValueOnBrowser("sleepStill", sleepStill);
 	document.getElementById("sleepMove").addEventListener("input", inputSleepMove);
@@ -152,4 +138,5 @@ window.onload = () => {
 		addOption(agent.name);
 	}
 	document.getElementById("agent").addEventListener("change", activeAgentChange);
+	exec.run_sim(world.agentList, world.actionList, world.locationList, agent_manager.allAgentsContent);
 }
