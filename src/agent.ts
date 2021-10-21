@@ -7,6 +7,22 @@ import * as world from "./world";
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
+/**
+ * Gets the name of all the agents that have a specific relationship with this agent
+ * @param  {types.Agent} agent   the agent whose relationships has to be checked
+ * @param  {string}      relType the type of relationship to check for. Eg. sibling, romantic, etc
+ * @return {string[]}            list of all the agent names that match this criteria
+ */
+export function getAgentsWithRelationship(agent:types.Agent, relType: string): string[]{
+    let rels: types.Relationship[] = agent.relationships.filter((r:types.Relationship) => r.type === relType)
+    let people: string[] = rels.map((rel) => rel.with)
+
+    console.log(agent.name, "is ", relType, " with ", people);
+
+    return people;
+}
+
+
 
 /**
  * Iterates through all initiated agents in global agentList,

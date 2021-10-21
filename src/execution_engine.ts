@@ -9,9 +9,10 @@ const json_data = require("./data.json");
 
 world.loadActionsFromJSON(json_data['actions']);
 world.loadLocationsFromJSON(json_data['locations']);
-world.createRandomLocations(json_data['rand_locations'], json_data['grid_size']);
 world.loadAgentsFromJSON(json_data["agents"]);
-world.createRandomAgents(json_data["rand_agents"]);
+
+// world.createRandomLocations(json_data['rand_locations'], json_data['grid_size']);
+// world.createRandomAgents(json_data["rand_agents"]);
 
 /**
  * Executes a turn for each agent every tick.
@@ -42,6 +43,7 @@ export function run_sim(agentList:types.Agent[], actionList:types.Action[], loca
  */
 export function turn(agent:types.Agent):boolean {
 	var movement:boolean = false;
+
 	if (world.TIME%1200 == 0) {
 		if (!agent_manager.isContent(agent)) {
 			agent_manager.decrement_motives(agent);
@@ -68,6 +70,14 @@ export function turn(agent:types.Agent):boolean {
 	return movement;
 }
 
+
+export function tests():boolean{
+	return agent_manager.getAgentsWithRelationship(agent_manager.getAgentByName("Alice Doe"), "sibling") === ["Bob Doe"];
+}
+
+
+
+	
 
 
 

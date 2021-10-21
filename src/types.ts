@@ -319,6 +319,24 @@ export type Action = {
 /////////////// AGENTS /////////////////////////////////
 ////////////////////////////////////////////////////////
 
+/**
+ * Individual relationships held by an agent 
+ * An agent may have multiple relationships with the same person
+ * Eg. Alice may have a 'sibling' and 'friend' relationship with Bob
+ * @type {Object}
+ */
+export type Relationship = {
+	/** @type {string} Type of the relationship. Eg. sibling, romantic, friend, etc */
+	type: string;
+	
+	/** @type {string} Recipient of the relationship. Eg. Bob */
+	with: string;
+	
+	/** @type {string} Optional valence or strength of the relationship. */
+	valence?: number;
+}
+
+
 
 /**
  * Agent type 
@@ -347,6 +365,9 @@ export type Agent = {
 	 * @type {[type]}
 	 */
 	destination: SimLocation | null;
+
+	/** @type {Relationship[]} The relationships this agent has */
+	relationships: Relationship[];
 }
 
 // JSON agent type: currentAction:string is converted to currentAction:Action by parser
@@ -368,7 +389,9 @@ export type SerializableAgent = {
 	/** @type {string} name of the current action being executed by the agent */
 	currentAction: string,
 	/** @type {[type]} Location the agent is currently headed to */
-	destination: SimLocation | null
+	destination: SimLocation | null,
+	/** @type {Relationship[]} The relationships this agent has */
+	relationships: Relationship[];
 }
 
 

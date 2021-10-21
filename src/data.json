@@ -18,7 +18,11 @@
 			"destination": {
 				"xPos": 5,
 				"yPos": 5
-			}
+			},
+			"relationships": [
+				{ "type": "sibling", "with": "Bob Doe", "valence": 5 },
+				{ "type": "friend", "with": "Bob Doe", "valence": 5 }
+			]
 		},
 		{
 			"name": "Bob Doe",
@@ -38,7 +42,10 @@
 			"destination": {
 				"xPos": 0,
 				"yPos": 0
-			}
+			},
+			"relationships": [
+				{ "type": "sibling", "with": "Alice Doe"}
+			]
 		}
 	],
 	"actions": [

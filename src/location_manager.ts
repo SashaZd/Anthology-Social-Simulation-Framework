@@ -184,8 +184,8 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 	}
 
 	// Todo: relationshipsPresent
-	if(_locations.length > 0 && people_requirement.relationshipsPresent.length > 0){
-
+	if(_locations.length > 0 && people_requirement.relationshipsPresent){
+        // _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
 	}
 
 	// Todo: relationshipsAbsent
