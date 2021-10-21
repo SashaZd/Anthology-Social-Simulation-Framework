@@ -174,7 +174,7 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length + 1 <= people_requirement.maxNumPeople);
 	}
 
-    // Todo: get agent names for comparison not object
+    // Filtering for specificPeoplePresent
 	if(_locations.length > 0 && people_requirement.specificPeoplePresent){
 		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesAllOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeoplePresent));
 	}

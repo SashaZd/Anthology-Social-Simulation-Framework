@@ -14,7 +14,7 @@ import * as world from "./world";
  * @return {string[]}            list of all the agent names that match this criteria
  */
 export function getAgentsWithRelationship(agent:types.Agent, relType: string[]): string[]{
-    console.log(agent.name, relType)
+    // console.log(agent.name, relType)
 
     let rels: types.Relationship[] = agent.relationships.filter((r:types.Relationship) => relType.includes(r.type));
     let people: string[] = rels.map((rel) => rel.with)
