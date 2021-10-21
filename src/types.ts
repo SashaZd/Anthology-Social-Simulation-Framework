@@ -159,17 +159,17 @@ export type LocationReq = {
 	 * array of string tags that must be present in the location for the action to occur 
 	 * @type {string[]}
 	 */
-	hasAllOf: string[];
+	hasAllOf?: string[];
 	/**
 	 * array of string tags where at least one or more must be present in the location for the action to occur
 	 * @type {string[]}
 	 */
-	hasOneOrMoreOf: string[];
+	hasOneOrMoreOf?: string[];
 	/**
 	 * array of string tags that should not be present in the location for the action to occur 
 	 * @type {string[]}
 	 */
-	hasNoneOf: string[];
+	hasNoneOf?: string[];
 }
 
 // 
@@ -187,38 +187,40 @@ export type PeopleReq = {
 	 */
 	reqType: "people",
 	/**
-	 * Specifies the minimum number of people that must be present for this action to occur
+	 * Specifies the minimum number of people that must be present for this action to occur 
 	 * @type {number}
 	 */
-	minNumPeople: number,
+	minNumPeople?: number,
 	/**
 	 * Specifies the maximum number of people that must be present for this action to occur
 	 * @type {number}
 	 */
-	maxNumPeople: number,
+	maxNumPeople?: number,
 	/**
 	 * Array of agents that must be present for the action to be completed
+	 * List agents using their names (comma separated)
 	 * eg. A cook must be present at a restaurant for food to be served to a customer.
 	 * @type {Agent[]}
 	 */
-	specificPeoplePresent: Agent[],
+	specificPeoplePresent?: string[],
 	/**
 	 * Array of agents that must be absent for the action to be completed
+	 * List agents using their names (comma separated)
 	 * @type {Agent[]}
 	 */
-	specificPeopleAbsent: Agent[],
+	specificPeopleAbsent?: string[],
 	/**
 	 * Relationships that must occur between the participating agents in order for action to be executed
 	 * eg. [teacher, student] relationships for the action: "submit_homework"
 	 * @type {string[]}
 	 */
-	relationshipsPresent: string[],
+	relationshipsPresent?: string[],
 	/**
 	 * Relationships that must not occur between the participating agents in order for action to be executed
 	 * eg. [siblings] relationship for the action: "kiss_romantically"
 	 * @type {string[]}
 	 */
-	relationshipsAbsent: string[]
+	relationshipsAbsent?: string[]
 }
 
 
@@ -349,6 +351,7 @@ export type Agent = {
 	destination: SimLocation | null;
 }
 
+
 // JSON agent type: currentAction:string is converted to currentAction:Action by parser
 
 /**
@@ -357,16 +360,22 @@ export type Agent = {
  * @type {Object}
  */
 export type SerializableAgent = {
+	
 	/** @type {string} initialized to the name of the agent */
 	name: string,
+	
 	/** @type {Motive} motives initialized with values for the agent */
 	motive: Motive,
+	
 	/** @type {SimLocation} starting location initialized for the agent  */
 	currentLocation: SimLocation,
+	
 	/** @type {number} describes whether the agent is currently occupied */
 	occupiedCounter: number,
+	
 	/** @type {string} name of the current action being executed by the agent */
 	currentAction: string,
+	
 	/** @type {[type]} Location the agent is currently headed to */
 	destination: SimLocation | null
 }
@@ -390,10 +399,13 @@ export type SerializableAgent = {
 export type SimLocation = {
 	/** @type {number} x-coordinate of the location */
 	xPos: number;
+	
 	/** @type {number} y-coordinate of the location */
 	yPos: number;
+	
 	/** @type {string[]} optional list of tags associated with the location. Eg. Restaurant could have ['food', 'delivery'] as tags */
 	tags?: string[];
+	
 	/** @type {string} optional name of the location eg. Restaurant, Home, Movie Theatre, etc */
 	name?: string;
 }

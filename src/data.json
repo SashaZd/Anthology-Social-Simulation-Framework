@@ -21,6 +21,26 @@
 			}
 		},
 		{
+			"name": "Kevin",
+			"motive": {
+				"physical": 1,
+				"emotional": 1,
+				"social": 4,
+				"financial": 5,
+				"accomplishment": 3
+			},
+			"currentLocation": {
+				"xPos": 0,
+				"yPos": 0
+			},
+			"occupiedCounter": 0,
+			"currentAction": "wait_action",
+			"destination": {
+				"xPos": 5,
+				"yPos": 5
+			}
+		},
+		{
 			"name": "Bob Doe",
 			"motive": {
 				"physical": 5,
@@ -43,9 +63,9 @@
 	],
 	"actions": [
 	  {
-		"name": "eat_action",
+		"name": "eat_alone",
 		"requirements": [
-			{ "reqType":"location", "hasAllOf":["restaurant"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
+			{ "reqType":"location", "hasAllOf":["restaurant"]}
 		],
 		"effects": [
 			{"motive":"physical", "delta":2},
@@ -55,7 +75,20 @@
 		"time_min":     60
 	  },
 	  {
-	    "name": "movie_action",
+	    "name": "watch_movie_date",
+	    "requirements": [
+	    	{ "reqType":"location", "hasAllOf":["movie theatre"]},
+	    	{ "reqType":"people", "specificPeoplePresent":["Alice Doe","Bob Doe"]}
+    	],
+	    "effects": [
+	    	{"motive":"emotional", "delta":3},
+	    	{"motive":"social", "delta":2},
+	    	{"motive":"financial", "delta":-1}
+	    ],
+	    "time_min":     120
+	  },
+	  {
+	    "name": "watch_movie_alone",
 	    "requirements": [
 	    	{ "reqType":"location", "hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
     	],
@@ -64,6 +97,18 @@
 	    	{"motive":"financial", "delta":-1}
 	    ],
 	    "time_min":     120
+	  },
+	  {
+	    "name": "work_social_without_Bob",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":["employment"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+	    	{ "reqType":"people", "specificPeopleAbsent":["Bob Doe"], "minNumPeople":2}
+    	],
+	    "effects":      [
+	    	{"motive":"financial", "delta":1},
+	    	{"motive":"social", "delta":2}
+	    ],
+	    "time_min":     240
 	  },
 	  {
 	    "name": "work_action",
@@ -80,13 +125,6 @@
     	],
 	    "effects":      [{"motive":"accomplishment", "delta":2}],
 	    "time_min":     60
-	  },
-	  {
-	  	"name": "text_friend",
-	  	"requirements": [
-    	],
-	    "effects": [{"motive":"social", "delta":1}],
-	    "time_min":     10
 	  }
 	],
 	"locations": [

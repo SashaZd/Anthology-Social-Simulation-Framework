@@ -18,7 +18,7 @@ import * as world from "./world";
  * @param  {string} name - name of the agent to be retrieved
  * @returns {types.Agent} agent - returns the first agent that matches the name searched for
  */
-export function getAgentByName(name:string):types.Agent {
+export function getAgentByName(name: string):types.Agent {
 	if(name=="-None-"){
 		return null
 	}
@@ -34,6 +34,27 @@ export function getAgentByName(name:string):types.Agent {
 		return null
 	}
 }
+
+/**
+ * Get the names of all the agents in the list, and return it as a string[]
+ * @param  {types.Agent[]} agents List of agents 
+ * @return {string[]}             String[] list of all agent names
+ */
+export function getAgentNames(agents: types.Agent[]): string[]{
+	return agents.map(a => a.name);
+}
+
+
+// export function getAgentsByNames(names: string[]):types.Agent[] {
+// 	if(!names || names.length==0){
+// 		return []
+// 	}
+
+// 	let possible_agents = world.agentList.filter((a: types.Agent) => names.includes(a.name));
+	
+// 	return possible_agents
+// }
+
 
 
 /**
