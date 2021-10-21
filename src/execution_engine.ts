@@ -11,6 +11,7 @@ world.loadActionsFromJSON(json_data['actions']);
 world.loadLocationsFromJSON(json_data['locations']);
 world.loadAgentsFromJSON(json_data["agents"]);
 
+
 // world.createRandomLocations(json_data['rand_locations'], json_data['grid_size']);
 // world.createRandomAgents(json_data["rand_agents"]);
 

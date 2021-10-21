@@ -72,13 +72,11 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#allagentscontent" class="tsd-kind-icon">all<wbr>Agents<wbr>Content</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#decrement_motives" class="tsd-kind-icon">decrement_<wbr>motives</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#getagentbyname" class="tsd-kind-icon">get<wbr>Agent<wbr>ByName</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#getagentnames" class="tsd-kind-icon">get<wbr>Agent<wbr>Names</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#iscontent" class="tsd-kind-icon">is<wbr>Content</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#ismotivefull" class="tsd-kind-icon">is<wbr>Motive<wbr>Full</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#ismotivenotfull" class="tsd-kind-icon">is<wbr>Motive<wbr>Not<wbr>Full</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#selectnextactionforagent" class="tsd-kind-icon">select<wbr>Next<wbr>Action<wbr>For<wbr>Agent</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="agent.html#turn" class="tsd-kind-icon">turn</a></li>
 							</ul>
 						</section>
 					</div>
@@ -86,6 +84,30 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="allagentscontent" class="tsd-anchor"></a>
+					<h3>all<wbr>Agents<wbr>Content</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">all<wbr>Agents<wbr>Content<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/1fb71712/src/agent.ts#L66">agent.ts:66</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Stopping condition for the simulation
+									Stops the sim when all agents are content</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if the simulation cna continue; false if the simulation can stop</p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="decrement_motives" class="tsd-anchor"></a>
 					<h3>decrement_<wbr>motives</h3>
@@ -96,7 +118,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/agent.ts#L159">agent.ts:159</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/1fb71712/src/agent.ts#L105">agent.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -127,7 +149,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/agent.ts#L25">agent.ts:25</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/1fb71712/src/agent.ts#L21">agent.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -156,6 +178,38 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getagentnames" class="tsd-anchor"></a>
+					<h3>get<wbr>Agent<wbr>Names</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Agent<wbr>Names<span class="tsd-signature-symbol">(</span>agents<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/1fb71712/src/agent.ts#L43">agent.ts:43</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the names of all the agents in the list, and return it as a string[]</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>agents: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>List of agents</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>String[] list of all agent names</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="iscontent" class="tsd-anchor"></a>
 					<h3>is<wbr>Content</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -165,7 +219,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/agent.ts#L49">agent.ts:49</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/1fb71712/src/agent.ts#L90">agent.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -184,163 +238,6 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 							<p>true if agent has maximum motives; false if agent does not have maximum motives</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="ismotivefull" class="tsd-anchor"></a>
-					<h3>is<wbr>Motive<wbr>Full</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Motive<wbr>Full<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a>, motive<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="types.html#motive-2" class="tsd-signature-type" data-tsd-kind="Type alias">Motive</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/agent.ts#L65">agent.ts:65</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Checks to see whether a specific motive (with keyof type.Motive) of an agent is maximum or not.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>agent being checked or tested</p>
-									</div>
-								</li>
-								<li>
-									<h5>motive: <span class="tsd-signature-symbol">keyof </span><a href="types.html#motive-2" class="tsd-signature-type" data-tsd-kind="Type alias">Motive</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>type of motive (types.Motive) that is being checked to see if the value is maximum</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-							<p>true if the agent&#39;s motive is maximum; false if it is not</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="ismotivenotfull" class="tsd-anchor"></a>
-					<h3>is<wbr>Motive<wbr>Not<wbr>Full</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Motive<wbr>Not<wbr>Full<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a>, motive<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="types.html#motive-2" class="tsd-signature-type" data-tsd-kind="Type alias">Motive</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/agent.ts#L76">agent.ts:76</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Checks to see whether a specific motive (with keyof type.Motive) of an agent is not maxed out.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>agent being checked or tested</p>
-									</div>
-								</li>
-								<li>
-									<h5>motive: <span class="tsd-signature-symbol">keyof </span><a href="types.html#motive-2" class="tsd-signature-type" data-tsd-kind="Type alias">Motive</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>type of motive (types.Motive) that is being checked to see if the value is not maxed</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-							<p>true if the agent&#39;s motive is not maximum; false if it is</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="selectnextactionforagent" class="tsd-anchor"></a>
-					<h3>select<wbr>Next<wbr>Action<wbr>For<wbr>Agent</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">select<wbr>Next<wbr>Action<wbr>For<wbr>Agent<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>destination<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">; </span>selected_action<span class="tsd-signature-symbol">: </span><a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a><span class="tsd-signature-symbol"> }</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/agent.ts#L90">agent.ts:90</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Selects an action from a list of valid actions to be preformed by a specific agent.
-									Selects the action with the maximal utility of the agent (motive increase/time).</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>agent for whom the next action must be determined</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>destination<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">; </span>selected_action<span class="tsd-signature-symbol">: </span><a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a><span class="tsd-signature-symbol"> }</span></h4>
-							<p>selected_action - next action to be executed,
-							destination - the destination the agent must travel to for the action</p>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>destination<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>selected_<wbr>action<span class="tsd-signature-symbol">: </span><a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a></h5>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="turn" class="tsd-anchor"></a>
-					<h3>turn</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">turn<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a>, time<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/agent.ts#L175">agent.ts:175</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Updates movement and occupation counters for an agent.
-									May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>agent whose turn is being executed</p>
-									</div>
-								</li>
-								<li>
-									<h5>time: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the current time for log purposes</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-							<p>true if the agent is traveling; false if not. Used to determine the speed of the simulation</p>
 						</li>
 					</ul>
 				</section>
@@ -365,9 +262,6 @@
 						<a href="location_manager.html">location_<wbr>manager</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="main.html">main</a>
-					</li>
-					<li class=" tsd-kind-module">
 						<a href="types.html">types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -376,10 +270,16 @@
 					<li class=" tsd-kind-module">
 						<a href="utilities.html">utilities</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="world.html">world</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="agent.html#allagentscontent" class="tsd-kind-icon">all<wbr>Agents<wbr>Content</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="agent.html#decrement_motives" class="tsd-kind-icon">decrement_<wbr>motives</a>
 					</li>
@@ -387,19 +287,10 @@
 						<a href="agent.html#getagentbyname" class="tsd-kind-icon">get<wbr>Agent<wbr>ByName</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="agent.html#getagentnames" class="tsd-kind-icon">get<wbr>Agent<wbr>Names</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="agent.html#iscontent" class="tsd-kind-icon">is<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="agent.html#ismotivefull" class="tsd-kind-icon">is<wbr>Motive<wbr>Full</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="agent.html#ismotivenotfull" class="tsd-kind-icon">is<wbr>Motive<wbr>Not<wbr>Full</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="agent.html#selectnextactionforagent" class="tsd-kind-icon">select<wbr>Next<wbr>Action<wbr>For<wbr>Agent</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="agent.html#turn" class="tsd-kind-icon">turn</a>
 					</li>
 				</ul>
 			</nav>

@@ -1,6 +1,7 @@
 import * as types from "./types";
 import * as utility from "./utilities";
 import * as world from "./world";
+import * as agent_manager from "./agent";
 
 
 /**
@@ -164,32 +165,35 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 	var _locations: types.SimLocation[] = locations;
 
 	// Filtering for minNumPeople
-	if(_locations.length > 0 && people_requirement.minNumPeople > 1){
-		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length > people_requirement.minNumPeople-1);
+	if(_locations.length > 0 && people_requirement.minNumPeople){
+		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length + 1 >= people_requirement.minNumPeople);
 	}
 
 	// Filtering for maxNumPeople
-	if(_locations.length > 0 && people_requirement.maxNumPeople > 1){
-		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length < people_requirement.maxNumPeople-1);
+	if(_locations.length > 0 && people_requirement.maxNumPeople){
+		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length + 1 <= people_requirement.maxNumPeople);
 	}
 
 	// Filtering for specificPeoplePresent
-	if(_locations.length > 0 && people_requirement.specificPeoplePresent.length > 0){
-		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesAllOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
+
+
+    // Todo: get agent names for comparison not object
+	if(_locations.length > 0 && people_requirement.specificPeoplePresent){
+		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesAllOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeoplePresent));
 	}
 
 	// Filtering for specificPeopleAbsent
-	if(_locations.length > 0 && people_requirement.specificPeopleAbsent.length > 0){
-		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
+	if(_locations.length > 0 && people_requirement.specificPeopleAbsent){
+        _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeopleAbsent));
 	}
 
 	// Todo: relationshipsPresent
 	if(_locations.length > 0 && people_requirement.relationshipsPresent){
-        // _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
+
 	}
 
 	// Todo: relationshipsAbsent
-	if(_locations.length > 0 && people_requirement.relationshipsAbsent.length > 0){
+	if(_locations.length > 0 && people_requirement.relationshipsAbsent){
 
 	}
 
