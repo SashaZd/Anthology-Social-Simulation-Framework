@@ -18,7 +18,8 @@
 			"destination": {
 				"xPos": 5,
 				"yPos": 5
-			}
+			},
+			"currentTargets":[]
 		},
 		{
 			"name": "Bob Doe",
@@ -38,7 +39,8 @@
 			"destination": {
 				"xPos": 0,
 				"yPos": 0
-			}
+			},
+			"currentTargets":[]
 		}
 	],
 	"actions": [
@@ -91,23 +93,23 @@
 	],
 	"locations": [
 		{
-			"name": "restaurant", 
-			"xPos": 5, "yPos": 5, 
+			"name": "restaurant",
+			"xPos": 5, "yPos": 5,
 			"tags": ["restaurant"]
 		},
 		{
-			"name": "movie theatre", 
-			"xPos": 0, "yPos": 5, 
+			"name": "movie theatre",
+			"xPos": 0, "yPos": 5,
 			"tags": ["movie theatre"]
 		},
 		{
-			"name": "office", 
-			"xPos": 2, "yPos": 3, 
+			"name": "office",
+			"xPos": 2, "yPos": 3,
 			"tags": ["employment"]
 		},
 		{
-			"name": "art studio", 
-			"xPos": 5, "yPos": 0, 
+			"name": "art studio",
+			"xPos": 5, "yPos": 0,
 			"tags": ["art"]
 		}
 	],

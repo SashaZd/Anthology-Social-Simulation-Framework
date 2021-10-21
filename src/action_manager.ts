@@ -81,9 +81,19 @@ export function execute_action(agent: types.Agent): void {
 		var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
 		agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
 	}
+	if (agent.currentAction?.targetEffects) {
+		for (var targ of agent.currentTargets) {
+			for (var eachEffect of agent.currentAction.targetEffects) {
+				var _delta: number = eachEffect.delta;
+				var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
+				targ.motive[_motivetype] = utility.clamp(targ.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
+			}
+		}
+	}
 	utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + agent.currentAction.name);
 
 	agent.currentAction = getActionByName("wait_action");
+	agent.currentTargets = [];
 }
 
 // export function nextAction(agent:types.Agent){
@@ -110,6 +120,15 @@ export function start_action(agent: types.Agent, selected_action: types.Action, 
 	// if (isActionRequirementSatisfied(selected_action, agent)){
 		agent.currentAction = selected_action;
 		agent.occupiedCounter = selected_action.time_min;
+		if (selected_action?.target) {
+			var actionTargets: types.Agent[] = [];
+			for (var eachAgent of world.agentList) {
+				if (location_manager.isAgentAtLocation(eachAgent, agent.currentLocation)) {
+					actionTargets.push(eachAgent);
+				}
+			}
+			agent.currentTargets = actionTargets;
+		}
 		utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
 	}
 }

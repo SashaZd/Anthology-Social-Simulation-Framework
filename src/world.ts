@@ -117,7 +117,7 @@ export function createRandomAgents(agent_json:number): void {
 				yPos: utility.getRandomInt(0,n)
 			};
 		let possible_action: types.Action = actionList.filter((action: types.Action) => action.name === "wait_action")[0] as types.Action;
-		let agent:types.Agent = {name:name, motive:motive, currentLocation:currentLocation, occupiedCounter:0, currentAction:possible_action, destination:null};
+		let agent:types.Agent = {name:name, motive:motive, currentLocation:currentLocation, occupiedCounter:0, currentAction:possible_action, destination:null, currentTargets:[]};
 		agentList.push(agent);
 	}
 	console.log("agents: ", agentList);

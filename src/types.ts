@@ -336,13 +336,13 @@ export enum TargetType {
 	 * this can be used for an action such as asking a strnager for directions
 	 * @type {String}
 	 */
-	randomPresent = "randomPresent",
-  /**
-	 * a single, random agent from anywhere in the simulation recieves the target effects
-	 * this can be used for an action that involves inviting an agent to do something (TENTATIVE)
-	 * @type {String}
-	 */
-	random = "random"
+	randomPresent = "randomPresent"//,
+  // /**
+	//  * a single, random agent from anywhere in the simulation recieves the target effects
+	//  * this can be used for an action that involves inviting an agent to do something (TENTATIVE)
+	//  * @type {String}
+	//  */
+	// random = "random"
 }
 
 // General action type.
@@ -421,6 +421,12 @@ export type Agent = {
 	 * @type {[type]}
 	 */
 	destination: SimLocation | null;
+
+  /**
+   * list of targets for the agent's current action
+   * @type {Agent[]}
+   */
+  currentTargets: Agent[];
 }
 
 // JSON agent type: currentAction:string is converted to currentAction:Action by parser
@@ -442,7 +448,12 @@ export type SerializableAgent = {
 	/** @type {string} name of the current action being executed by the agent */
 	currentAction: string,
 	/** @type {[type]} Location the agent is currently headed to */
-	destination: SimLocation | null
+	destination: SimLocation | null,
+  /**
+   * list of targets for the agent's current action
+   * @type {Agent[]}
+   */
+  currentTargets: Agent[]
 }
 
 
