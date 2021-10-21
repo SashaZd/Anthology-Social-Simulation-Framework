@@ -174,9 +174,6 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length + 1 <= people_requirement.maxNumPeople);
 	}
 
-	// Filtering for specificPeoplePresent
-
-
     // Todo: get agent names for comparison not object
 	if(_locations.length > 0 && people_requirement.specificPeoplePresent){
 		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesAllOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeoplePresent));
@@ -187,14 +184,16 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
         _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeopleAbsent));
 	}
 
-	// Todo: relationshipsPresent
+    // Filtering for specific relationships present
 	if(_locations.length > 0 && people_requirement.relationshipsPresent){
-
+        let checkFor:string[] = agent_manager.getAgentsWithRelationship(agent, people_requirement.relationshipsPresent)
+        _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesSomeOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), checkFor));
 	}
 
 	// Todo: relationshipsAbsent
+    // Something I'm not seeing here...
 	if(_locations.length > 0 && people_requirement.relationshipsAbsent){
-
+        // _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), agent_manager.getAgentsWithRelationship(agent, people_requirement.relationshipsAbsent)));
 	}
 
 	return _locations

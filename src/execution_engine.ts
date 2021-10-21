@@ -72,9 +72,9 @@ export function turn(agent:types.Agent):boolean {
 }
 
 
-export function tests():boolean{
-	return agent_manager.getAgentsWithRelationship(agent_manager.getAgentByName("Alice Doe"), "sibling") === ["Bob Doe"];
-}
+// export function tests():boolean{
+// 	return agent_manager.getAgentsWithRelationship(agent_manager.getAgentByName("Alice Doe"), "sibling") === ["Bob Doe"];
+// }
 
 
 

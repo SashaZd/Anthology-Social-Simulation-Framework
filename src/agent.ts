@@ -13,12 +13,11 @@ import * as world from "./world";
  * @param  {string}      relType the type of relationship to check for. Eg. sibling, romantic, etc
  * @return {string[]}            list of all the agent names that match this criteria
  */
-export function getAgentsWithRelationship(agent:types.Agent, relType: string): string[]{
-    let rels: types.Relationship[] = agent.relationships.filter((r:types.Relationship) => r.type === relType)
+export function getAgentsWithRelationship(agent:types.Agent, relType: string[]): string[]{
+    console.log(agent.name, relType)
+
+    let rels: types.Relationship[] = agent.relationships.filter((r:types.Relationship) => relType.includes(r.type));
     let people: string[] = rels.map((rel) => rel.with)
-
-    console.log(agent.name, "is ", relType, " with ", people);
-
     return people;
 }
 

@@ -125,7 +125,7 @@ export function arrayIncludesNoneOf(arr:any[], other:any[]): boolean{
  */
 export function arrayIncludesSomeOf(arr:any[], other:any[]): boolean{
 	if(!other || other.length == 0)
-		return true
+		return false;
 	return other.some(v => arr.includes(v));
 }
 

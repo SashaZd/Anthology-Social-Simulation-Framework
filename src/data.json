@@ -45,7 +45,7 @@
 			},
 			"relationships": [
 				{ "type": "friend", "with": "Alice Doe", "valence": 5 },
-				{ "type": "friend", "with": "Bob Doe", "valence": 5 }
+				{ "type": "enemy", "with": "Bob Doe", "valence": 5 }
 			]
 		},
 		{
@@ -132,9 +132,19 @@
 	  {
 	    "name": "hobby_action",
 	    "requirements": [
-	    	{"reqType":"location", "hasAllOf":[], "hasOneOrMoreOf":["art","music"], "hasNoneOf":[]}
+	    	{"reqType":"location", "hasAllOf":[], "hasOneOrMoreOf":["art","music"], "hasNoneOf":[]},
+	    	{ "reqType":"people", "relationshipsAbsent":["sibling"]}
     	],
-	    "effects":      [{"motive":"accomplishment", "delta":2}],
+	    "effects":      [{"motive":"accomplishment", "delta":1}],
+	    "time_min":     60
+	  },
+	  {
+	    "name": "hate_art",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":[], "hasOneOrMoreOf":["art","music"], "hasNoneOf":[]},
+	    	{ "reqType":"people", "relationshipsPresent":["enemy"]}
+    	],
+	    "effects":      [{"motive":"accomplishment", "delta":3}],
 	    "time_min":     60
 	  }
 	],
