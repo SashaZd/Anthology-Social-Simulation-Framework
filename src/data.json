@@ -76,6 +76,17 @@
 	    "time_min":     240
 	  },
 	  {
+	    "name": "work_social_action",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":["employment"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
+    	],
+	    "effects":      [{"motive":"financial", "delta":1},
+			     {"motive":"social", "delta":1}],
+	    "time_min":     240,
+	    "target": "all",
+	    "targetEffects": [{"motive":"social", "delta":1}]
+	  },
+	  {
 	    "name": "hobby_action",
 	    "requirements": [
 	    	{"reqType":"location", "hasAllOf":[], "hasOneOrMoreOf":["art","music"], "hasNoneOf":[]}

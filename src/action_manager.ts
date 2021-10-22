@@ -81,6 +81,7 @@ export function execute_action(agent: types.Agent): void {
 		var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
 		agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
 	}
+	utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + agent.currentAction.name);
 	if (agent.currentAction?.targetEffects) {
 		for (var targ of agent.currentTargets) {
 			for (var eachEffect of agent.currentAction.targetEffects) {
@@ -88,9 +89,9 @@ export function execute_action(agent: types.Agent): void {
 				var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
 				targ.motive[_motivetype] = utility.clamp(targ.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
 			}
+			utility.log("time: " + world.TIME.toString() + " | " + targ.name + ": Affected by " + agent.currentAction.name);
 		}
 	}
-	utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + agent.currentAction.name);
 
 	agent.currentAction = getActionByName("wait_action");
 	agent.currentTargets = [];
