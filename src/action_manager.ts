@@ -144,6 +144,7 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 
 		let location_requirement: types.LocationReq[] = getRequirementByType(each_action, types.ReqType.location) as types.LocationReq[];
 		let people_requirement: types.PeopleReq[] = getRequirementByType(each_action, types.ReqType.people) as types.PeopleReq[];
+		let relationship_requirement: types.RelationshipReq[] = getRequirementByType(each_action, types.ReqType.people) as types.RelationshipReq[];
 		let motive_requirements: types.MotiveReq[] = getRequirementByType(each_action, types.ReqType.motive) as types.MotiveReq[];
 
 		if(location_requirement.length > 0){
@@ -157,6 +158,10 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 		// Todo: If no location possible with PeopleReq, invite people?
 		if(possible_locations.length > 0 && people_requirement.length > 0){
 			possible_locations = location_manager.locationsSatisfyingPeopleRequirement(agent, possible_locations, people_requirement[0]);
+		}
+
+		if(possible_locations.length > 0 && people_requirement.length > 0){
+			possible_locations = location_manager.locationsSatisfyingRelationshipRequirement(agent, possible_locations, relationship_requirement[0]);
 		}
 
 		if(possible_locations.length > 0 && motive_requirements.length > 0){

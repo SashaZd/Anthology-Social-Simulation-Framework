@@ -184,9 +184,23 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
         _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeopleAbsent));
 	}
 
-    // Filtering for specific relationships present
-	if(_locations.length > 0 && people_requirement.relationshipsPresent){
-        let checkFor:string[] = agent_manager.getAgentsWithRelationship(agent, people_requirement.relationshipsPresent)
+	return _locations
+}
+
+
+/**
+ * Check if locations satisfy the relatioship requirement
+ * @param  {types.Agent}           agent                    agent for which this requirement must be satisfied
+ * @param  {types.SimLocation[]}   locations                a list of locations to test 
+ * @param  {types.RelationshipReq} relationship_requirement relationship requiremnt whose preconditions must be satisfied
+ * @return {types.SimLocation[]}                            returns a list of locations that satisfy this requirement
+ */
+export function locationsSatisfyingRelationshipRequirement(agent:types.Agent, locations:types.SimLocation[], relationship_requirement:types.RelationshipReq): types.SimLocation[] {
+	var _locations: types.SimLocation[] = locations;
+
+	// Filtering for specific relationships present
+	if(_locations.length > 0 && relationship_requirement.relationshipsPresent){
+        let checkFor:string[] = agent_manager.getAgentsWithRelationship(agent, relationship_requirement.relationshipsPresent)
 
         if(checkFor.length>0){
             _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesSomeOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), checkFor));
@@ -194,13 +208,11 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
         else{
             _locations = []
         }
-
 	}
 
-	// Todo: relationshipsAbsent
-    // Something I'm not seeing here...
-	if(_locations.length > 0 && people_requirement.relationshipsAbsent){
-        _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), agent_manager.getAgentsWithRelationship(agent, people_requirement.relationshipsAbsent)));
+	// Filtering for specific relationships absent
+	if(_locations.length > 0 && relationship_requirement.relationshipsAbsent){
+        _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), agent_manager.getAgentsWithRelationship(agent, relationship_requirement.relationshipsAbsent)));
 	}
 
 	return _locations

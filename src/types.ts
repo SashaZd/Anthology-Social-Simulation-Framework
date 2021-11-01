@@ -175,8 +175,33 @@ export type LocationReq = {
 // 
 // eg: must be with a sepcific person
 
+export type SocialReq = PeopleReq | RelationshipReq;
+
+
+export type RelationshipReq = {
+
+	/**
+	 * Defines the type of this requirement to be a relatioship requirement
+	 */
+	reqType: "relationship",
+
+	/**
+	 * Relationships that must occur between the participating agents in order for action to be executed
+	 * eg. [teacher, student] relationships for the action: "submit_homework"
+	 * @type {string[]}
+	 */
+	relationshipsPresent?: string[],
+	/**
+	 * Relationships that must not occur between the participating agents in order for action to be executed
+	 * eg. [siblings] relationship for the action: "kiss_romantically"
+	 * @type {string[]}
+	 */
+	relationshipsAbsent?: string[]
+}
+
+
 /**
- * People Requirement
+ * Agent Requirement
  * Requirements on who is or must be present for an action.
  * eg: minNumPeople:2 implies that at least 2 people must be present for this action to occur
  * @type {Object.<string, string | string[] | Agent[] | number>}
@@ -185,14 +210,14 @@ export type PeopleReq = {
 	/**
 	 * Defines the type of this requirement to be a People Requirement
 	 */
-	reqType: "people",
+	reqType: "agent",
 	/**
-	 * Specifies the minimum number of people that must be present for this action to occur 
+	 * Specifies the minimum number of people that must be present for this action to occur (including this agent)
 	 * @type {number}
 	 */
 	minNumPeople?: number,
 	/**
-	 * Specifies the maximum number of people that must be present for this action to occur
+	 * Specifies the maximum number of people that must be present for this action to occur (including this agent)
 	 * @type {number}
 	 */
 	maxNumPeople?: number,
@@ -208,19 +233,7 @@ export type PeopleReq = {
 	 * List agents using their names (comma separated)
 	 * @type {Agent[]}
 	 */
-	specificPeopleAbsent?: string[],
-	/**
-	 * Relationships that must occur between the participating agents in order for action to be executed
-	 * eg. [teacher, student] relationships for the action: "submit_homework"
-	 * @type {string[]}
-	 */
-	relationshipsPresent?: string[],
-	/**
-	 * Relationships that must not occur between the participating agents in order for action to be executed
-	 * eg. [siblings] relationship for the action: "kiss_romantically"
-	 * @type {string[]}
-	 */
-	relationshipsAbsent?: string[]
+	specificPeopleAbsent?: string[]
 }
 
 
@@ -258,7 +271,7 @@ export type MotiveReq = {
  * Union type of Location Requirements, People Requirements or Motive Requirements
  * @type {LocationReq | PeopleReq | MotiveReq}
  */
-export type Requirement = LocationReq | PeopleReq | MotiveReq;
+export type Requirement = LocationReq | SocialReq | MotiveReq;
 
 
 /**
