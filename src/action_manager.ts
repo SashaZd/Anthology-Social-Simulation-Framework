@@ -155,9 +155,11 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 	var current_choice:types.Action = getActionByName("wait_action");
 	var current_destination:types.SimLocation = null;
 
+	var action_select_log:string[] = [];
+
 	// Finds the utility for each action to the given agent
 	for (var each_action of world.actionList){
-		utility.log("Action: " + each_action.name);
+		action_select_log.push("Action: " + each_action.name);
 
 		// var nearest_location:types.SimLocation = null;
 		var travel_time:number = 0;
@@ -180,7 +182,7 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 		if(possible_locations.length > 0 && people_requirement.length > 0){
 			possible_locations = location_manager.locationsSatisfyingPeopleRequirement(agent, possible_locations, people_requirement[0]);
 		} else if (possible_locations.length <= 0) {
-			utility.log("Action did not pass location requirement");
+			action_select_log.push("Action did not pass location requirement");
 		}
 
 		// If there is still a valid location, and there is a motive requiremnt, evaluate
@@ -228,7 +230,7 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 			   }
 			}
 		} else if (possible_locations.length <= 0) {
-			utility.log("Action did not pass people requirement");
+			action_select_log.push("Action did not pass people requirement");
 		}
 
 		// If there is a location possible that meets all the requriements
@@ -240,9 +242,9 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 
 			// adjust for time (including travel time)
 			var delta_utility: number = getEffectDeltaForAgentAction(agent, each_action);
-			utility.log("Action Utility: " + delta_utility);
+			action_select_log.push("Action Utility: " + delta_utility);
 			delta_utility = delta_utility/(each_action.time_min + travel_time);
-			utility.log("Action Weighted Utility: " + delta_utility);
+			action_select_log.push("Action Weighted Utility: " + delta_utility);
 
 
 			if (delta_utility > max_delta_utility) {
@@ -251,17 +253,18 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 				current_destination = nearest_location;
 			}
 
-			utility.log("Current Choice: " + current_choice.name);
+			action_select_log.push("Current Choice: " + current_choice.name);
 			if (current_destination) {
-				utility.log("Current Destination: " + current_destination.name);
+				action_select_log.push("Current Destination: " + current_destination.name);
 			} else {
-				utility.log("Current Destination: null");
+				action_select_log.push("Current Destination: null");
 			}
 
 		} else if (possible_locations.length <= 0) {
-			utility.log("Action did not pass motive requirement");
+			action_select_log.push("Action did not pass motive requirement");
 		}
 	}
+	console.log("Action Selection Log: ", action_select_log);
 
 	if (current_destination != null && !location_manager.isAgentAtLocation(agent, current_destination)) {
 		agent.currentAction = getActionByName("travel_action");
