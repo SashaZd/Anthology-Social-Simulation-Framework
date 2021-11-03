@@ -116,31 +116,31 @@ export const motiveTypes: string[] = Object.keys(MotiveType).filter(k => typeof 
 export type BinOp = "equals" | "gt" | "lt" | "geq" | "leq";
 
 
-// Three types of requirements
-// export type ReqType = "location" | "people" | "motive"; 
+// // Three types of requirements
+// // export type ReqType = "location" | "people" | "motive"; 
 
-/**
- * Enum Requirement Type 
- * Consists of three types of requirements 
- * Unnecessary, to be removed
- */
-export enum ReqType {
-	/**
-	 * Indicates that a Location requirement
-	 * @type {String}
-	 */
-	location = "location",
-	/**
-	 * Indicates that a People requirement
-	 * @type {String}
-	 */
-	people = "people",
-	/**
-	 * Indicates that a Motive requirement
-	 * @type {String}
-	 */
-	motive = "motive"
-}
+// /**
+//  * Enum Requirement Type 
+//  * Consists of three types of requirements 
+//  * Unnecessary, to be removed
+//  */
+// export enum ReqType {
+// 	*
+// 	 * Indicates that a Location requirement
+// 	 * @type {String}
+	 
+// 	location = "location",
+// 	/**
+// 	 * Indicates that a People requirement
+// 	 * @type {String}
+// 	 */
+// 	people = "people",
+// 	/**
+// 	 * Indicates that a Motive requirement
+// 	 * @type {String}
+// 	 */
+// 	motive = "motive"
+// }
 
 
 /**
