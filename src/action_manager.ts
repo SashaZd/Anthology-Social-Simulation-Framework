@@ -144,7 +144,7 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 
 		let location_requirement: types.LocationReq[] = getRequirementByType(each_action, types.ReqType.location) as types.LocationReq[];
 		let people_requirement: types.PeopleReq[] = getRequirementByType(each_action, types.ReqType.people) as types.PeopleReq[];
-		let relationship_requirement: types.RelationshipReq[] = getRequirementByType(each_action, types.ReqType.people) as types.RelationshipReq[];
+		let relationship_requirement: types.RelationshipReq[] = getRequirementByType(each_action, types.ReqType.relationship) as types.RelationshipReq[];
 		let motive_requirements: types.MotiveReq[] = getRequirementByType(each_action, types.ReqType.motive) as types.MotiveReq[];
 
 		if(location_requirement.length > 0){

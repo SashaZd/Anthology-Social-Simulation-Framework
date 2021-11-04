@@ -191,7 +191,7 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 /**
  * Check if locations satisfy the relatioship requirement
  * @param  {types.Agent}           agent                    agent for which this requirement must be satisfied
- * @param  {types.SimLocation[]}   locations                a list of locations to test 
+ * @param  {types.SimLocation[]}   locations                a list of locations to test
  * @param  {types.RelationshipReq} relationship_requirement relationship requiremnt whose preconditions must be satisfied
  * @return {types.SimLocation[]}                            returns a list of locations that satisfy this requirement
  */
@@ -199,7 +199,7 @@ export function locationsSatisfyingRelationshipRequirement(agent:types.Agent, lo
 	var _locations: types.SimLocation[] = locations;
 
 	// Filtering for specific relationships present
-	if(_locations.length > 0 && relationship_requirement.relationshipsPresent){
+	if(_locations.length > 0 && relationship_requirement?.relationshipsPresent){
         let checkFor:string[] = agent_manager.getAgentsWithRelationship(agent, relationship_requirement.relationshipsPresent)
 
         if(checkFor.length>0){
@@ -211,7 +211,7 @@ export function locationsSatisfyingRelationshipRequirement(agent:types.Agent, lo
 	}
 
 	// Filtering for specific relationships absent
-	if(_locations.length > 0 && relationship_requirement.relationshipsAbsent){
+	if(_locations.length > 0 && relationship_requirement?.relationshipsAbsent){
         _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), agent_manager.getAgentsWithRelationship(agent, relationship_requirement.relationshipsAbsent)));
 	}
 
@@ -274,6 +274,6 @@ export function startTravelToLocation(agent: types.Agent, destination: types.Sim
 // 		return possible_locations[0]
 
 // 	// returns false if there is no listed action with this name
-// 	utility.log("getLocationByName => Couldn't find location with name: ", name);	
+// 	utility.log("getLocationByName => Couldn't find location with name: ", name);
 // 	return null
 // }
