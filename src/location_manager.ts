@@ -106,17 +106,64 @@ export function getListedLocationFromCoords(location:types.SimLocation): types.S
 export function getNearestLocationFromOther(locations:types.SimLocation[], other:types.SimLocation): types.SimLocation {
 	let closest:types.SimLocation = locations.reduce((a, b) => {
 		let aDiff = getManhattanDistance(other,a);
-        let bDiff = getManhattanDistance(other, b);
+		let bDiff = getManhattanDistance(other, b);
 
-        // Check if the points are equidistant, if so, return one at random
-        if (aDiff == bDiff)
-        	return Math.random() < 0.5 ? a : b;
+		// Check if the points are equidistant, if so, return one at random
+		if (aDiff == bDiff)
+			return Math.random() < 0.5 ? a : b;
 
-	    // else return whichever is closer
-	    return  aDiff < bDiff ? a : b;
+		// else return whichever is closer
+		return  aDiff < bDiff ? a : b;
 	});
 	return closest;
 }
+
+
+export function locationsSatisfyingMotiveRequirement(agent:types.Agent, possible_locations:types.SimLocation[], motive_requirements:types.MotiveReq[]): types.SimLocation[]{
+	for (var motive_requirement of motive_requirements){
+		switch(motive_requirement.op) {
+			case "equals": {
+				if (!(agent.motive[motive_requirement.motive] == motive_requirement.thresh)) {
+					return []
+				}
+				break;
+			}
+			case "lt": {
+				if (!(agent.motive[motive_requirement.motive] < motive_requirement.thresh)) {
+					return []
+				}
+				break;
+			}
+			case "gt": {
+				if (!(agent.motive[motive_requirement.motive] > motive_requirement.thresh)) {
+					return []
+				}
+				break;
+			}
+			case "leq": {
+				if (!(agent.motive[motive_requirement.motive] <= motive_requirement.thresh)) {
+					return []
+				}
+				break;
+			}
+			case "geq": {
+				if (!(agent.motive[motive_requirement.motive] >= motive_requirement.thresh)) {
+					return []
+				}
+				break;
+			}
+			default: {
+				if (!(agent.motive[motive_requirement.motive] == motive_requirement.thresh)) {
+					return []
+				}
+				break;
+			}
+		}
+	}
+	return possible_locations
+}
+
+
 
 
 /**

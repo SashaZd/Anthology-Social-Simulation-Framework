@@ -73,17 +73,20 @@ export function getEffectDeltaForAgentAction(agent: types.Agent, action: types.A
 export function execute_action(agent: types.Agent): void {
 	agent.destination = null;
 	agent.occupiedCounter = 0;
-	// agent.currentAction = null;
+	
 
 	// apply each effect of the action by updating the agent's motives
-	for (var eachEffect of agent.currentAction.effects) {
-		var _delta: number = eachEffect.delta;
-		var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
-		agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
+	if (agent.currentAction.length > 0){
+		let action:types.Action = agent.currentAction.pop();
+		for (var eachEffect of action.effects) {
+			var _delta: number = eachEffect.delta;
+			var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
+			agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
+		}		
+		utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + action.name);
 	}
-	utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + agent.currentAction.name);
 
-	agent.currentAction = getActionByName("wait_action");
+	// agent.currentAction = getActionByName("wait_action");
 }
 
 // export function nextAction(agent:types.Agent){
@@ -95,7 +98,8 @@ export function execute_action(agent: types.Agent): void {
 
 
 /**
- * Starts an action (if the agent is at location), or makes the agent begin travel to a location where the action can be performed.
+ * Starts an action (if the agent is at location where the action can be performed)
+ * else makes the agent travel to the location selected to perform the action
  *
  * @param {types.Agent} agent - agent starting the action
  * @param {types.Action} selected_action - action being started
@@ -165,44 +169,7 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 		// If the condition is violated, the empty list will cause the action not to be considered valid
 		// otherwise nothing happens.
 		if(possible_locations.length > 0 && motive_requirements.length > 0){
-			switch(motive_requirements[0].op) {
-			   case "equals": {
-					 if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-			   case "lt": {
-					 if (!(agent.motive[motive_requirements[0].motive] < motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "gt": {
-					 if (!(agent.motive[motive_requirements[0].motive] > motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "leq": {
-					 if (!(agent.motive[motive_requirements[0].motive] <= motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "geq": {
-					 if (!(agent.motive[motive_requirements[0].motive] >= motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-			   default: {
-			      if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
-							possible_locations = [];
-						}
-			      break;
-			   }
-			}
+			possible_locations = location_manager.locationsSatisfyingMotiveRequirement(agent, possible_locations, motive_requirements)
 		}
 
 		// If there is a location possible that meets all the requriements
@@ -216,11 +183,11 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 			var delta_utility: number = getEffectDeltaForAgentAction(agent, each_action);
 			delta_utility = delta_utility/(each_action.time_min + travel_time);
 
-			if (delta_utility > max_delta_utility) {
+			if((delta_utility == max_delta_utility && utility.withProbability(0.5)) || delta_utility > max_delta_utility){
 				max_delta_utility = delta_utility;
 				current_choice = each_action;
 				current_destination = nearest_location;
-			}
+			}		
 		}
 	}
 
