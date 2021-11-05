@@ -11,6 +11,10 @@ world.loadActionsFromJSON(json_data['actions']);
 world.loadLocationsFromJSON(json_data['locations']);
 world.loadAgentsFromJSON(json_data["agents"]);
 
+
+// world.createRandomLocations(json_data['rand_locations'], json_data['grid_size']);
+// world.createRandomAgents(json_data["rand_agents"]);
+
 /**
  * Executes a turn for each agent every tick.
  * Executes a single turn and then is called from ui for the next, no more loop
@@ -40,6 +44,7 @@ export function run_sim(agentList:types.Agent[], actionList:types.Action[], loca
  */
 export function turn(agent:types.Agent):boolean {
 	var movement:boolean = false;
+
 	if (world.TIME%1200 == 0) {
 		if (!agent_manager.isContent(agent)) {
 			agent_manager.decrement_motives(agent);
@@ -62,10 +67,18 @@ export function turn(agent:types.Agent):boolean {
 			action_manager.execute_action(agent);
 			action_manager.selectNextActionForAgent(agent);
 		}
-  	}
-  	return movement;
+	}
+	return movement;
 }
 
+
+// export function tests():boolean{
+// 	return agent_manager.getAgentsWithRelationship(agent_manager.getAgentByName("Alice Doe"), "sibling") === ["Bob Doe"];
+// }
+
+
+
+	
 
 
 

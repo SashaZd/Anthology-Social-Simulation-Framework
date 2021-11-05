@@ -61,11 +61,12 @@
 				<p>!! Install dependencies: </p>
 				<p>(Needed to use sudo on the mac to make sure they could be called globally since that&#39;s not the default)</p>
 				<ul>
-					<li>npm init</li>
+					<li>make sure you have both Node (<a href="https://nodejs.org/en/">https://nodejs.org/en/</a>) and NPM (<a href="https://www.npmjs.com/">https://www.npmjs.com/</a>) installed on your machine</li>
 					<li>brew install node</li>
+					<li>npm init</li>
 					<li>node -v </li>
 					<li>npm -v</li>
-					<li>sudo npm install --save-dev typescript <a href="mailto:gulp@4.0.0">gulp@4.0.0</a> gulp-typescript</li>
+					<li>sudo npm install --save-dev typescript gulp gulp-typescript</li>
 					<li>sudo npm install gulp -g</li>
 					<li>sudo npm install --save-dev browserify tsify vinyl-source-stream</li>
 					<li>sudo npm install --save-dev watchify fancy-log</li>
@@ -78,7 +79,14 @@
 				<p>!! Generate Documentation
 				To generate documentation use tsdoc to add doc comments to the code </p>
 				<p>If there&#39;s a new TS module, add the file to the tsconfig.json files list. Then run </p>
-				<p>$ npx typedoc src/*.ts</p>
+				<p>$ npx typedoc src/*.ts </p>
+				<p>!! Check for unused code</p>
+				<p>To find unused methods: </p>
+				<p>$ ts-prune -p tsconfig.ts-prune.json | grep -v &#39;used in module&#39;</p>
+				<p>To generate the Dependency Graph </p>
+				<p>$ depcruise --include-only &quot;^src&quot; --output-type dot src | dot -T svg &gt; dependencygraph.svg</p>
+				<p>or </p>
+				<p>$ npx depcruise --include-only &quot;^src&quot; --output-type dot src &gt; dependency.dot</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -100,9 +108,6 @@
 						<a href="modules/location_manager.html">location_<wbr>manager</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/main.html">main</a>
-					</li>
-					<li class=" tsd-kind-module">
 						<a href="modules/types.html">types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -110,6 +115,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/utilities.html">utilities</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/world.html">world</a>
 					</li>
 				</ul>
 			</nav>

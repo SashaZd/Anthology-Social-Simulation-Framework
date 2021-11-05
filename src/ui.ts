@@ -2,6 +2,7 @@ import * as types from "./types";
 import * as world from "./world";
 import * as agent_manager from "./agent";
 import * as exec from "./execution_engine";
+import * as utility from "./utilities";
 
 var n:number = 6; // the size of the ui grid (n * n)
 export var sleepMove:number = 1000; //
@@ -135,7 +136,8 @@ export function updateUI(agentList:types.Agent[], actionList:types.Action[], loc
 			setTimeout(() => {exec.run_sim(agentList, actionList, locationList, continueFunction)}, sleepStill);
 		}
 	} else {
-		console.log("Finished.");
+		utility.log("Finished.");
+		utility.print();
 	}
 }
 
