@@ -119,53 +119,6 @@ export function getNearestLocationFromOther(locations:types.SimLocation[], other
 }
 
 
-export function locationsSatisfyingMotiveRequirement(agent:types.Agent, possible_locations:types.SimLocation[], motive_requirements:types.MotiveReq[]): types.SimLocation[]{
-	for (var motive_requirement of motive_requirements){
-		switch(motive_requirement.op) {
-			case "equals": {
-				if (!(agent.motive[motive_requirement.motive] == motive_requirement.thresh)) {
-					return []
-				}
-				break;
-			}
-			case "lt": {
-				if (!(agent.motive[motive_requirement.motive] < motive_requirement.thresh)) {
-					return []
-				}
-				break;
-			}
-			case "gt": {
-				if (!(agent.motive[motive_requirement.motive] > motive_requirement.thresh)) {
-					return []
-				}
-				break;
-			}
-			case "leq": {
-				if (!(agent.motive[motive_requirement.motive] <= motive_requirement.thresh)) {
-					return []
-				}
-				break;
-			}
-			case "geq": {
-				if (!(agent.motive[motive_requirement.motive] >= motive_requirement.thresh)) {
-					return []
-				}
-				break;
-			}
-			default: {
-				if (!(agent.motive[motive_requirement.motive] == motive_requirement.thresh)) {
-					return []
-				}
-				break;
-			}
-		}
-	}
-	return possible_locations
-}
-
-
-
-
 /**
  * Sort a list of locations based on their distance from another SimLocation
  *
@@ -272,7 +225,7 @@ export function doesAgentCurrentLocationSatisfyPeopleRequirement(agent: types.Ag
 export function startTravelToLocation(agent: types.Agent, destination: types.SimLocation, time: number): void {
 	agent.destination = destination;
 	agent.occupiedCounter = getManhattanDistance(agent.currentLocation, destination);
-	utility.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + destination.name);
+	utility.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction[0].name + "; Destination: " + destination.name);
 }
 
 

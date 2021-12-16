@@ -339,7 +339,7 @@ export type Agent = {
 	occupiedCounter: number;
 
 	/** @type {Action[]} A queue containing the next few actions being executed by the agent */
-	currentAction: Action[] | [];
+	currentAction: Action[];
 
 	/**
 	 * The destination that the agent is headed to 

@@ -108,9 +108,13 @@ export function updateUI(agentList:types.Agent[], locationList:types.SimLocation
 		}
 	}
 	var agent:types.Agent = agent_manager.getAgentByName(activeAgent);
+
 	if (agent != null) {
+		console.log(agent);
+		var action_names: string[] = agent.currentAction.map(a => a.name);
+
 		showOnBrowser("occupied", agent.occupiedCounter.toString());
-		showOnBrowser("action", agent.currentAction.name);
+		showOnBrowser("action", action_names.join(", "));
 		showOnBrowser("physical", agent.motive.physical.toString());
 		showOnBrowser("emotional", agent.motive.emotional.toString());
 		showOnBrowser("social", agent.motive.social.toString());

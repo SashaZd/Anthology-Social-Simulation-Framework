@@ -87,6 +87,56 @@ export function decrement_motives(agent: types.Agent) {
 	}
 }
 
+/**
+ * Check whether the agent satisfies the motive requirement for an action
+ * @param  {types.Agent}       agent               agent for whom we are testing the action
+ * @param  {types.MotiveReq[]} motive_requirements motive requirements for the action being evaluated
+ * @return {boolean}                               returns true if the motive requirements are met; false if not
+ */
+export function agentSatisfiesMotiveRequirement(agent:types.Agent, motive_requirements:types.MotiveReq[]): boolean{
+	for (var motive_requirement of motive_requirements){
+		switch(motive_requirement.op) {
+			case "equals": {
+				if (!(agent.motive[motive_requirement.motive] == motive_requirement.thresh)) {
+					return false
+				}
+				break;
+			}
+			case "lt": {
+				if (!(agent.motive[motive_requirement.motive] < motive_requirement.thresh)) {
+					return false
+				}
+				break;
+			}
+			case "gt": {
+				if (!(agent.motive[motive_requirement.motive] > motive_requirement.thresh)) {
+					return false
+				}
+				break;
+			}
+			case "leq": {
+				if (!(agent.motive[motive_requirement.motive] <= motive_requirement.thresh)) {
+					return false
+				}
+				break;
+			}
+			case "geq": {
+				if (!(agent.motive[motive_requirement.motive] >= motive_requirement.thresh)) {
+					return false
+				}
+				break;
+			}
+			default: {
+				utility.log("ERROR - JSON BinOp specification mistake for Motive Requirement for action")
+				return false
+				break;
+			}
+		}
+	}
+	return true
+}
+
+
 
 /**
  * Checks to see whether a specific motive (with keyof type.Motive) of an agent is maximum or not.
