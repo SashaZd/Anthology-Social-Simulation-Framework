@@ -412,8 +412,8 @@ export type Agent = {
 	/** @type {number} How long the agent will be occupied with the current action they are executing */
 	occupiedCounter: number;
 
-	/** @type {Action} The current action being executed */
-	currentAction: Action | null;
+	/** @type {Action[]} A queue containing the next few actions being executed by the agent */
+	currentAction: Action[];
 
 	/**
 	 * The destination that the agent is headed to
@@ -445,8 +445,8 @@ export type SerializableAgent = {
 	currentLocation: SimLocation,
 	/** @type {number} describes whether the agent is currently occupied */
 	occupiedCounter: number,
-	/** @type {string} name of the current action being executed by the agent */
-	currentAction: string,
+	/** @type {string[]} queue containing the next few actions being executed by the agent */
+	currentAction: string[],
 	/** @type {[type]} Location the agent is currently headed to */
 	destination: SimLocation | null,
   /**
