@@ -71,6 +71,17 @@ export function turn(agent:types.Agent):boolean {
 	return movement;
 }
 
+
+export var INTERRUPT:string[] = [];
+
+export function interrupt(name:string): void{
+	var agentToInterrupt:types.Agent = agent_manager.getAgentByName(name);
+	agentToInterrupt.occupiedCounter = 0;
+	agentToInterrupt.destination = null
+	let actionInterrupted:types.Action = agentToInterrupt.currentAction.shift();
+	utility.log("Agent:" + name + " was interrupted from action:" + actionInterrupted.name)
+}
+
 /**
  * [round_wait description]
  * @param  {types.Agent[]}        agentList        list of agents in the simulation

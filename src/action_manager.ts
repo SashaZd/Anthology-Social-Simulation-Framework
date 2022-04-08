@@ -88,13 +88,6 @@ export function execute_action(agent: types.Agent): void {
 	}
 }
 
-// export function nextAction(agent:types.Agent){
-// 	var {selected_action, destination} = selectNextActionForAgent(agent);
-
-
-// }
- 
-
 
 /**
  * Starts an action (if the agent is at location where the action can be performed)
@@ -193,13 +186,12 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 
 
 	if (current_destination != null && !location_manager.isAgentAtLocation(agent, current_destination)) {
-		console.log(agent.name, "Unshifting travel in...")
+		// console.log(agent.name, "Unshifting travel in...")
 		agent.currentAction.unshift(getActionByName("travel_action"))
-		console.log(agent.name, " -- next -- ", agent.currentAction.map(a=>a.name).join(", "));
+		// console.log(agent.name, " -- next -- ", agent.currentAction.map(a=>a.name).join(", "));
 		location_manager.startTravelToLocation(agent, current_destination, world.TIME);
 	}
 	else if(current_destination == null || location_manager.isAgentAtLocation(agent, current_destination)) {
-		// Sasha: Should not be in here... needs to be separated into turn instead
 		start_action(agent); // , selected_action: types.Action, destination: types.SimLocation
 	}
 }
