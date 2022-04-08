@@ -74,6 +74,13 @@ export function turn(agent:types.Agent):boolean {
 
 export var INTERRUPT:string[] = [];
 
+
+/**
+ * Interrupts the agent from the current action they are performing. 
+ * Potential future implementation: Optionally add the interrupted action (with the remaining occupied_counter) to the end of the action queue. 
+ * 
+ * @param {string} 		name 	the agent being interrupted 
+ */
 export function interrupt(name:string): void{
 	var agentToInterrupt:types.Agent = agent_manager.getAgentByName(name);
 	agentToInterrupt.occupiedCounter = 0;
