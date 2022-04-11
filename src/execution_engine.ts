@@ -7,7 +7,7 @@ import * as utility from "./utilities";
 
 const json_data = require("./data.json");
 
-world.loadActionsFromJSON(json_data['actions']);
+world.loadActionsFromJSON(json_data['primary-actions'],json_data['schedule-actions']);
 world.loadLocationsFromJSON(json_data['locations']);
 world.loadAgentsFromJSON(json_data["agents"]);
 
@@ -60,12 +60,12 @@ export function turn(agent:types.Agent):boolean {
 		if (!agent_manager.isContent(agent)) {
 
 			if(agent.currentAction.length == 0){
-				action_manager.selectNextActionForAgent(agent);	
+				action_manager.selectNextActionForAgent(agent);
 			}
 			else{
 				action_manager.start_action(agent);
 			}
-			
+
 		}
 	}
 	return movement;

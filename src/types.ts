@@ -345,6 +345,13 @@ export enum TargetType {
 	// random = "random"
 }
 
+/**
+ * Requirement Type
+ * Union type of Location Requirements, People Requirements or Motive Requirements
+ * @type {LocationReq | PeopleReq | MotiveReq}
+ */
+export type Action = PrimaryAction | ScheduleAction;
+
 // General action type.
 // Name, requiremnts, effects, and minimum time taken.
 // eg: sleep
@@ -354,7 +361,7 @@ export enum TargetType {
  * Action or Behaviour to be executed by an NPC
  * @type {Object.<string, string | Requirement[] | Effect[] | number>}
  */
-export type Action = {
+export type PrimaryAction = {
 	/**
 	 * Name of the action to be executed
 	 * @type {string}
@@ -375,17 +382,83 @@ export type Action = {
 	 * @type {number}
 	 */
 	time_min:     number;
+  hidden?:    boolean;
+}
+
+// General action type.
+// Name, requiremnts, effects, and minimum time taken.
+// eg: sleep
+// Assumptions: 1 LocationReq, 1 People Req, MotiveReq[]
+
+/**
+ * Action or Behaviour to be executed by an NPC
+ * @type {Object.<string, string | Requirement[] | Effect[] | number>}
+ */
+export type ScheduleAction = {
+	/**
+	 * Name of the action to be executed
+	 * @type {string}
+	 */
+	name: 		  string;
+	/**
+	 * List of pre-conditions or requirements that must fullfilled for this action to be executed
+	 * @type {Requirement[]}
+	 */
+	requirements: Requirement[];
+	/**
+	 * List of resulting changes to the motives of the agent that occur after an action is executed
+	 * @type {Effect[]}
+	 */
+	time_min:     number;
+  interrupt:    boolean;
+  instigatorAction:      PrimaryAction;
   /**
 	 * List of resulting changes to the motives of any target agents that occur after an action is executed
 	 * @type {Effect[]}
 	 */
-	targetEffects?:      Effect[];
+	targetAction:      PrimaryAction;
   /**
 	 * the method of choosing which agent(s) will be the target of this action
 	 * NOTE: some target methods require the action to have apeople requirement to function properly
 	 * @type {TargetType}
 	 */
-  target?:  TargetType;
+  target:  TargetType;
+  hidden?:    boolean;
+}
+  /**
+   * Action or Behaviour to be executed by an NPC
+   * @type {Object.<string, string | Requirement[] | Effect[] | number>}
+   */
+  export type SerializableScheduleAction = {
+  	/**
+  	 * Name of the action to be executed
+  	 * @type {string}
+  	 */
+  	name: 		  string;
+  	/**
+  	 * List of pre-conditions or requirements that must fullfilled for this action to be executed
+  	 * @type {Requirement[]}
+  	 */
+  	requirements: Requirement[];
+  	/**
+  	 * List of resulting changes to the motives of the agent that occur after an action is executed
+  	 * @type {Effect[]}
+  	 */
+  	time_min:     number;
+    interrupt:    boolean;
+    instigatorAction:      string;
+    /**
+  	 * List of resulting changes to the motives of any target agents that occur after an action is executed
+  	 * @type {Effect[]}
+  	 */
+  	targetAction:      string;
+    /**
+  	 * the method of choosing which agent(s) will be the target of this action
+  	 * NOTE: some target methods require the action to have apeople requirement to function properly
+  	 * @type {TargetType}
+  	 */
+    target:  TargetType;
+    hidden?:    boolean;
 }
 
 

@@ -4,7 +4,7 @@
 			"name": "Alice Doe",
 			"motive": {
 				"physical": 2,
-				"emotional": 5,
+				"emotional": 1,
 				"social": 4,
 				"financial": 3,
 				"accomplishment": 3
@@ -25,7 +25,7 @@
 			"name": "Bob Doe",
 			"motive": {
 				"physical": 5,
-				"emotional": 5,
+				"emotional": 1,
 				"social": 4,
 				"financial": 3,
 				"accomplishment": 4
@@ -42,7 +42,7 @@
 			}
 		}
 	],
-	"actions": [
+	"primary-actions": [
 	  {
 		"name": "eat_action",
 		"requirements": [
@@ -74,7 +74,7 @@
 	    	{"reqType":"location", "hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
 		],
-	    "effects":      [{"motive":"emotional", "delta":3}, 
+	    "effects":      [{"motive":"emotional", "delta":3},
 	    				{"motive":"social", "delta":2}],
 	    "time_min":     130
 	  },
@@ -111,17 +111,48 @@
     	],
 	    "effects": [{"motive":"social", "delta":1}],
 	    "time_min":     10
+	  },
+		{
+	    "name": "slap",
+	    "requirements": [
+	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "effects":      [{"motive":"emotional", "delta":3}],
+	    "time_min":     1,
+			"hidden":				"true"
+	  },
+		{
+	    "name": "get_slapped",
+	    "requirements": [
+	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "effects":      [{"motive":"emotional", "delta":-1}, {"motive":"social", "delta":-1}],
+	    "time_min":     1,
+			"hidden":				"true"
+	  }
+	],
+	"schedule-actions": [
+		{
+	    "name": "slap_someone",
+	    "requirements": [
+	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "instigatorAction":	"slap",
+			"targetAction":	"get_slapped",
+	    "time_min":     1,
+			"interrupt":		"true",
+			"target":				"randomPresent"
 	  }
 	],
 	"locations": [
 		{
-			"name": "restaurant", 
-			"xPos": 5, "yPos": 5, 
+			"name": "restaurant",
+			"xPos": 5, "yPos": 5,
 			"tags": ["restaurant", "employment"]
 		},
 		{
-			"name": "movie theatre", 
-			"xPos": 0, "yPos": 5, 
+			"name": "movie theatre",
+			"xPos": 0, "yPos": 5,
 			"tags": ["movie theatre", "employment"]
 		},
 		{
@@ -135,8 +166,8 @@
 			"tags": ["art"]
         },
         {
-			"name": "home", 
-			"xPos": 5, "yPos": 0, 
+			"name": "home",
+			"xPos": 5, "yPos": 0,
 			"tags": ["home"]
 		}
 	]
