@@ -108,7 +108,7 @@ export function execute_action(agent: types.Agent): void {
 				} else {
 					targ.currentAction.push(s_action.targetAction)
 				}
-				utility.log("time: " + world.TIME.toString() + " | " + targ.name + ": Affected by " + agent.currentAction[0].name);
+				utility.log("time: " + world.TIME.toString() + " | " + targ.name + ": Affected by " + s_action.targetAction.name);
 			}
 		}
 	}
@@ -210,56 +210,6 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 		// Todo: If no location possible with PeopleReq, invite people?
 		if(possible_locations.length > 0 && people_requirement.length > 0){
 			possible_locations = location_manager.locationsSatisfyingPeopleRequirement(agent, possible_locations, people_requirement[0]);
-		} else if (possible_locations.length <= 0) {
-			action_select_log.push("Action did not pass location requirement");
-		}
-
-		// If there is still a valid location, and there is a motive requiremnt, evaluate
-		// checks if the specified condition is false (ie motiveX >= 2)
-		// and empties the possible locations if so.
-		// If the condition is violated, the empty list will cause the action not to be considered valid
-		// otherwise nothing happens.
-		if(possible_locations.length > 0 && motive_requirements.length > 0){
-			switch(motive_requirements[0].op) {
-			   case "equals": {
-					 if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-			   case "lt": {
-					 if (!(agent.motive[motive_requirements[0].motive] < motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "gt": {
-					 if (!(agent.motive[motive_requirements[0].motive] > motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "leq": {
-					 if (!(agent.motive[motive_requirements[0].motive] <= motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "geq": {
-					 if (!(agent.motive[motive_requirements[0].motive] >= motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-			   default: {
-			      if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
-							possible_locations = [];
-						}
-			      break;
-			   }
-			}
-		} else if (possible_locations.length <= 0) {
-			action_select_log.push("Action did not pass people requirement");
 		}
 
 		// If there is a location possible that meets all the requriements
@@ -288,11 +238,10 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 				action_select_log.push("Current Destination: null");
 			}
 
-		} else if (possible_locations.length <= 0) {
-			action_select_log.push("Action did not pass motive requirement");
 		}
 	}
 	agent.currentAction.push(current_choice)
+	//console.log(action_select_log)
 
 
 	if (current_destination != null && !location_manager.isAgentAtLocation(agent, current_destination)) {
