@@ -382,6 +382,10 @@ export type PrimaryAction = {
 	 * @type {number}
 	 */
 	time_min:     number;
+  /**
+	 * optional flag if this action cannot be selected by agents normally
+	 * @type {boolean}
+	 */
   hidden?:    boolean;
 }
 
@@ -405,24 +409,36 @@ export type ScheduleAction = {
 	 * @type {Requirement[]}
 	 */
 	requirements: Requirement[];
-	/**
-	 * List of resulting changes to the motives of the agent that occur after an action is executed
-	 * @type {Effect[]}
+  /**
+	 * The minumum amount of time an action takes to be executed
+	 * @type {number}
 	 */
 	time_min:     number;
+  /**
+   * flag for whether the action is preformed immediately or scheduled for later
+   * @type {boolean}
+   */
   interrupt:    boolean;
+  /**
+   * primary action that will be performed by the instigator of this action
+   * @type {PrimaryAction}
+   */
   instigatorAction:      PrimaryAction;
   /**
-	 * List of resulting changes to the motives of any target agents that occur after an action is executed
-	 * @type {Effect[]}
-	 */
+   * primary action that will be performed by the target of this action
+   * @type {PrimaryAction}
+   */
 	targetAction:      PrimaryAction;
   /**
 	 * the method of choosing which agent(s) will be the target of this action
-	 * NOTE: some target methods require the action to have apeople requirement to function properly
+	 * NOTE: some target methods require the action to have a people requirement to function properly
 	 * @type {TargetType}
 	 */
   target:  TargetType;
+  /**
+	 * optional flag if this action cannot be selected by agents normally
+	 * @type {boolean}
+	 */
   hidden?:    boolean;
 }
   /**
@@ -440,24 +456,36 @@ export type ScheduleAction = {
   	 * @type {Requirement[]}
   	 */
   	requirements: Requirement[];
-  	/**
-  	 * List of resulting changes to the motives of the agent that occur after an action is executed
-  	 * @type {Effect[]}
+    /**
+  	 * The minumum amount of time an action takes to be executed
+  	 * @type {number}
   	 */
   	time_min:     number;
+    /**
+  	 * flag for whether the action is preformed immediately or scheduled for later
+  	 * @type {boolean}
+  	 */
     interrupt:    boolean;
+    /**
+  	 * placeholder for the action that will be performed by the instigator of this action
+  	 * @type {string}
+  	 */
     instigatorAction:      string;
     /**
-  	 * List of resulting changes to the motives of any target agents that occur after an action is executed
-  	 * @type {Effect[]}
+  	 * placeholder for the action that will be performed by the target of this action
+  	 * @type {string}
   	 */
   	targetAction:      string;
     /**
   	 * the method of choosing which agent(s) will be the target of this action
-  	 * NOTE: some target methods require the action to have apeople requirement to function properly
+  	 * NOTE: some target methods require the action to have a people requirement to function properly
   	 * @type {TargetType}
   	 */
     target:  TargetType;
+    /**
+  	 * optional flag if this action cannot be selected by agents normally
+  	 * @type {boolean}
+  	 */
     hidden?:    boolean;
 }
 

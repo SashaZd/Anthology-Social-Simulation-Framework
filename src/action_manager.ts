@@ -89,14 +89,14 @@ export function execute_action(agent: types.Agent): void {
 		let action:types.Action = agent.currentAction.shift();
 		let p_action: types.PrimaryAction =  action as types.PrimaryAction
 		let s_action: types.ScheduleAction =  action as types.ScheduleAction
-		if (p_action?.effects){
+		if (p_action?.effects){ // case for primary action
 			for (var eachEffect of p_action.effects) {
 				var _delta: number = eachEffect.delta;
 				var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
 				agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
 			}
 			utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + action.name);
-		} else if (s_action?.targetAction) {
+		} else if (s_action?.targetAction) { //case for scheduling action
 			if (s_action.interrupt) {
 				agent.currentAction.unshift(s_action.instigatorAction)
 			} else {

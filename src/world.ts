@@ -44,7 +44,8 @@ export var n:number = 0;
 /**
  * Loads actions available in the simulation from the data.json file.
  *
- * @param  {types.Action[]} actions_json - JSON description of the actions
+ * @param  {types.PrimaryAction[]} actions_json - JSON description of the primary actions
+ * @param  {types.SerializableScheduleAction[]} schedule_json - JSON description of the scheduling actions
  * @returns {void} - sets an internal array of actions of type types.Actions that are available in the simulation
  */
 export function loadActionsFromJSON(actions_json: types.PrimaryAction[], schedule_json: types.SerializableScheduleAction[]): void {
