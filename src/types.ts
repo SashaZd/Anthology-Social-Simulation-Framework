@@ -296,23 +296,23 @@ export enum TargetType {
 	 * @type {String}
 	 */
 	all = "all",
-  /**
-	 * only agents who are present when the action is started (ie at the action's associated
-	 * location when the the agent begins to perform it), and who fit the relationshipsPresent
-	 * criteria of the people requirement recieve the target effects
-	 * This could be used for an action that applies to all of the agents friends
-	 * at a restaurant, but not the other patrons.
-	 * @type {String}
-	 */
-	relationship = "relationship",
-  /**
-	 * a single, random agent who is present when the action is started (ie at the action's associated
-	 * location when the the agent begins to perform it), and who fits the relationshipsPresent
-	 * criteria of the people requirement recieves the target effects
-	 * This could be used for an action that has one agent chat with a single friend
-	 * @type {String}
-	 */
-	relationshipSingle = "relationshipSingle",
+  // /**
+	//  * only agents who are present when the action is started (ie at the action's associated
+	//  * location when the the agent begins to perform it), and who fit the relationshipsPresent
+	//  * criteria of the people requirement recieve the target effects
+	//  * This could be used for an action that applies to all of the agents friends
+	//  * at a restaurant, but not the other patrons.
+	//  * @type {String}
+	//  */
+	// relationship = "relationship",
+  // /**
+	//  * a single, random agent who is present when the action is started (ie at the action's associated
+	//  * location when the the agent begins to perform it), and who fits the relationshipsPresent
+	//  * criteria of the people requirement recieves the target effects
+	//  * This could be used for an action that has one agent chat with a single friend
+	//  * @type {String}
+	//  */
+	// relationshipSingle = "relationshipSingle",
   /**
 	 * only agents who are present when the action is started (ie at the action's associated
 	 * location when the the agent begins to perform it), and who fit the specificPeoplePresent
