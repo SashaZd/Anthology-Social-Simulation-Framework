@@ -4,44 +4,45 @@
 			"name": "Alice Doe",
 			"motive": {
 				"physical": 2,
-				"emotional": 5,
+				"emotional": 1,
 				"social": 4,
 				"financial": 3,
 				"accomplishment": 3
 			},
 			"currentLocation": {
-				"xPos": 0,
+				"xPos": 5,
 				"yPos": 0
 			},
 			"occupiedCounter": 0,
-			"currentAction": "wait_action",
+			"currentAction": ["wait_action", "eat_action"],
 			"destination": {
-				"xPos": 5,
-				"yPos": 5
-			}
+				"xPos": 0,
+				"yPos": 0
+			},
+			"currentTargets":[]
 		},
 		{
 			"name": "Bob Doe",
 			"motive": {
 				"physical": 5,
-				"emotional": 5,
+				"emotional": 1,
 				"social": 4,
 				"financial": 3,
 				"accomplishment": 4
 			},
 			"currentLocation": {
 				"xPos": 5,
-				"yPos": 5
+				"yPos": 0
 			},
 			"occupiedCounter": 0,
-			"currentAction": "wait_action",
+			"currentAction": ["wait_action"],
 			"destination": {
 				"xPos": 0,
 				"yPos": 0
 			}
 		}
 	],
-	"actions": [
+	"primary-actions": [
 	  {
 		"name": "eat_action",
 		"requirements": [
@@ -73,7 +74,7 @@
 	    	{"reqType":"location", "hasAllOf":["movie theatre"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
 		],
-	    "effects":      [{"motive":"emotional", "delta":3}, 
+	    "effects":      [{"motive":"emotional", "delta":3},
 	    				{"motive":"social", "delta":2}],
 	    "time_min":     130
 	  },
@@ -86,9 +87,20 @@
 	    "time_min":     240
 	  },
 	  {
+	    "name": "work_social_action",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":["employment"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
+    	],
+	    "effects":      [{"motive":"financial", "delta":1},
+			     {"motive":"social", "delta":1}],
+	    "time_min":     240,
+	    "target": "all",
+	    "targetEffects": [{"motive":"social", "delta":1}]
+	  },
+	  {
 	    "name": "hobby_action",
 	    "requirements": [
-	    	{"reqType":"location", "hasAllOf":["home"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
+	    	{"reqType":"location", "hasAllOf":["art"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
     	],
 	    "effects":      [{"motive":"accomplishment", "delta":2}],
 	    "time_min":     60
@@ -99,22 +111,85 @@
     	],
 	    "effects": [{"motive":"social", "delta":1}],
 	    "time_min":     10
+	  },
+		{
+	    "name": "hug",
+	    "requirements": [
+	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "effects":      [{"motive":"emotional", "delta":1}, {"motive":"social", "delta":1}],
+	    "time_min":     1,
+			"hidden":				"true"
+	  },
+		{
+	    "name": "get_hugged",
+	    "requirements": [
+	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "effects":      [{"motive":"emotional", "delta":1}, {"motive":"social", "delta":1}],
+	    "time_min":     1,
+			"hidden":				"true"
+	  },
+		{
+	    "name": "paint_with",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":["art"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+				{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "effects":      [{"motive":"accomplishment", "delta":2}, {"motive":"social", "delta":1}],
+	    "time_min":     60,
+			"hidden":				"true"
+	  }
+	],
+	"schedule-actions": [
+		{
+	    "name": "hug_someone",
+	    "requirements": [
+	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "instigatorAction":	"hug",
+			"targetAction":	"get_hugged",
+	    "time_min":     1,
+			"interrupt":		"true",
+			"target":				"randomPresent"
+	  },
+		{
+	    "name": "paint_together",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":["art"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+				{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "instigatorAction":	"paint_with",
+			"targetAction":	"paint_with",
+	    "time_min":     1,
+			"interrupt":		"true",
+			"target":				"randomPresent"
 	  }
 	],
 	"locations": [
 		{
-			"name": "restaurant", 
-			"xPos": 5, "yPos": 5, 
+			"name": "restaurant",
+			"xPos": 5, "yPos": 5,
 			"tags": ["restaurant", "employment"]
 		},
 		{
-			"name": "movie theatre", 
-			"xPos": 0, "yPos": 5, 
+			"name": "movie theatre",
+			"xPos": 0, "yPos": 5,
 			"tags": ["movie theatre", "employment"]
 		},
 		{
-			"name": "home", 
-			"xPos": 5, "yPos": 0, 
+			"name": "office",
+			"xPos": 2, "yPos": 3,
+			"tags": ["employment"]
+		},
+		{
+			"name": "art studio",
+			"xPos": 0, "yPos": 0,
+			"tags": ["art"]
+        },
+        {
+			"name": "home",
+			"xPos": 5, "yPos": 0,
 			"tags": ["home"]
 		}
 	]

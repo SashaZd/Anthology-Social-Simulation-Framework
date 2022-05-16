@@ -100,7 +100,7 @@
 	  {
 	    "name": "hobby_action",
 	    "requirements": [
-	    	{"reqType":"location", "hasAllOf":["home"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
+	    	{"reqType":"location", "hasAllOf":["art"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
     	],
 	    "effects":      [{"motive":"accomplishment", "delta":2}],
 	    "time_min":     60
@@ -129,6 +129,16 @@
 	    "effects":      [{"motive":"emotional", "delta":1}, {"motive":"social", "delta":1}],
 	    "time_min":     1,
 			"hidden":				"true"
+	  },
+		{
+	    "name": "paint_with",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":["art"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+				{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "effects":      [{"motive":"accomplishment", "delta":2}, {"motive":"social", "delta":1}],
+	    "time_min":     60,
+			"hidden":				"true"
 	  }
 	],
 	"schedule-actions": [
@@ -139,6 +149,18 @@
 		],
 	    "instigatorAction":	"hug",
 			"targetAction":	"get_hugged",
+	    "time_min":     1,
+			"interrupt":		"true",
+			"target":				"randomPresent"
+	  },
+		{
+	    "name": "paint_together",
+	    "requirements": [
+	    	{"reqType":"location", "hasAllOf":["art"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+				{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
+		],
+	    "instigatorAction":	"paint_with",
+			"targetAction":	"paint_with",
 	    "time_min":     1,
 			"interrupt":		"true",
 			"target":				"randomPresent"
@@ -162,7 +184,7 @@
 		},
 		{
 			"name": "art studio",
-			"xPos": 5, "yPos": 0,
+			"xPos": 0, "yPos": 0,
 			"tags": ["art"]
         },
         {
