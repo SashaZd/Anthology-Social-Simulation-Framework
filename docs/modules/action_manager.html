@@ -76,7 +76,8 @@
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="action_manager.html#getactionbyname" class="tsd-kind-icon">get<wbr>Action<wbr>ByName</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="action_manager.html#geteffectdeltaforagentaction" class="tsd-kind-icon">get<wbr>Effect<wbr>Delta<wbr>For<wbr>Agent<wbr>Action</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="action_manager.html#getrequirementbytype" class="tsd-kind-icon">get<wbr>Requirement<wbr>ByType</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="action_manager.html#loadactionsfromjson" class="tsd-kind-icon">load<wbr>Actions<wbr>FromJSON</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="action_manager.html#moveagentclosertodestination" class="tsd-kind-icon">move<wbr>Agent<wbr>Closer<wbr>ToDestination</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="action_manager.html#selectnextactionforagent" class="tsd-kind-icon">select<wbr>Next<wbr>Action<wbr>For<wbr>Agent</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="action_manager.html#start_action" class="tsd-kind-icon">start_<wbr>action</a></li>
 							</ul>
 						</section>
@@ -89,13 +90,13 @@
 					<a name="execute_action" class="tsd-anchor"></a>
 					<h3>execute_<wbr>action</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">execute_<wbr>action<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a>, action<span class="tsd-signature-symbol">: </span><a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a>, time<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">execute_<wbr>action<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/action_manager.ts#L93">action_manager.ts:93</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/4ebe01ee/src/action_manager.ts#L82">action_manager.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -109,18 +110,6 @@
 									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>agent executing the action</p>
-									</div>
-								</li>
-								<li>
-									<h5>action: <a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>action being executed</p>
-									</div>
-								</li>
-								<li>
-									<h5>time: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>time of execution for logs</p>
 									</div>
 								</li>
 							</ul>
@@ -138,7 +127,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/action_manager.ts#L33">action_manager.ts:33</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/4ebe01ee/src/action_manager.ts#L15">action_manager.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -172,7 +161,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/action_manager.ts#L74">action_manager.ts:74</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/4ebe01ee/src/action_manager.ts#L56">action_manager.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -211,7 +200,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/action_manager.ts#L60">action_manager.ts:60</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/4ebe01ee/src/action_manager.ts#L42">action_manager.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,34 +236,72 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="loadactionsfromjson" class="tsd-anchor"></a>
-					<h3>load<wbr>Actions<wbr>FromJSON</h3>
+					<a name="moveagentclosertodestination" class="tsd-anchor"></a>
+					<h3>move<wbr>Agent<wbr>Closer<wbr>ToDestination</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">load<wbr>Actions<wbr>FromJSON<span class="tsd-signature-symbol">(</span>actions_json<span class="tsd-signature-symbol">: </span><a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">move<wbr>Agent<wbr>Closer<wbr>ToDestination<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/action_manager.ts#L15">action_manager.ts:15</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/4ebe01ee/src/action_manager.ts#L269">action_manager.ts:269</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Loads actions available in the simulation from the data.json file.</p>
+									<p>Move an agent closer to another destination.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>Uses the manhattan distance to move the agent. So either increments the x axis or the y axis during any time tick.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>agent that must be moved</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="selectnextactionforagent" class="tsd-anchor"></a>
+					<h3>select<wbr>Next<wbr>Action<wbr>For<wbr>Agent</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">select<wbr>Next<wbr>Action<wbr>For<wbr>Agent<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/4ebe01ee/src/action_manager.ts#L163">action_manager.ts:163</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Selects an action from a list of valid actions to be preformed by a specific agent.
+									Selects the action with the maximal utility of the agent (motive increase/time).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>actions_json: <a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>JSON description of the actions</p>
+										<p>agent for whom the next action must be determined</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a><span class="tsd-signature-symbol">[]</span></h4>
-							<p>types.Action[] - an array of actions of type types.Actions that are available in the simulation</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<p>selected_action - next action to be executed,
+							destination - the destination the agent must travel to for the action</p>
 						</li>
 					</ul>
 				</section>
@@ -282,18 +309,19 @@
 					<a name="start_action" class="tsd-anchor"></a>
 					<h3>start_<wbr>action</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">start_<wbr>action<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a>, selected_action<span class="tsd-signature-symbol">: </span><a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a>, destination<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a>, time<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">start_<wbr>action<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/action_manager.ts#L116">action_manager.ts:116</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/4ebe01ee/src/action_manager.ts#L138">action_manager.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Starts an action (if the agent is at location), or makes the agent begin travel to a location where the action can be performed.</p>
+									<p>Starts an action (if the agent is at location where the action can be performed)
+									else makes the agent travel to the location selected to perform the action</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -302,24 +330,6 @@
 									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>agent starting the action</p>
-									</div>
-								</li>
-								<li>
-									<h5>selected_action: <a href="types.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">Action</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>action being started</p>
-									</div>
-								</li>
-								<li>
-									<h5>destination: <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>destination the agent is required to be in for the action. Can be null if there&#39;s no location requirement</p>
-									</div>
-								</li>
-								<li>
-									<h5>time: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>time of execution for logs</p>
 									</div>
 								</li>
 							</ul>
@@ -348,9 +358,6 @@
 						<a href="location_manager.html">location_<wbr>manager</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="main.html">main</a>
-					</li>
-					<li class=" tsd-kind-module">
 						<a href="types.html">types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -358,6 +365,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="utilities.html">utilities</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="world.html">world</a>
 					</li>
 				</ul>
 			</nav>
@@ -376,7 +386,10 @@
 						<a href="action_manager.html#getrequirementbytype" class="tsd-kind-icon">get<wbr>Requirement<wbr>ByType</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="action_manager.html#loadactionsfromjson" class="tsd-kind-icon">load<wbr>Actions<wbr>FromJSON</a>
+						<a href="action_manager.html#moveagentclosertodestination" class="tsd-kind-icon">move<wbr>Agent<wbr>Closer<wbr>ToDestination</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="action_manager.html#selectnextactionforagent" class="tsd-kind-icon">select<wbr>Next<wbr>Action<wbr>For<wbr>Agent</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="action_manager.html#start_action" class="tsd-kind-icon">start_<wbr>action</a>

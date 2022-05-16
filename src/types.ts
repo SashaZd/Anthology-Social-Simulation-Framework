@@ -386,7 +386,7 @@ export type PrimaryAction = {
 	 * optional flag if this action cannot be selected by agents normally
 	 * @type {boolean}
 	 */
-  hidden?:    boolean;
+  	hidden?:    boolean;
 }
 
 // General action type.
