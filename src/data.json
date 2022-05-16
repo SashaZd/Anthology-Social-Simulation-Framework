@@ -113,32 +113,32 @@
 	    "time_min":     10
 	  },
 		{
-	    "name": "slap",
+	    "name": "hug",
 	    "requirements": [
 	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
 		],
-	    "effects":      [{"motive":"emotional", "delta":3}],
+	    "effects":      [{"motive":"emotional", "delta":1}, {"motive":"social", "delta":1}],
 	    "time_min":     1,
 			"hidden":				"true"
 	  },
 		{
-	    "name": "get_slapped",
+	    "name": "get_hugged",
 	    "requirements": [
 	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
 		],
-	    "effects":      [{"motive":"emotional", "delta":-1}, {"motive":"social", "delta":-1}],
+	    "effects":      [{"motive":"emotional", "delta":1}, {"motive":"social", "delta":1}],
 	    "time_min":     1,
 			"hidden":				"true"
 	  }
 	],
 	"schedule-actions": [
 		{
-	    "name": "slap_someone",
+	    "name": "hug_someone",
 	    "requirements": [
 	    	{"reqType":"people", "minNumPeople":2, "maxNumPeople":-1, "specificPeoplePresent":[], "specificPeopleAbsent":[], "relationshipsPresent":[], "relationshipsAbsent":[]}
 		],
-	    "instigatorAction":	"slap",
-			"targetAction":	"get_slapped",
+	    "instigatorAction":	"hug",
+			"targetAction":	"get_hugged",
 	    "time_min":     1,
 			"interrupt":		"true",
 			"target":				"randomPresent"
