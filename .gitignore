@@ -14,3 +14,5 @@ Thumbs.db
 # Ignore built ts files
 # Users can generate this themselves by running $ gulp
 /dist
+
+package-lock.json

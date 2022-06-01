@@ -6,6 +6,7 @@ import * as world from "./world";
 import * as utility from "./utilities";
 
 const json_data = require("./data.json");
+//require("../examples/college-roommates.json");
 
 world.loadActionsFromJSON(json_data['primary-actions'],json_data['schedule-actions']);
 world.loadLocationsFromJSON(json_data['locations']);
