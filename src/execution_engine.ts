@@ -3,7 +3,6 @@ import * as action_manager from "./action_manager";
 import * as types from "./types";
 import * as ui from "./ui";
 import * as world from "./world";
-import * as utility from "./utilities";
 
 const json_data = require("./data.json");
 //require("../examples/college-roommates.json");
