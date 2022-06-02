@@ -5,7 +5,7 @@
 			"motive": {
 				"accomplishment": 2,
 				"social": 2,
-				"physical": 5,
+				"physical": 4,
                 "emotional": 3,
                 "financial": 5
 			},
@@ -29,7 +29,7 @@
 			"motive": {
 				"accomplishment": 4,
 				"social": 2,
-				"physical": 3,
+				"physical": 1,
                 "emotional": 1,
                 "financial": 5
 			},
