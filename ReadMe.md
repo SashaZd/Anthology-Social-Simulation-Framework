@@ -1,46 +1,79 @@
-!! Install dependencies: 
+# Anthology
 
-(Needed to use sudo on the mac to make sure they could be called globally since that's not the default)
+## Install
 
-- make sure you have both Node (https://nodejs.org/en/) and NPM (https://www.npmjs.com/) installed on your machine
-- brew install node
-- npm init
-- node -v 
-- npm -v
-- sudo npm install --save-dev typescript gulp gulp-typescript
-- sudo npm install gulp -g
-- sudo npm install --save-dev browserify tsify vinyl-source-stream
-- sudo npm install --save-dev watchify fancy-log
+1. Clone this project, open a terminal, and set the working directory to the root level of this project.
 
-!! To Run 
-This should create an index.html file in the dist folder. 
+2. Make sure you have both [NodeJS](https://nodejs.org/en/) and [npm](https://www.npmjs.com/).
+  
+    - **On Mac:** Run `brew install node`.
 
-- $ gulp 
+    - **On Windows:** Go to [NodeJS](https://nodejs.org/en/) and download the installer. Run the installer, and follow its directions until done.
 
+3. At the **root level of the project**, run `npm install` to install all project dependencies.
 
-!! Generate Documentation
+## How to Run
+At the root level of your directory, run `gulp`. This should create a folder called `dist` with an `index.html` file. Open `index.html` to run the program in your browser.
+
+## Generate Documentation
 To generate documentation use tsdoc to add doc comments to the code 
 
-If there's a new TS module, add the file to the tsconfig.json files list. Then run 
+```
+npx typedoc src/*.ts 
+```
 
-$ npx typedoc src/*.ts 
+## Development
 
+### Adding a New TS Module and Regenerating Documentation
+If there's a new TS module, add the file to the _files_ list in `tsconfig.json`.
 
+```json
+{
+  "files": [
+    "src/action_manager.ts",
+    "src/agent.ts",
+    "src/execution_engine.ts",
+    "src/location_manager.ts",
+    "src/types.ts",
+    "src/ui.ts",
+    "src/utilities.ts",
+    // add new file here
+  ],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "target": "es5",
+    "typeRoots": [
+        "node_modules/@types"
+    ],
+    "types": [
+        "node"
+    ],
+    "resolveJsonModule": true
+  }
+}
+```
 
-!! Check for unused code
+Then run `npx typedoc src/*.ts` in your terminal.
 
+### Checking for unused code
 To find unused methods: 
 
-$ ts-prune -p tsconfig.ts-prune.json | grep -v 'used in module'
-
+```
+ts-prune -p tsconfig.ts-prune.json | grep -v 'used in module'
+```
 
 To generate the Dependency Graph 
 
-$ depcruise --include-only "^src" --output-type dot src | dot -T svg > dependencygraph.svg
-
+```
+depcruise --include-only "^src" --output-type dot src | dot -T svg > dependencygraph.svg
+```
 
 or 
 
-
-$ npx depcruise --include-only "^src" --output-type dot src > dependency.dot
-
+```
+npx depcruise --include-only "^src" --output-type dot src > dependency.dot
+```
