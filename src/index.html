@@ -16,7 +16,7 @@
     <!-- <div > -->
     	<center>
 
-    	<!-- Gameboard Here -->
+    	<!-- World Map  -->
     		<div id="chess" style="display: inline-block;">
     		    <div id="space 0-5" class="playerMove"></div><div id="space 1-5" class="playerMove"></div><div id="space 2-5" class="playerMove"></div><div id="space 3-5" class="playerMove"></div><div id="space 4-5" class="playerMove"></div><div id="space 5-5" class="playerMove"></div>
     		    <div id="space 0-4" class="playerMove"></div><div id="space 1-4" class="playerMove"></div><div id="space 2-4" class="playerMove"></div><div id="space 3-4" class="playerMove"></div><div id="space 4-4" class="playerMove"></div><div id="space 5-4" class="playerMove"></div>
@@ -26,12 +26,13 @@
     		    <div id="space 0-0" class="playerMove"></div><div id="space 1-0" class="playerMove"></div><div id="space 2-0" class="playerMove"></div><div id="space 3-0" class="playerMove"></div><div id="space 4-0" class="playerMove"></div><div id="space 5-0" class="playerMove"></div>
     		</div>
 
-    		<!-- Scoreboard Here -->
-    		<div style="display: inline-block; vertical-align: top;">
-    			<h2 style="">Details</h2>
-    			<h3 id="timeLabel" style="">Time: <div id="time" style="display: inline-block;">0</div></h3>
+    		<!-- Control Panel -->
+        <div style="display: inline-block; vertical-align: top;">
+          <h3 id="timeLabel" style="">Timestep: <div id="time" style="display: inline-block;">0</div></h3>
+          <button id="startPauseButton">Start</button>
           <h4 style=""><label for="sleepMove">Movement Speed (ms):</label><input type="number" id="sleepMove" name="sleepMove" min="0" max="9999"></h4>
           <h4 style=""><label for="sleepStill">Wait Speed (ms):</label><input type="number" id="sleepStill" name="sleepStill" min="0" max="9999"></h4>
+          <h2 style="">Agent Details</h2>
           <h3 style=""><label for="agent">Agent: </label><select id="agent" name="agent">
             <option value="none" selected>-None-</option>
           </select></h3>
