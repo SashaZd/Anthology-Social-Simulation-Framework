@@ -20,7 +20,7 @@
 				"yPos": 5
 			},
 			"relationships": [
-				{ "type": "friend", "with": "Quentin", "valence": 2 },
+				{ "type": "friend", "with": "Quentin", "valence": 3 },
 				{ "type": "student-of", "with": "MathProf", "valence":1}
 			]
 		},
@@ -44,7 +44,7 @@
 				"yPos": 5
 			},
 			"relationships": [
-				{ "type": "friend", "with": "Georg", "valence": 1 },
+				{ "type": "friend", "with": "Norma", "valence": 3 },
 				{ "type": "student-of", "with": "PhysicsProf", "valence":1}
 			]
 		},
@@ -110,8 +110,8 @@
 		"requirements": [
 			{ "reqType":"location", "hasAllOf":["restaurant"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			{ "reqType":"people", "relationshipsPresent":["friend"]
-				, "minNumPeople": 1
-				, "maxNumPeople": 100
+				, "minNumPeople": 2
+				, "maxNumPeople": 5
 				, "specificPeoplePresent": []
 				, "specificPeopleAbsent": []
 				, "relationshipsAbsent": []
@@ -124,11 +124,29 @@
 		"time_min":     60
 	  },
 	  {
+		"name": "do_homework",
+		"requirements": [
+			{ "reqType": "location", "hasAllOf":["has:computer"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+			{ "reqType": "people", "relationshipsPresent":["student-of"]
+			  , "minNumPeople": 1
+			  , "maxNumPeople": 1
+			  , "specificPeoplePresent": []
+			  , "specificPeopleAbsent": []
+			  , "relationshipsAbsent": []
+		    }
+		],
+		"effects": [
+			{"motive":"accomplishment", "delta":2},
+			{"motive":"emotional", "delta":1}
+		],
+		"time_min":     60
+	  },
+	  {
 		  "name": "attend_class",
 		  "requirements": [
 			  { "reqType": "location", "hasAllOf":["classroom", "math"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			  { "reqType": "people", "relationshipsPresent":["student-of"]
-				, "minNumPeople": 1
+				, "minNumPeople": 2
 				, "maxNumPeople": 100
 				, "specificPeoplePresent": []
 				, "specificPeopleAbsent": []
@@ -140,6 +158,26 @@
 			  {"motive":"emotional", "delta":-1}
 		  ],
 		  "time_min": 75
+	  },
+	  {
+		  "name": "go_for_walk",
+		  "requirements": [
+			{ 	"reqType": "location",
+				"hasAllOf": ["outdoor"]
+				, "hasOneOrMoreOf":[], "hasNoneOf":[]
+			},
+			{
+				"reqType": "motive",
+				"motive":"physical",
+				"op": "geq",
+				"thresh": 2
+			}
+		  ],
+		  "effects": [
+			  {"motive": "physical", "delta": 1},
+			  {"motive": "emotional", "delta": 1}
+		  ],
+		  "time_min": 30
 	  },
 	  {
 		  "name":"play_game_alone",
