@@ -5,7 +5,7 @@
 			"motive": {
 				"accomplishment": 2,
 				"social": 2,
-				"physical": 5,
+				"physical": 4,
                 "emotional": 3,
                 "financial": 5
 			},
@@ -29,7 +29,7 @@
 			"motive": {
 				"accomplishment": 4,
 				"social": 2,
-				"physical": 3,
+				"physical": 1,
                 "emotional": 1,
                 "financial": 5
 			},
@@ -144,7 +144,7 @@
 	  {
 		  "name": "attend_class",
 		  "requirements": [
-			  { "reqType": "location", "hasAllOf":["classroom", "math"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+			  { "reqType": "location", "hasAllOf":["classroom"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			  { "reqType": "people", "relationshipsPresent":["student-of"]
 				, "minNumPeople": 2
 				, "maxNumPeople": 100
@@ -154,8 +154,7 @@
 			}
 		  ],
 		  "effects": [
-			  {"motive":"accomplishment", "delta":1},
-			  {"motive":"emotional", "delta":-1}
+			  {"motive":"accomplishment", "delta":1}
 		  ],
 		  "time_min": 75
 	  },
@@ -194,8 +193,8 @@
 		  "requirements": [
 			  {"reqType": "location", "hasAllOf": ["dorm"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			  { "reqType": "people", "relationshipsPresent":["friend"]
-				, "minNumPeople": 1
-				, "maxNumPeople": 100
+				, "minNumPeople": 2
+				, "maxNumPeople": 4
 				, "specificPeoplePresent": []
 				, "specificPeopleAbsent": []
 				, "relationshipsAbsent": []
@@ -216,7 +215,7 @@
 		},
 		{
 			"name": "Computer Lab", 
-			"xPos": 0, "yPos": 5, 
+			"xPos": 4, "yPos": 5, 
 			"tags": ["has:computer"]
 		},
 		{
@@ -224,11 +223,6 @@
 			"xPos": 3, "yPos": 2, 
 			"tags": ["dorm", "has:bed", "has:computer"]
 		},
-		{
-			"name": "Student Center", 
-			"xPos": 5, "yPos": 0, 
-			"tags": ["student-center"]
-        },
         {
             "name": "Greenway",
             "xPos": 1, "yPos": 2,

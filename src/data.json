@@ -144,7 +144,7 @@
 	  {
 		  "name": "attend_class",
 		  "requirements": [
-			  { "reqType": "location", "hasAllOf":["classroom", "math"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
+			  { "reqType": "location", "hasAllOf":["classroom"], "hasOneOrMoreOf":[], "hasNoneOf":[]},
 			  { "reqType": "people", "relationshipsPresent":["student-of"]
 				, "minNumPeople": 2
 				, "maxNumPeople": 100

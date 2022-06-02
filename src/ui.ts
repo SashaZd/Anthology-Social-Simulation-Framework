@@ -86,6 +86,16 @@ export function activeAgentChange() {
 	activeAgent = elt.value;
 }
 
+function abbreviate(name:string) {
+	let tokens = name.split(/\s/);
+	tokens.length = Math.min(3, tokens.length); // truncate to 3 elements
+	let short = "";
+	for(let i=0; i<tokens.length; i++) {
+		short += tokens[i][0]; // first letter of each token
+	}
+	return short;
+}
+
 /**
  * Main function to update the UI elements.
  * Shows the current state of the board and any changes made in the dropdowns or input boxes.
@@ -97,7 +107,8 @@ export function updateUI(agentList:types.Agent[], locationList:types.SimLocation
   	showOnBrowser("time", world.TIME.toString());
 	clearBoard();
 	for (let location of locationList){
-		board[location.xPos][location.yPos] += location.name[0] + ": ";
+		// console.log("Location "+location.name+" abbreviated to "+abbreviate(location.name));
+		board[location.xPos][location.yPos] += abbreviate(location.name) + ": ";
 	}
 	for (let agent of agentList){
 		board[agent.currentLocation.xPos][agent.currentLocation.yPos] += agent.name[0] + ", ";
