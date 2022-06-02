@@ -154,8 +154,7 @@
 			}
 		  ],
 		  "effects": [
-			  {"motive":"accomplishment", "delta":1},
-			  {"motive":"emotional", "delta":-1}
+			  {"motive":"accomplishment", "delta":1}
 		  ],
 		  "time_min": 75
 	  },
