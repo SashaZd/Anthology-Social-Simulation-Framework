@@ -104,42 +104,46 @@ function abbreviate(name:string) {
  * @param {types.SimLocation[]} locationList - list of locations in the simulation
  */
 export function updateUI(agentList:types.Agent[], locationList:types.SimLocation[]){
-  	showOnBrowser("time", world.TIME.toString());
-	clearBoard();
-	for (let location of locationList){
-		// console.log("Location "+location.name+" abbreviated to "+abbreviate(location.name));
-		board[location.xPos][location.yPos] += abbreviate(location.name) + ": ";
-	}
-	for (let agent of agentList){
-		board[agent.currentLocation.xPos][agent.currentLocation.yPos] += agent.name[0] + ", ";
-	}
-	for(var i:number=0; i<gridsize; i++){
-		for(var j:number=0; j<gridsize; j++){
-			var div:string = "space " + i.toString() + "-" + j.toString();
-			showOnBrowser(div, board[i][j]);
+
+	if(!paused){	
+	  showOnBrowser("time", world.TIME.toString());
+		
+		clearBoard();
+		for (let location of locationList){
+			// console.log("Location "+location.name+" abbreviated to "+abbreviate(location.name));
+			board[location.xPos][location.yPos] += abbreviate(location.name) + ": ";
 		}
-	}
-	var agent:types.Agent = agent_manager.getAgentByName(activeAgent);
+		for (let agent of agentList){
+			board[agent.currentLocation.xPos][agent.currentLocation.yPos] += agent.name[0] + ", ";
+		}
+		for(var i:number=0; i<gridsize; i++){
+			for(var j:number=0; j<gridsize; j++){
+				var div:string = "space " + i.toString() + "-" + j.toString();
+				showOnBrowser(div, board[i][j]);
+			}
+		}
+		var agent:types.Agent = agent_manager.getAgentByName(activeAgent);
 
-	if (agent != null) {
-		console.log(agent);
-		var action_names: string[] = agent.currentAction.map(a => a.name);
+		if (agent != null) {
+			console.log(agent);
+			var action_names: string[] = agent.currentAction.map(a => a.name);
 
-		showOnBrowser("occupied", agent.occupiedCounter.toString());
-		showOnBrowser("action", action_names.join(", "));
-		showOnBrowser("physical", agent.motive.physical.toString());
-		showOnBrowser("emotional", agent.motive.emotional.toString());
-		showOnBrowser("social", agent.motive.social.toString());
-		showOnBrowser("financial", agent.motive.financial.toString());
-		showOnBrowser("accomplishment", agent.motive.accomplishment.toString());
-	} else {
-		showOnBrowser("occupied", "");
-		showOnBrowser("action", "");
-		showOnBrowser("physical", "");
-		showOnBrowser("emotional", "");
-		showOnBrowser("social", "");
-		showOnBrowser("financial", "");
-		showOnBrowser("accomplishment", "");
+			showOnBrowser("occupied", agent.occupiedCounter.toString());
+			showOnBrowser("action", action_names.join(", "));
+			showOnBrowser("physical", agent.motive.physical.toString());
+			showOnBrowser("emotional", agent.motive.emotional.toString());
+			showOnBrowser("social", agent.motive.social.toString());
+			showOnBrowser("financial", agent.motive.financial.toString());
+			showOnBrowser("accomplishment", agent.motive.accomplishment.toString());
+		} else {
+			showOnBrowser("occupied", "");
+			showOnBrowser("action", "");
+			showOnBrowser("physical", "");
+			showOnBrowser("emotional", "");
+			showOnBrowser("social", "");
+			showOnBrowser("financial", "");
+			showOnBrowser("accomplishment", "");
+		}
 	}
 }
 
@@ -167,7 +171,8 @@ function toContinue() {
 window.onload = () => {
 	let startPauseButton = document.getElementById("startPauseButton");
 	startPauseButton.addEventListener("click", startPause(startPauseButton));
-  	updateUI(world.agentList, world.locationList);
+
+  updateUI(world.agentList, world.locationList);
 	changeValueOnBrowser("sleepMove", sleepMove);
 	changeValueOnBrowser("sleepStill", sleepStill);
 	document.getElementById("sleepMove").addEventListener("input", inputSleepMove);

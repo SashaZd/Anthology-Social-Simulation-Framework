@@ -5,12 +5,12 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="bundle.js"></script>
-    <title>SocialSim</title>
+    <title>Anthology</title>
   </head>
 
   <body>
     <center>
-  	<h1>SocialSim</h1>
+  	<h2>Anthology</h2>
   	</center>
 
     <!-- <div > -->
@@ -28,21 +28,20 @@
 
     		<!-- Control Panel -->
         <div style="display: inline-block; vertical-align: top;">
-          <h3 id="timeLabel" style="">Timestep: <div id="time" style="display: inline-block;">0</div></h3>
-          <button id="startPauseButton">Start</button>
+          <h4 id="timeLabel" style="">Timestep: <div id="time" style="display: inline-block;">0</div> <button id="startPauseButton">Start</button></h3>
           <h4 style=""><label for="sleepMove">Movement Speed (ms):</label><input type="number" id="sleepMove" name="sleepMove" min="0" max="9999"></h4>
           <h4 style=""><label for="sleepStill">Wait Speed (ms):</label><input type="number" id="sleepStill" name="sleepStill" min="0" max="9999"></h4>
-          <h2 style="">Agent Details</h2>
-          <h3 style=""><label for="agent">Agent: </label><select id="agent" name="agent">
+          <h4 style="">Agent Details</h3>
+          <h4 style="text-align:left"><label for="agent">Display Agent: </label><select id="agent" name="agent">
             <option value="none" selected>-None-</option>
           </select></h3>
-          <h4 id="occupiedLabel" style="">Occupied Counter: <div id="occupied" style="display: inline-block;"></div></h4>
-          <h4 id="actionLabel" style="">Current Action: <div id="action" style="display: inline-block;"></div></h4>
-          <h4 id="physicalLabel" style="">Physical Motive: <div id="physical" style="display: inline-block;"></div></h4>
-          <h4 id="emotionalLabel" style="">Emotional Motive: <div id="emotional" style="display: inline-block;"></div></h4>
-          <h4 id="socialLabel" style="">Social Motive: <div id="social" style="display: inline-block;"></div></h4>
-          <h4 id="financialLabel" style="">Financial Motive: <div id="financial" style="display: inline-block;"></div></h4>
-          <h4 id="accomplishmentLabel" style="">Accomplishment Motive: <div id="accomplishment" style="display: inline-block;"></div></h4>
+          <h4 id="occupiedLabel" style="text-align:left">Occupied Counter: <div id="occupied" style="display: inline-block;"></div></h4>
+          <h4 id="actionLabel" style="text-align:left">Current Action: <div id="action" style="display: inline-block;"></div></h4>
+          <h4 id="physicalLabel" style="text-align:left">Physical Motive: <div id="physical" style="display: inline-block;"></div></h4>
+          <h4 id="emotionalLabel" style="text-align:left">Emotional Motive: <div id="emotional" style="display: inline-block;"></div></h4>
+          <h4 id="socialLabel" style="text-align:left">Social Motive: <div id="social" style="display: inline-block;"></div></h4>
+          <h4 id="financialLabel" style="text-align:left">Financial Motive: <div id="financial" style="display: inline-block;"></div></h4>
+          <h4 id="accomplishmentLabel" style="text-align:left">Accomplishment Motive: <div id="accomplishment" style="display: inline-block;"></div></h4>
     		</div>
 
     	</center>
