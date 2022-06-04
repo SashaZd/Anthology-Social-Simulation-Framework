@@ -70,8 +70,15 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="execution_engine.html#interrupt" class="tsd-kind-icon">INTERRUPT</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#interrupt-1" class="tsd-kind-icon">interrupt</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#round_wait" class="tsd-kind-icon">round_<wbr>wait</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#run_sim" class="tsd-kind-icon">run_<wbr>sim</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#turn" class="tsd-kind-icon">turn</a></li>
@@ -81,7 +88,52 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="interrupt" class="tsd-anchor"></a>
+					<h3>INTERRUPT</h3>
+					<div class="tsd-signature tsd-kind-icon">INTERRUPT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L89">execution_engine.ts:89</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="interrupt-1" class="tsd-anchor"></a>
+					<h3>interrupt</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">interrupt<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L98">execution_engine.ts:98</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Interrupts the agent from the current action they are performing.
+									Potential future implementation: Optionally add the interrupted action (with the remaining occupied_counter) to the end of the action queue.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the agent being interrupted</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="round_wait" class="tsd-anchor"></a>
 					<h3>round_<wbr>wait</h3>
@@ -92,13 +144,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a77cb654/src/execution_engine.ts#L95">execution_engine.ts:95</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L114">execution_engine.ts:114</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>XXX update
-									[round_wait description]</p>
+									<p>[round_wait description]</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -139,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a77cb654/src/execution_engine.ts#L27">execution_engine.ts:27</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L28">execution_engine.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -201,7 +252,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a77cb654/src/execution_engine.ts#L58">execution_engine.ts:58</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L59">execution_engine.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,6 +311,12 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="execution_engine.html#interrupt" class="tsd-kind-icon">INTERRUPT</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="execution_engine.html#interrupt-1" class="tsd-kind-icon">interrupt</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="execution_engine.html#round_wait" class="tsd-kind-icon">round_<wbr>wait</a>
 					</li>
