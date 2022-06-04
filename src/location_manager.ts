@@ -106,14 +106,14 @@ export function getListedLocationFromCoords(location:types.SimLocation): types.S
 export function getNearestLocationFromOther(locations:types.SimLocation[], other:types.SimLocation): types.SimLocation {
 	let closest:types.SimLocation = locations.reduce((a, b) => {
 		let aDiff = getManhattanDistance(other,a);
-        let bDiff = getManhattanDistance(other, b);
+		let bDiff = getManhattanDistance(other, b);
 
-        // Check if the points are equidistant, if so, return one at random
-        if (aDiff == bDiff)
-        	return Math.random() < 0.5 ? a : b;
+		// Check if the points are equidistant, if so, return one at random
+		if (aDiff == bDiff)
+			return Math.random() < 0.5 ? a : b;
 
-	    // else return whichever is closer
-	    return  aDiff < bDiff ? a : b;
+		// else return whichever is closer
+		return  aDiff < bDiff ? a : b;
 	});
 	return closest;
 }
@@ -225,7 +225,7 @@ export function doesAgentCurrentLocationSatisfyPeopleRequirement(agent: types.Ag
 export function startTravelToLocation(agent: types.Agent, destination: types.SimLocation, time: number): void {
 	agent.destination = destination;
 	agent.occupiedCounter = getManhattanDistance(agent.currentLocation, destination);
-	utility.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction.name + "; Destination: " + destination.name);
+	utility.log("time: " + time.toString() + " | " + agent.name + ": Started " + agent.currentAction[0].name + "; Destination: " + destination.name);
 }
 
 

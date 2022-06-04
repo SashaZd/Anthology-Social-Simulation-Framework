@@ -2,6 +2,7 @@ import * as types from "./types";
 import * as world from "./world";
 import * as utility from "./utilities";
 import * as location_manager from "./location_manager"
+import * as agent_manager from "./agent"
 
 
 /**
@@ -73,29 +74,24 @@ export function getEffectDeltaForAgentAction(agent: types.Agent, action: types.A
 export function execute_action(agent: types.Agent): void {
 	agent.destination = null;
 	agent.occupiedCounter = 0;
-	// agent.currentAction = null;
+	
 
 	// apply each effect of the action by updating the agent's motives
-	for (var eachEffect of agent.currentAction.effects) {
-		var _delta: number = eachEffect.delta;
-		var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
-		agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
+	if (agent.currentAction.length > 0){
+		let action:types.Action = agent.currentAction.shift();
+		for (var eachEffect of action.effects) {
+			var _delta: number = eachEffect.delta;
+			var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
+			agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
+		}		
+		utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + action.name);
 	}
-	utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + agent.currentAction.name);
-
-	agent.currentAction = getActionByName("wait_action");
 }
-
-// export function nextAction(agent:types.Agent){
-// 	var {selected_action, destination} = selectNextActionForAgent(agent);
-
-
-// }
-
 
 
 /**
- * Starts an action (if the agent is at location), or makes the agent begin travel to a location where the action can be performed.
+ * Starts an action (if the agent is at location where the action can be performed)
+ * else makes the agent travel to the location selected to perform the action
  *
  * @param {types.Agent} agent - agent starting the action
  * @param {types.Action} selected_action - action being started
@@ -103,15 +99,15 @@ export function execute_action(agent: types.Agent): void {
  * @param {number} time - time of execution for logs
  *
  */
-export function start_action(agent: types.Agent, selected_action: types.Action, destination: types.SimLocation) {
+export function start_action(agent: types.Agent) {   // , selected_action: types.Action, destination: types.SimLocation
 	//set action to selected_action or to travel if agent is not at location for selected_action
 	// destination could be null if there's no location requirement? Action can be done anywhere?
-	if (destination === null || location_manager.isAgentAtLocation(agent, destination)) {
-	// if (isActionRequirementSatisfied(selected_action, agent)){
-		agent.currentAction = selected_action;
-		agent.occupiedCounter = selected_action.time_min;
-		utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Started " + agent.currentAction.name);
-	}
+
+	// if (destination === null || location_manager.isAgentAtLocation(agent, destination)) {
+		// agent.currentAction[0] = selected_action;
+		agent.occupiedCounter = agent.currentAction[0].time_min;
+		utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Started " + agent.currentAction[0].name);
+	// }
 }
 
 
@@ -137,16 +133,25 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 
 	// Finds the utility for each action to the given agent
 	for (var each_action of world.actionList){
-		// var nearest_location:types.SimLocation = null;
 		var travel_time:number = 0;
-
 		var possible_locations: types.SimLocation[] = world.locationList;
 
+		let motive_requirements: types.MotiveReq[] = getRequirementByType(each_action, types.ReqType.motive) as types.MotiveReq[];
 		let location_requirement: types.LocationReq[] = getRequirementByType(each_action, types.ReqType.location) as types.LocationReq[];
 		let people_requirement: types.PeopleReq[] = getRequirementByType(each_action, types.ReqType.people) as types.PeopleReq[];
-		let motive_requirements: types.MotiveReq[] = getRequirementByType(each_action, types.ReqType.motive) as types.MotiveReq[];
 
-		if(location_requirement.length > 0){
+
+		// If there is a motive requiremnt, evaluate
+		// checks if the specified condition is false (ie motiveX >= 2)
+		// and empties the possible locations if so.
+		// If the condition is violated, the empty list will cause the action not to be considered valid
+		// otherwise nothing happens.
+		if(possible_locations.length > 0 && motive_requirements.length > 0){
+			if (!agent_manager.agentSatisfiesMotiveRequirement(agent, motive_requirements)){
+				possible_locations = [];
+			}
+		}
+		if(possible_locations.length > 0 && location_requirement.length > 0){
 			// Get the delta_utility for the nearest location that satisfies this action's location requirement.
 			// Get possible locations for this action
 			possible_locations = location_manager.locationsSatisfyingLocationRequirement(possible_locations, location_requirement[0])
@@ -157,52 +162,6 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 		// Todo: If no location possible with PeopleReq, invite people?
 		if(possible_locations.length > 0 && people_requirement.length > 0){
 			possible_locations = location_manager.locationsSatisfyingPeopleRequirement(agent, possible_locations, people_requirement[0]);
-		}
-
-		// If there is still a valid location, and there is a motive requiremnt, evaluate
-		// checks if the specified condition is false (ie motiveX >= 2)
-		// and empties the possible locations if so.
-		// If the condition is violated, the empty list will cause the action not to be considered valid
-		// otherwise nothing happens.
-		if(possible_locations.length > 0 && motive_requirements.length > 0){
-			switch(motive_requirements[0].op) {
-			   case "equals": {
-					 if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-			   case "lt": {
-					 if (!(agent.motive[motive_requirements[0].motive] < motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "gt": {
-					 if (!(agent.motive[motive_requirements[0].motive] > motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "leq": {
-					 if (!(agent.motive[motive_requirements[0].motive] <= motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-				 case "geq": {
-					 if (!(agent.motive[motive_requirements[0].motive] >= motive_requirements[0].thresh)) {
-						 possible_locations = [];
-					 }
-			      break;
-			   }
-			   default: {
-			      if (!(agent.motive[motive_requirements[0].motive] == motive_requirements[0].thresh)) {
-							possible_locations = [];
-						}
-			      break;
-			   }
-			}
 		}
 
 		// If there is a location possible that meets all the requriements
@@ -216,20 +175,24 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 			var delta_utility: number = getEffectDeltaForAgentAction(agent, each_action);
 			delta_utility = delta_utility/(each_action.time_min + travel_time);
 
-			if (delta_utility > max_delta_utility) {
+			if((delta_utility == max_delta_utility && utility.withProbability(0.5)) || delta_utility > max_delta_utility){
 				max_delta_utility = delta_utility;
 				current_choice = each_action;
 				current_destination = nearest_location;
-			}
+			}		
 		}
 	}
+	agent.currentAction.push(current_choice)
+
 
 	if (current_destination != null && !location_manager.isAgentAtLocation(agent, current_destination)) {
-		agent.currentAction = getActionByName("travel_action");
+		// console.log(agent.name, "Unshifting travel in...")
+		agent.currentAction.unshift(getActionByName("travel_action"))
+		// console.log(agent.name, " -- next -- ", agent.currentAction.map(a=>a.name).join(", "));
 		location_manager.startTravelToLocation(agent, current_destination, world.TIME);
 	}
-	else{
-		start_action(agent, current_choice, current_destination);
+	else if(current_destination == null || location_manager.isAgentAtLocation(agent, current_destination)) {
+		start_action(agent); // , selected_action: types.Action, destination: types.SimLocation
 	}
 }
 
