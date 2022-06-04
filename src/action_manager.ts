@@ -56,10 +56,18 @@ export function getRequirementByType(action: types.Action, reqType: types.ReqTyp
 export function getEffectDeltaForAgentAction(agent: types.Agent, action: types.Action): number {
 	var deltaUtility: number = 0
 
-	for (var eachEffect of action.effects) {
-		var _delta: number = eachEffect.delta;
-		var _motivetype: keyof types.Motive = eachEffect.motive;
-		deltaUtility += utility.clamp(_delta + agent.motive[_motivetype], utility.MAX_METER, utility.MIN_METER) - agent.motive[_motivetype];
+	let p_action: types.PrimaryAction =  action as types.PrimaryAction
+	let s_action: types.ScheduleAction =  action as types.ScheduleAction
+	if (p_action?.effects){
+		for (var eachEffect of p_action.effects) {
+			var _delta: number = eachEffect.delta;
+			var _motivetype: keyof types.Motive = eachEffect.motive;
+			deltaUtility += utility.clamp(_delta + agent.motive[_motivetype], utility.MAX_METER, utility.MIN_METER) - agent.motive[_motivetype];
+		}
+
+		return deltaUtility;
+	} else if (s_action?.instigatorAction) {
+		return getEffectDeltaForAgentAction(agent, s_action.instigatorAction)
 	}
 
 	return deltaUtility;
@@ -74,20 +82,46 @@ export function getEffectDeltaForAgentAction(agent: types.Agent, action: types.A
 export function execute_action(agent: types.Agent): void {
 	agent.destination = null;
 	agent.occupiedCounter = 0;
-	
+
 
 	// apply each effect of the action by updating the agent's motives
 	if (agent.currentAction.length > 0){
 		let action:types.Action = agent.currentAction.shift();
-		for (var eachEffect of action.effects) {
-			var _delta: number = eachEffect.delta;
-			var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
-			agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
-		}		
-		utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + action.name);
+		let p_action: types.PrimaryAction =  action as types.PrimaryAction
+		let s_action: types.ScheduleAction =  action as types.ScheduleAction
+		if (p_action?.effects){ // case for primary action
+			for (var eachEffect of p_action.effects) {
+				var _delta: number = eachEffect.delta;
+				var _motivetype: types.MotiveType = types.MotiveType[eachEffect.motive];
+				agent.motive[_motivetype] = utility.clamp(agent.motive[_motivetype] + _delta, utility.MAX_METER, utility.MIN_METER);
+			}
+			utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Finished " + action.name);
+		} else if (s_action?.targetAction) { //case for scheduling action
+			if (s_action.interrupt) {
+				agent.currentAction.unshift(s_action.instigatorAction)
+			} else {
+				agent.currentAction.push(s_action.instigatorAction)
+			}
+			for (var targ of agent.currentTargets) {
+				if (s_action.interrupt) {
+					targ.currentAction.unshift(s_action.targetAction)
+				} else {
+					targ.currentAction.push(s_action.targetAction)
+				}
+				utility.log("time: " + world.TIME.toString() + " | " + targ.name + ": Affected by " + s_action.targetAction.name);
+			}
+		}
 	}
+
+	//agent.currentAction[0] = getActionByName("wait_action");
+	agent.currentTargets = [];
 }
 
+// export function nextAction(agent:types.Agent){
+// 	var {selected_action, destination} = selectNextActionForAgent(agent);
+
+
+// }
 
 /**
  * Starts an action (if the agent is at location where the action can be performed)
@@ -100,14 +134,18 @@ export function execute_action(agent: types.Agent): void {
  *
  */
 export function start_action(agent: types.Agent) {   // , selected_action: types.Action, destination: types.SimLocation
-	//set action to selected_action or to travel if agent is not at location for selected_action
-	// destination could be null if there's no location requirement? Action can be done anywhere?
-
-	// if (destination === null || location_manager.isAgentAtLocation(agent, destination)) {
-		// agent.currentAction[0] = selected_action;
-		agent.occupiedCounter = agent.currentAction[0].time_min;
-		utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Started " + agent.currentAction[0].name);
-	// }
+	agent.occupiedCounter = agent.currentAction[0].time_min;
+	let s_action: types.ScheduleAction =  agent.currentAction[0] as types.ScheduleAction
+	if (s_action?.target) {
+		var actionTargets: types.Agent[] = [];
+		for (var eachAgent of world.agentList) {
+			if (location_manager.isAgentAtLocation(eachAgent, agent.currentLocation)) {
+				actionTargets.push(eachAgent);
+			}
+		}
+		agent.currentTargets = actionTargets;
+	}
+	utility.log("time: " + world.TIME.toString() + " | " + agent.name + ": Started " + agent.currentAction[0].name);
 }
 
 
@@ -131,8 +169,16 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 	var current_choice:types.Action = getActionByName("wait_action");
 	var current_destination:types.SimLocation = null;
 
+	var action_select_log:string[] = [];
+
 	// Finds the utility for each action to the given agent
 	for (var each_action of world.actionList){
+		if (each_action?.hidden){
+			continue;
+		}
+		action_select_log.push("Action: " + each_action.name);
+
+		// var nearest_location:types.SimLocation = null;
 		var travel_time:number = 0;
 		var possible_locations: types.SimLocation[] = world.locationList;
 
@@ -173,16 +219,27 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 
 			// adjust for time (including travel time)
 			var delta_utility: number = getEffectDeltaForAgentAction(agent, each_action);
+			action_select_log.push("Action Utility: " + delta_utility);
 			delta_utility = delta_utility/(each_action.time_min + travel_time);
+			action_select_log.push("Action Weighted Utility: " + delta_utility);
 
 			if((delta_utility == max_delta_utility && utility.withProbability(0.5)) || delta_utility > max_delta_utility){
 				max_delta_utility = delta_utility;
 				current_choice = each_action;
 				current_destination = nearest_location;
-			}		
+			}
+
+			action_select_log.push("Current Choice: " + current_choice.name);
+			if (current_destination) {
+				action_select_log.push("Current Destination: " + current_destination.name);
+			} else {
+				action_select_log.push("Current Destination: null");
+			}
+
 		}
 	}
 	agent.currentAction.push(current_choice)
+	//console.log(action_select_log)
 
 
 	if (current_destination != null && !location_manager.isAgentAtLocation(agent, current_destination)) {

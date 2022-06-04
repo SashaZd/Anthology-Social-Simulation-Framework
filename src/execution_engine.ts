@@ -3,11 +3,11 @@ import * as action_manager from "./action_manager";
 import * as types from "./types";
 import * as ui from "./ui";
 import * as world from "./world";
-import * as utility from "./utilities";
 
 const json_data = require("./data.json");
+//require("../examples/college-roommates.json");
 
-world.loadActionsFromJSON(json_data['actions']);
+world.loadActionsFromJSON(json_data['primary-actions'],json_data['schedule-actions']);
 world.loadLocationsFromJSON(json_data['locations']);
 world.loadAgentsFromJSON(json_data["agents"]);
 
@@ -24,14 +24,27 @@ world.loadAgentsFromJSON(json_data["agents"]);
  * @param {types.SimLocation[]} locationList - list of locations in the simulation
  * @param {() => boolean} continueFunction - boolean function that is used as a check as to whether or not to keep running the sim
  */
-export function run_sim(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean):void {
-	var movement:boolean = false;
-	for (var agent of agentList){
-	var turnMove:boolean = turn(agent);
-		movement = movement || turnMove;
-	}
-	world.increment_time()
-	round_wait(agentList, actionList, locationList, continueFunction, movement);
+export function run_sim(
+		agentList:types.Agent[], actionList:types.Action[]
+		, locationList:types.SimLocation[]
+		, continueFunction: () => boolean):void 
+{
+	let movement:boolean = false;
+	if(continueFunction()) {
+		for (var agent of agentList) {
+			let turnMove:boolean = turn(agent);
+			movement = movement || turnMove;
+		}
+		world.increment_time()
+	} /* else {
+		utility.log("Finished.");
+		utility.print();
+	} */
+	
+	// June 2, 2022 CRM: refactored round_wait() not to depend on all the params, instead just pass it the
+	// continuation function.
+	round_wait(() => {run_sim(agentList, actionList, locationList, continueFunction)}, movement);
+	ui.updateUI(agentList, locationList);
 }
 
 /**
@@ -60,12 +73,12 @@ export function turn(agent:types.Agent):boolean {
 		if (!agent_manager.isContent(agent)) {
 
 			if(agent.currentAction.length == 0){
-				action_manager.selectNextActionForAgent(agent);	
+				action_manager.selectNextActionForAgent(agent);
 			}
 			else{
 				action_manager.start_action(agent);
 			}
-			
+
 		}
 	}
 	return movement;
@@ -97,17 +110,11 @@ export function interrupt(name:string): void{
  * @param  {() => boolean}        continueFunction function which returns true if the simulation should continue
  * @param  {boolean}              movement         Whether or not any agents moved this turn
  */
-export function round_wait(agentList:types.Agent[], actionList:types.Action[], locationList:types.SimLocation[], continueFunction: () => boolean, movement:boolean) {
-	ui.updateUI(agentList, locationList);
-	if (continueFunction()) {
-		if (movement) {
-			setTimeout(() => {run_sim(agentList, actionList, locationList, continueFunction)}, ui.sleepMove);
-		} else {
-			setTimeout(() => {run_sim(agentList, actionList, locationList, continueFunction)}, ui.sleepStill);
-		}
+export function round_wait(f : () => void, movement:boolean) {
+	if (movement) {
+		setTimeout(f, ui.sleepMove);
 	} else {
-		utility.log("Finished.");
-		utility.print();
+		setTimeout(f, ui.sleepStill);
 	}
 }
 

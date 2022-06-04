@@ -190,8 +190,8 @@ export function withProbability(geq:number):boolean {
 
 /**
  * [getRandomInt description]
- * @param  {number} min   minimum return value (exclusive)
- * @param  {number} max   maximum return value (inclusive)
+ * @param  {number} min   minimum return value (inclusive)
+ * @param  {number} max   maximum return value (exclusive)
  * @return {number}       resulting integer
  */
 export function getRandomInt(min:number, max:number):number {

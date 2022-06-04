@@ -1,0 +1,106 @@
+{
+	"agents": [
+		{
+			"name": "Georg",
+			"motive": {
+				"academics": 2,
+				"social": 2,
+				"sleep": 5,
+				"hunger": 3,
+                "relaxation": 3,
+                "exercise":2
+			},
+			"currentLocation": {
+				"xPos": 0,
+				"yPos": 0
+			},
+			"occupiedCounter": 0,
+			"currentAction": "wait_action",
+			"destination": {
+				"xPos": 5,
+				"yPos": 5
+			},
+			"relationships": [
+                { "type": "friend", "with": "Pat", "valence": 2 }
+			]
+		},
+		{
+			"name": "Pat",
+			"motive": {
+				"academics": 4,
+				"social": 2,
+				"sleep": 5,
+				"hunger": 3,
+                "relaxation": 1,
+                "exercise":4
+			},
+			"currentLocation": {
+				"xPos": 0,
+				"yPos": 0
+			},
+			"occupiedCounter": 0,
+			"currentAction": "wait_action",
+			"destination": {
+				"xPos": 5,
+				"yPos": 5
+			},
+			"relationships": [
+				{ "type": "friend", "with": "Georg", "valence": 1 }
+			]
+		}
+	],
+	"actions": [
+	  {
+		"name": "eat_alone",
+		"requirements": [
+			{ "reqType":"location", "hasAllOf":["restaurant"]}
+		],
+		"effects": [
+			{"motive":"physical", "delta":2},
+			{"motive":"financial", "delta":-1}
+		],
+
+		"time_min":     60
+	  }
+	],
+	"locations": [
+		{
+			"name": "dining hall", 
+			"xPos": 5, "yPos": 5, 
+			"tags": ["restaurant"]
+		},
+		{
+			"name": "computer lab", 
+			"xPos": 0, "yPos": 5, 
+			"tags": ["has:computer"]
+		},
+		{
+			"name": "dorm", 
+			"xPos": 2, "yPos": 3, 
+			"tags": ["has:computer"]
+		},
+		{
+			"name": "student center", 
+			"xPos": 5, "yPos": 0, 
+			"tags": ["student-center"]
+        },
+        {
+            "name": "greenway",
+            "xpos": 1, "yPos": 3,
+            "tags": "outdoor"
+        },
+        {
+            "name": "math hall",
+            "xpos": 1, "yPos": 2,
+            "tags": ["classroom", "math"]
+        },
+        {
+            "name": "physics hall",
+            "xpos": 1, "yPos": 1,
+            "tags": ["classroom", "physics"]
+        }
+	],
+	"grid_size": 2,
+	"rand_locations": 4,
+	"rand_agents": 2
+}

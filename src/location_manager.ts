@@ -165,12 +165,12 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 
 	// Filtering for minNumPeople
 	if(_locations.length > 0 && people_requirement.minNumPeople > 1){
-		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length > people_requirement.minNumPeople-1);
+		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length >= people_requirement.minNumPeople-1);
 	}
 
 	// Filtering for maxNumPeople
 	if(_locations.length > 0 && people_requirement.maxNumPeople > 1){
-		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length < people_requirement.maxNumPeople-1);
+		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length <= people_requirement.maxNumPeople-1);
 	}
 
 	// Filtering for specificPeoplePresent
@@ -252,6 +252,6 @@ export function startTravelToLocation(agent: types.Agent, destination: types.Sim
 // 		return possible_locations[0]
 
 // 	// returns false if there is no listed action with this name
-// 	utility.log("getLocationByName => Couldn't find location with name: ", name);	
+// 	utility.log("getLocationByName => Couldn't find location with name: ", name);
 // 	return null
 // }

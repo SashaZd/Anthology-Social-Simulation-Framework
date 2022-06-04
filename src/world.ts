@@ -44,10 +44,11 @@ export var n:number = 0;
 /**
  * Loads actions available in the simulation from the data.json file.
  *
- * @param  {types.Action[]} actions_json - JSON description of the actions
+ * @param  {types.PrimaryAction[]} actions_json - JSON description of the primary actions
+ * @param  {types.SerializableScheduleAction[]} schedule_json - JSON description of the scheduling actions
  * @returns {void} - sets an internal array of actions of type types.Actions that are available in the simulation
  */
-export function loadActionsFromJSON(actions_json: types.Action[]): void {
+export function loadActionsFromJSON(actions_json: types.PrimaryAction[], schedule_json: types.SerializableScheduleAction[]): void {
 	let actions: types.Action[] = [];
 	for (let parse_action of actions_json) {
 		var action: types.Action = Object.assign({}, parse_action);
@@ -71,6 +72,37 @@ export function loadActionsFromJSON(actions_json: types.Action[]): void {
 		var action: types.Action = Object.assign({}, parse_action);
 		actions.push(action);
 	}
+
+	let schedules: types.ScheduleAction[] = [];
+	for (let parse_schedule of schedule_json){
+		let possible_actions: types.Action[] = [];
+		possible_actions = actions.filter((action: types.PrimaryAction) => action.name === parse_schedule.instigatorAction)
+		let actualInstigatorAction: types.PrimaryAction = null
+		if (possible_actions.length > 0) {
+			actualInstigatorAction = possible_actions[0] as types.PrimaryAction;
+		} else {
+			console.log("Error: " + parse_schedule.instigatorAction + " not valid action.");
+			continue;
+		}
+
+
+		possible_actions = [];
+		possible_actions = actions.filter((action: types.PrimaryAction) => action.name === parse_schedule.targetAction)
+		let actualTargetAction: types.PrimaryAction = null
+		if (possible_actions.length > 0) {
+			actualTargetAction = possible_actions[0] as types.PrimaryAction;
+		} else {
+			console.log("Error: " + parse_schedule.targetAction + " not valid action.");
+			continue;
+		}
+
+		let schedule:types.ScheduleAction = Object.assign({}, parse_schedule, {
+			instigatorAction: actualInstigatorAction,
+			targetAction: actualTargetAction
+		});
+		schedules.push(schedule);
+	}
+	actions = actions.concat(schedules);
 
 	console.log("actions: ", actions);
 	actionList = actions;
