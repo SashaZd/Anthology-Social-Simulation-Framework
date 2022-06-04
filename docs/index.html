@@ -58,6 +58,7 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
+<<<<<<< HEAD
 				<a href="#anthology" id="anthology" style="color: inherit; text-decoration: none;">
 					<h1>Anthology</h1>
 				</a>
@@ -147,6 +148,37 @@
 				<p>or </p>
 				<pre><code><span style="color: #001080">npx</span><span style="color: #000000"> </span><span style="color: #001080">depcruise</span><span style="color: #000000"> --</span><span style="color: #001080">include</span><span style="color: #000000">-</span><span style="color: #001080">only</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;^src&quot;</span><span style="color: #000000"> --</span><span style="color: #001080">output</span><span style="color: #000000">-</span><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">dot</span><span style="color: #000000"> src &gt; dependency.dot</span>
 </code></pre>
+=======
+				<p>!! Install dependencies: </p>
+				<p>(Needed to use sudo on the mac to make sure they could be called globally since that&#39;s not the default)</p>
+				<ul>
+					<li>make sure you have both Node (<a href="https://nodejs.org/en/">https://nodejs.org/en/</a>) and NPM (<a href="https://www.npmjs.com/">https://www.npmjs.com/</a>) installed on your machine</li>
+					<li>brew install node</li>
+					<li>npm init</li>
+					<li>node -v </li>
+					<li>npm -v</li>
+					<li>sudo npm install --save-dev typescript gulp gulp-typescript</li>
+					<li>sudo npm install gulp -g</li>
+					<li>sudo npm install --save-dev browserify tsify vinyl-source-stream</li>
+					<li>sudo npm install --save-dev watchify fancy-log</li>
+				</ul>
+				<p>!! To Run
+				This should create an index.html file in the dist folder. </p>
+				<ul>
+					<li>$ gulp </li>
+				</ul>
+				<p>!! Generate Documentation
+				To generate documentation use tsdoc to add doc comments to the code </p>
+				<p>If there&#39;s a new TS module, add the file to the tsconfig.json files list. Then run </p>
+				<p>$ npx typedoc src/*.ts </p>
+				<p>!! Check for unused code</p>
+				<p>To find unused methods: </p>
+				<p>$ ts-prune -p tsconfig.ts-prune.json | grep -v &#39;used in module&#39;</p>
+				<p>To generate the Dependency Graph </p>
+				<p>$ depcruise --include-only &quot;^src&quot; --output-type dot src | dot -T svg &gt; dependencygraph.svg</p>
+				<p>or </p>
+				<p>$ npx depcruise --include-only &quot;^src&quot; --output-type dot src &gt; dependency.dot</p>
+>>>>>>> 506a6e0522e5a75b5f5711de1dd88afbcc32dbea
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

@@ -12,7 +12,6 @@ world.loadActionsFromJSON(json_data['primary-actions'],json_data['schedule-actio
 world.loadLocationsFromJSON(json_data['locations']);
 world.loadAgentsFromJSON(json_data["agents"]);
 
-// For Testing Purposes ONLY
 // world.createRandomLocations(json_data['rand_locations'], json_data['grid_size']);
 // world.createRandomAgents(json_data["rand_agents"]);
 
@@ -59,6 +58,13 @@ export function run_sim(
 export function turn(agent:types.Agent):boolean {
 	var movement:boolean = false;
 
+	// if (world.TIME%1200 == 0) {
+	// 	if (!agent_manager.isContent(agent)) {
+	// 		agent_manager.decrement_motives(agent);
+	// 	}
+	// }
+// >>>>>>> 506a6e0522e5a75b5f5711de1dd88afbcc32dbea
+
 	if (agent.occupiedCounter > 0) {
 		agent.occupiedCounter--;
 
@@ -84,6 +90,7 @@ export function turn(agent:types.Agent):boolean {
 	}
 	return movement;
 }
+
 
 
 export var INTERRUPT:string[] = [];
@@ -118,6 +125,7 @@ export function round_wait(f : () => void, movement:boolean) {
 		setTimeout(f, ui.sleepStill);
 	}
 }
+
 
 
 // /**

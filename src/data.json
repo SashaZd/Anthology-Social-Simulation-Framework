@@ -98,7 +98,7 @@
 	  {
 		"name": "eat_alone",
 		"requirements": [
-			{ "reqType":"location", "hasAllOf":["restaurant"], "hasOneOrMoreOf":[], "hasNoneOf":[]}
+			{ "reqType":"location", "hasAllOf":["restaurant"]}
 		],
 		"effects": [
 			{"motive":"physical", "delta":2}

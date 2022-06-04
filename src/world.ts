@@ -1,4 +1,5 @@
 import * as types from "./types";
+
 import * as agent_manager from "./agent"
 // import * as utility from "./utilities";
 
@@ -141,6 +142,7 @@ export function loadAgentsFromJSON(agent_json:types.SerializableAgent[]): void {
 	agentList = agents;
 }
 
+
 // /**
 //  * Creates random agents (amount specified in json)
 //  * @param {number}	agent_json Number of agents to create
@@ -192,6 +194,37 @@ export function loadLocationsFromJSON(locations_json:types.SimLocation[]): void{
 	}
 	locationList = locations;
 }
+
+
+
+// /**
+//  * Creates random agents (amount specified in json)
+//  * @param {number}	agent_json Number of agents to create
+//  * @returns {void} sets an internal array of locations available within the simulation of type types.SimLocation[]
+//  */
+// export function createRandomAgents(agent_json:number): void {
+// 	for(let i:number = 0; i<agent_json; i++) {
+// 		let name:string = "Agent " + i.toString();
+// 		let motive:types.Motive =
+// 			{
+// 				physical: utility.getRandomInt(1,5),
+// 				emotional: utility.getRandomInt(1,5),
+// 				social: utility.getRandomInt(1,5),
+// 				financial: utility.getRandomInt(1,5),
+// 				accomplishment: utility.getRandomInt(1,5)
+// 			};
+// 		let currentLocation:types.SimLocation =
+// 			{
+// 				xPos: utility.getRandomInt(0,n),
+// 				yPos: utility.getRandomInt(0,n)
+// 			};
+// 		let possible_action: types.Action = actionList.filter((action: types.Action) => action.name === "wait_action")[0] as types.Action;
+// 		let agent:types.Agent = {name:name, motive:motive, currentLocation:currentLocation, occupiedCounter:0, currentAction:possible_action, destination:null};
+// 		agentList.push(agent);
+// 	}
+// 	console.log("agents: ", agentList);
+// }
+
 
 // /**
 //  * Creates random locations (amount specified in json)
