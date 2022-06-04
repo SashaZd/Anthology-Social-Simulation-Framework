@@ -1,7 +1,6 @@
 import * as types from "./types";
 import * as utility from "./utilities";
 import * as world from "./world";
-import * as agent_manager from "./agent";
 
 
 /**
@@ -165,7 +164,6 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 	var _locations: types.SimLocation[] = locations;
 
 	// Filtering for minNumPeople
-
 	if(_locations.length > 0 && people_requirement.minNumPeople > 1){
 		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length >= people_requirement.minNumPeople-1);
 	}
@@ -175,45 +173,24 @@ export function locationsSatisfyingPeopleRequirement(agent:types.Agent, location
 		_locations = _locations.filter((location: types.SimLocation) => getPeopleAtLocation(location, [agent]).length <= people_requirement.maxNumPeople-1);
 	}
 
-    // Filtering for specificPeoplePresent
-	if(_locations.length > 0 && people_requirement.specificPeoplePresent){
-		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesAllOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeoplePresent));
+	// Filtering for specificPeoplePresent
+	if(_locations.length > 0 && people_requirement.specificPeoplePresent.length > 0){
+		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesAllOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
 	}
 
 	// Filtering for specificPeopleAbsent
-	if(_locations.length > 0 && people_requirement.specificPeopleAbsent){
-        _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), people_requirement.specificPeopleAbsent));
+	if(_locations.length > 0 && people_requirement.specificPeopleAbsent.length > 0){
+		_locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(getPeopleAtLocation(location), people_requirement.specificPeoplePresent));
 	}
 
-	return _locations
-}
+	// Todo: relationshipsPresent
+	if(_locations.length > 0 && people_requirement.relationshipsPresent.length > 0){
 
-
-/**
- * Check if locations satisfy the relatioship requirement
- * @param  {types.Agent}           agent                    agent for which this requirement must be satisfied
- * @param  {types.SimLocation[]}   locations                a list of locations to test
- * @param  {types.RelationshipReq} relationship_requirement relationship requiremnt whose preconditions must be satisfied
- * @return {types.SimLocation[]}                            returns a list of locations that satisfy this requirement
- */
-export function locationsSatisfyingRelationshipRequirement(agent:types.Agent, locations:types.SimLocation[], relationship_requirement:types.RelationshipReq): types.SimLocation[] {
-	var _locations: types.SimLocation[] = locations;
-
-	// Filtering for specific relationships present
-	if(_locations.length > 0 && relationship_requirement?.relationshipsPresent){
-        let checkFor:string[] = agent_manager.getAgentsWithRelationship(agent, relationship_requirement.relationshipsPresent)
-
-        if(checkFor.length>0){
-            _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesSomeOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), checkFor));
-        }
-        else{
-            _locations = []
-        }
 	}
 
-	// Filtering for specific relationships absent
-	if(_locations.length > 0 && relationship_requirement?.relationshipsAbsent){
-        _locations = _locations.filter((location: types.SimLocation) => utility.arrayIncludesNoneOf(agent_manager.getAgentNames(getPeopleAtLocation(location)), agent_manager.getAgentsWithRelationship(agent, relationship_requirement.relationshipsAbsent)));
+	// Todo: relationshipsAbsent
+	if(_locations.length > 0 && people_requirement.relationshipsAbsent.length > 0){
+
 	}
 
 	return _locations

@@ -123,8 +123,6 @@ export function execute_action(agent: types.Agent): void {
 
 // }
 
-
-
 /**
  * Starts an action (if the agent is at location where the action can be performed)
  * else makes the agent travel to the location selected to perform the action
@@ -251,7 +249,6 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 		location_manager.startTravelToLocation(agent, current_destination, world.TIME);
 	}
 	else if(current_destination == null || location_manager.isAgentAtLocation(agent, current_destination)) {
-		// Sasha: Should not be in here... needs to be separated into turn instead
 		start_action(agent); // , selected_action: types.Action, destination: types.SimLocation
 	}
 }

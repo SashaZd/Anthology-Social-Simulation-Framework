@@ -116,13 +116,8 @@ export const motiveTypes: string[] = Object.keys(MotiveType).filter(k => typeof 
 export type BinOp = "equals" | "gt" | "lt" | "geq" | "leq";
 
 
-<<<<<<< HEAD
 // Three types of requirements
 // export type ReqType = "location" | "people" | "motive";
-=======
-// // Three types of requirements
-// // export type ReqType = "location" | "people" | "motive";
->>>>>>> 506a6e0522e5a75b5f5711de1dd88afbcc32dbea
 
 /**
  * Enum Requirement Type
@@ -140,11 +135,6 @@ export enum ReqType {
 	 * @type {String}
 	 */
 	people = "people",
-  /**
-	 * Indicates that a Relationship requirement
-	 * @type {String}
-	 */
-	relationship = "relationship",
 	/**
 	 * Indicates that a Motive requirement
 	 * @type {String}
@@ -169,49 +159,24 @@ export type LocationReq = {
 	 * array of string tags that must be present in the location for the action to occur
 	 * @type {string[]}
 	 */
-	hasAllOf?: string[];
+	hasAllOf: string[];
 	/**
 	 * array of string tags where at least one or more must be present in the location for the action to occur
 	 * @type {string[]}
 	 */
-	hasOneOrMoreOf?: string[];
+	hasOneOrMoreOf: string[];
 	/**
 	 * array of string tags that should not be present in the location for the action to occur
 	 * @type {string[]}
 	 */
-	hasNoneOf?: string[];
+	hasNoneOf: string[];
 }
 
 //
 // eg: must be with a sepcific person
 
-export type SocialReq = PeopleReq | RelationshipReq;
-
-
-export type RelationshipReq = {
-
-	/**
-	 * Defines the type of this requirement to be a relatioship requirement
-	 */
-	reqType: "relationship",
-
-	/**
-	 * Relationships that must occur between the participating agents in order for action to be executed
-	 * eg. [teacher, student] relationships for the action: "submit_homework"
-	 * @type {string[]}
-	 */
-	relationshipsPresent?: string[],
-	/**
-	 * Relationships that must not occur between the participating agents in order for action to be executed
-	 * eg. [siblings] relationship for the action: "kiss_romantically"
-	 * @type {string[]}
-	 */
-	relationshipsAbsent?: string[]
-}
-
-
 /**
- * Agent Requirement
+ * People Requirement
  * Requirements on who is or must be present for an action.
  * eg: minNumPeople:2 implies that at least 2 people must be present for this action to occur
  * @type {Object.<string, string | string[] | Agent[] | number>}
@@ -220,30 +185,40 @@ export type PeopleReq = {
 	/**
 	 * Defines the type of this requirement to be a People Requirement
 	 */
-	reqType: "agent",
+	reqType: "people",
 	/**
-	 * Specifies the minimum number of people that must be present for this action to occur (including this agent)
+	 * Specifies the minimum number of people that must be present for this action to occur
 	 * @type {number}
 	 */
-	minNumPeople?: number,
+	minNumPeople: number,
 	/**
-	 * Specifies the maximum number of people that must be present for this action to occur (including this agent)
+	 * Specifies the maximum number of people that must be present for this action to occur
 	 * @type {number}
 	 */
-	maxNumPeople?: number,
+	maxNumPeople: number,
 	/**
 	 * Array of agents that must be present for the action to be completed
-	 * List agents using their names (comma separated)
 	 * eg. A cook must be present at a restaurant for food to be served to a customer.
 	 * @type {Agent[]}
 	 */
-	specificPeoplePresent?: string[],
+	specificPeoplePresent: Agent[],
 	/**
 	 * Array of agents that must be absent for the action to be completed
-	 * List agents using their names (comma separated)
 	 * @type {Agent[]}
 	 */
-	specificPeopleAbsent?: string[]
+	specificPeopleAbsent: Agent[],
+	/**
+	 * Relationships that must occur between the participating agents in order for action to be executed
+	 * eg. [teacher, student] relationships for the action: "submit_homework"
+	 * @type {string[]}
+	 */
+	relationshipsPresent: string[],
+	/**
+	 * Relationships that must not occur between the participating agents in order for action to be executed
+	 * eg. [siblings] relationship for the action: "kiss_romantically"
+	 * @type {string[]}
+	 */
+	relationshipsAbsent: string[]
 }
 
 
@@ -281,7 +256,7 @@ export type MotiveReq = {
  * Union type of Location Requirements, People Requirements or Motive Requirements
  * @type {LocationReq | PeopleReq | MotiveReq}
  */
-export type Requirement = LocationReq | SocialReq | MotiveReq;
+export type Requirement = LocationReq | PeopleReq | MotiveReq;
 
 
 /**
@@ -519,24 +494,6 @@ export type ScheduleAction = {
 /////////////// AGENTS /////////////////////////////////
 ////////////////////////////////////////////////////////
 
-/**
- * Individual relationships held by an agent
- * An agent may have multiple relationships with the same person
- * Eg. Alice may have a 'sibling' and 'friend' relationship with Bob
- * @type {Object}
- */
-export type Relationship = {
-	/** @type {string} Type of the relationship. Eg. sibling, romantic, friend, etc */
-	type: string;
-
-	/** @type {string} Recipient of the relationship. Eg. Bob */
-	with: string;
-
-	/** @type {string} Optional valence or strength of the relationship. */
-	valence?: number;
-}
-
-
 
 /**
  * Agent type
@@ -573,7 +530,6 @@ export type Agent = {
   currentTargets: Agent[];
 }
 
-
 // JSON agent type: currentAction:string is converted to currentAction:Action by parser
 
 /**
@@ -582,19 +538,14 @@ export type Agent = {
  * @type {Object}
  */
 export type SerializableAgent = {
-
 	/** @type {string} initialized to the name of the agent */
 	name: string,
-
 	/** @type {Motive} motives initialized with values for the agent */
 	motive: Motive,
-
 	/** @type {SimLocation} starting location initialized for the agent  */
 	currentLocation: SimLocation,
-
 	/** @type {number} describes whether the agent is currently occupied */
 	occupiedCounter: number,
-<<<<<<< HEAD
 	/** @type {string[]} queue containing the next few actions being executed by the agent */
 	currentAction: string[],
 	/** @type {[type]} Location the agent is currently headed to */
@@ -604,16 +555,6 @@ export type SerializableAgent = {
    * @type {Agent[]}
    */
   currentTargets: Agent[]
-=======
-
-	/** @type {string} name of the current action being executed by the agent */
-	currentAction: string,
-
-	/** @type {[type]} Location the agent is currently headed to */
-	destination: SimLocation | null,
-	/** @type {Relationship[]} The relationships this agent has */
-	relationships: Relationship[];
->>>>>>> 506a6e0522e5a75b5f5711de1dd88afbcc32dbea
 }
 
 
@@ -635,13 +576,10 @@ export type SerializableAgent = {
 export type SimLocation = {
 	/** @type {number} x-coordinate of the location */
 	xPos: number;
-
 	/** @type {number} y-coordinate of the location */
 	yPos: number;
-
 	/** @type {string[]} optional list of tags associated with the location. Eg. Restaurant could have ['food', 'delivery'] as tags */
 	tags?: string[];
-
 	/** @type {string} optional name of the location eg. Restaurant, Home, Movie Theatre, etc */
 	name?: string;
 }

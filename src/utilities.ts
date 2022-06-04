@@ -63,16 +63,12 @@ export function clamp(test:number, max:number, min:number):number {
  *
  * {@link TSDoc | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every}
  * @param  {any[]}   arr   Array to be tested
- * @param  {any[]}   other Array to be tested against
- * @return {boolean}       True if array contains all the elements of other; Else false
+ * @param  {any[]}   search Array to be tested against
+ * @return {boolean}       True if array contains all the elements of search; Else false
  */
-export function arrayIncludesAllOf(arr:any[], other:any[]): boolean{
-   if(!other)
-      return true;
-
-	return other.every(v => arr.includes(v));
+export function arrayIncludesAllOf(arr:any[], search:any[]): boolean{
+	return search.every(v => arr.includes(v));
 }
-
 
 /**
  * Test that the array includes none of the search array
@@ -90,15 +86,12 @@ export function arrayIncludesAllOf(arr:any[], other:any[]): boolean{
  * ```
  *
  * @param  {any[]}   arr   Array to be tested
- * @param  {any[]}   other Array to be tested against
+ * @param  {any[]}   search Array to be tested against
  * @return {boolean}       True if array contains none the elements of search; Else false
  */
-export function arrayIncludesNoneOf(arr:any[], other:any[]): boolean{
-   if (!other)
-      return true;
-	return other.every(v => !arr.includes(v));
+export function arrayIncludesNoneOf(arr:any[], search:any[]): boolean{
+	return search.every(v => !arr.includes(v));
 }
-
 
 // console.log("Test: arrayIncludesNoneOf: ", arrayIncludesNoneOf([1,2,3,4],[3]), arrayIncludesNoneOf([1,2,3,4],[5,6,2]), arrayIncludesNoneOf([1,2,3,4],[5]), arrayIncludesNoneOf([1,2,3,4],[]))
 
@@ -124,9 +117,8 @@ export function arrayIncludesNoneOf(arr:any[], other:any[]): boolean{
  * @return {boolean}       True if the array contains some elements of the search array; Else false
  */
 export function arrayIncludesSomeOf(arr:any[], other:any[]): boolean{
-	if(!other || other.length == 0)
-		return true;
-
+	if(other.length == 0)
+		return true
 	return other.some(v => arr.includes(v));
 }
 

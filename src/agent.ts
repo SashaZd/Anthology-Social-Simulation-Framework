@@ -7,21 +7,6 @@ import * as world from "./world";
 // To do: this way.
 // const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key];
 
-/**
- * Gets the name of all the agents that have a specific relationship with this agent
- * @param  {types.Agent} agent   the agent whose relationships has to be checked
- * @param  {string}      relType the type of relationship to check for. Eg. sibling, romantic, etc
- * @return {string[]}            list of all the agent names that match this criteria
- */
-export function getAgentsWithRelationship(agent:types.Agent, relType: string[]): string[]{
-    // console.log(agent.name, relType)
-
-    let rels: types.Relationship[] = agent.relationships.filter((r:types.Relationship) => relType.includes(r.type));
-    let people: string[] = rels.map((rel) => rel.with)
-    return people;
-}
-
-
 
 /**
  * Iterates through all initiated agents in global agentList,
@@ -33,7 +18,7 @@ export function getAgentsWithRelationship(agent:types.Agent, relType: string[]):
  * @param  {string} name - name of the agent to be retrieved
  * @returns {types.Agent} agent - returns the first agent that matches the name searched for
  */
-export function getAgentByName(name: string):types.Agent {
+export function getAgentByName(name:string):types.Agent {
 	if(name=="-None-"){
 		return null
 	}
@@ -49,27 +34,6 @@ export function getAgentByName(name: string):types.Agent {
 		return null
 	}
 }
-
-/**
- * Get the names of all the agents in the list, and return it as a string[]
- * @param  {types.Agent[]} agents List of agents 
- * @return {string[]}             String[] list of all agent names
- */
-export function getAgentNames(agents: types.Agent[]): string[]{
-	return agents.map(a => a.name);
-}
-
-
-// export function getAgentsByNames(names: string[]):types.Agent[] {
-// 	if(!names || names.length==0){
-// 		return []
-// 	}
-
-// 	let possible_agents = world.agentList.filter((a: types.Agent) => names.includes(a.name));
-	
-// 	return possible_agents
-// }
-
 
 
 /**
