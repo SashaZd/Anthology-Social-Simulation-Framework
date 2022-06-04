@@ -1,6 +1,5 @@
 {
   "files": [
-    // "src/main.ts",
     "src/action_manager.ts",
     "src/agent.ts",
     "src/execution_engine.ts",

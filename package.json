@@ -1,6 +1,6 @@
 {
-  "name": "socialsim",
-  "version": "1.0.0",
+  "name": "Anthology",
+  "version": "2.0.0",
   "description": "Creating believable simulations of virtual characters using Typescript. ",
   "main": "./dist/main.js",
   "scripts": {

@@ -245,9 +245,9 @@ export function selectNextActionForAgent(agent:types.Agent): void { // {"selecte
 
 
 	if (current_destination != null && !location_manager.isAgentAtLocation(agent, current_destination)) {
-		console.log(agent.name, "Unshifting travel in...")
+		// console.log(agent.name, "Unshifting travel in...")
 		agent.currentAction.unshift(getActionByName("travel_action"))
-		console.log(agent.name, " -- next -- ", agent.currentAction.map(a=>a.name).join(", "));
+		// console.log(agent.name, " -- next -- ", agent.currentAction.map(a=>a.name).join(", "));
 		location_manager.startTravelToLocation(agent, current_destination, world.TIME);
 	}
 	else if(current_destination == null || location_manager.isAgentAtLocation(agent, current_destination)) {

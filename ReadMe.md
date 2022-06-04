@@ -13,10 +13,20 @@
 3. At the **root level of the project**, run `npm install` to install all project dependencies.
 
 ## How to Run
-At the root level of your directory, run `gulp`. This should create a folder called `dist` with an `index.html` file. Open `index.html` to run the program in your browser.
+To refer to the documentation open the `docs/index.html` file from your root folder. 
 
-## Generate Documentation
-To generate documentation use tsdoc to add doc comments to the code 
+### To run the default simulation: 
+Open `index.html` to run the program in your browser (as previously compiled by the authors)
+
+### To run your own authored or editted configuration
+At the root level of your directory, run `gulp`. 
+This should create a folder called `dist` with an `index.html` file. 
+Open `index.html` to run the program in your browser. 
+
+Note: While `gulp` is running you should be able to make any changes to the .ts file or the data.json file and see the changes compiled and run in your browser in the `dist/index.html` file.
+
+## Generate New Documentation
+To generate documentation use tsdoc to add doc comments to the code. 
 
 ```
 npx typedoc src/*.ts 

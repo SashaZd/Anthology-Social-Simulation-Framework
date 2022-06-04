@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>socialsim</title>
-	<meta name="description" content="Documentation for socialsim">
+	<title>Anthology</title>
+	<meta name="description" content="Documentation for Anthology">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<script async src="assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">socialsim</a>
+					<a href="index.html" class="title">Anthology</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,7 +50,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<h1>socialsim</h1>
+			<h1>Anthology</h1>
 		</div>
 	</div>
 </header>
@@ -81,11 +81,22 @@
 				<a href="#how-to-run" id="how-to-run" style="color: inherit; text-decoration: none;">
 					<h2>How to Run</h2>
 				</a>
-				<p>At the root level of your directory, run <code>gulp</code>. This should create a folder called <code>dist</code> with an <code>index.html</code> file. Open <code>index.html</code> to run the program in your browser.</p>
-				<a href="#generate-documentation" id="generate-documentation" style="color: inherit; text-decoration: none;">
-					<h2>Generate Documentation</h2>
+				<p>To refer to the documentation open the <code>docs/index.html</code> file from your root folder. </p>
+				<a href="#to-run-the-default-simulation" id="to-run-the-default-simulation" style="color: inherit; text-decoration: none;">
+					<h3>To run the default simulation:</h3>
 				</a>
-				<p>To generate documentation use tsdoc to add doc comments to the code </p>
+				<p>Open <code>index.html</code> to run the program in your browser (as previously compiled by the authors)</p>
+				<a href="#to-run-your-own-authored-or-editted-configuration" id="to-run-your-own-authored-or-editted-configuration" style="color: inherit; text-decoration: none;">
+					<h3>To run your own authored or editted configuration</h3>
+				</a>
+				<p>At the root level of your directory, run <code>gulp</code>.
+					This should create a folder called <code>dist</code> with an <code>index.html</code> file.
+				Open <code>index.html</code> to run the program in your browser. </p>
+				<p>Note: While <code>gulp</code> is running you should be able to make any changes to the .ts file or the data.json file and see the changes compiled and run in your browser in the <code>dist/index.html</code> file.</p>
+				<a href="#generate-new-documentation" id="generate-new-documentation" style="color: inherit; text-decoration: none;">
+					<h2>Generate New Documentation</h2>
+				</a>
+				<p>To generate documentation use tsdoc to add doc comments to the code. </p>
 				<pre><code><span style="color: #001080">npx</span><span style="color: #000000"> </span><span style="color: #001080">typedoc</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #008000">/*.ts </span>
 </code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">

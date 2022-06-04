@@ -86,14 +86,19 @@ export function activeAgentChange() {
 	activeAgent = elt.value;
 }
 
-function abbreviate(name:string) {
+function abbreviate(name:string, lower:boolean=false) {
 	let tokens = name.split(/\s/);
 	tokens.length = Math.min(3, tokens.length); // truncate to 3 elements
 	let short = "";
 	for(let i=0; i<tokens.length; i++) {
 		short += tokens[i][0]; // first letter of each token
 	}
-	return short;
+	if(lower){
+		return short.toLowerCase()
+	}
+	else {
+		return short.toUpperCase()
+	}
 }
 
 /**
@@ -111,7 +116,7 @@ export function updateUI(agentList:types.Agent[], locationList:types.SimLocation
 		clearBoard();
 		for (let location of locationList){
 			// console.log("Location "+location.name+" abbreviated to "+abbreviate(location.name));
-			board[location.xPos][location.yPos] += abbreviate(location.name) + ": ";
+			board[location.xPos][location.yPos] += abbreviate(location.name, true) + ": ";
 		}
 		for (let agent of agentList){
 			board[agent.currentLocation.xPos][agent.currentLocation.yPos] += agent.name[0] + ", ";
@@ -125,7 +130,7 @@ export function updateUI(agentList:types.Agent[], locationList:types.SimLocation
 		var agent:types.Agent = agent_manager.getAgentByName(activeAgent);
 
 		if (agent != null) {
-			console.log(agent);
+			// console.log(agent);
 			var action_names: string[] = agent.currentAction.map(a => a.name);
 
 			showOnBrowser("occupied", agent.occupiedCounter.toString());
