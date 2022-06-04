@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>execution_engine | socialsim</title>
-	<meta name="description" content="Documentation for socialsim">
+	<title>execution_engine | Anthology</title>
+	<meta name="description" content="Documentation for Anthology">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">socialsim</a>
+					<a href="../index.html" class="title">Anthology</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">socialsim</a>
+					<a href="../modules.html">Anthology</a>
 				</li>
 				<li>
 					<a href="execution_engine.html">execution_engine</a>
@@ -72,15 +72,16 @@
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="execution_engine.html#max_meter" class="tsd-kind-icon">MAX_<wbr>METER</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="execution_engine.html#min_meter" class="tsd-kind-icon">MIN_<wbr>METER</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="execution_engine.html#time" class="tsd-kind-icon">time</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="execution_engine.html#interrupt" class="tsd-kind-icon">INTERRUPT</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#interrupt-1" class="tsd-kind-icon">interrupt</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#round_wait" class="tsd-kind-icon">round_<wbr>wait</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#run_sim" class="tsd-kind-icon">run_<wbr>sim</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#turn" class="tsd-kind-icon">turn</a></li>
 							</ul>
 						</section>
 					</div>
@@ -89,38 +90,96 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="max_meter" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> MAX_<wbr>METER</h3>
-					<div class="tsd-signature tsd-kind-icon">MAX_<wbr>METER<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">5</span><span class="tsd-signature-symbol"> = 5</span></div>
+					<a name="interrupt" class="tsd-anchor"></a>
+					<h3>INTERRUPT</h3>
+					<div class="tsd-signature tsd-kind-icon">INTERRUPT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/execution_engine.ts#L10">execution_engine.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="min_meter" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> MIN_<wbr>METER</h3>
-					<div class="tsd-signature tsd-kind-icon">MIN_<wbr>METER<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> = 1</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/execution_engine.ts#L11">execution_engine.ts:11</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="time" class="tsd-anchor"></a>
-					<h3>time</h3>
-					<div class="tsd-signature tsd-kind-icon">time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/execution_engine.ts#L9">execution_engine.ts:9</a></li>
+							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L89">execution_engine.ts:89</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="interrupt-1" class="tsd-anchor"></a>
+					<h3>interrupt</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">interrupt<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L98">execution_engine.ts:98</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Interrupts the agent from the current action they are performing.
+									Potential future implementation: Optionally add the interrupted action (with the remaining occupied_counter) to the end of the action queue.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the agent being interrupted</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="round_wait" class="tsd-anchor"></a>
+					<h3>round_<wbr>wait</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">round_<wbr>wait<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, movement<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L114">execution_engine.ts:114</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>[round_wait description]</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>f: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>movement: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Whether or not any agents moved this turn</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="run_sim" class="tsd-anchor"></a>
 					<h3>run_<wbr>sim</h3>
@@ -131,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/execution_engine.ts#L23">execution_engine.ts:23</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L28">execution_engine.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -183,6 +242,39 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="turn" class="tsd-anchor"></a>
+					<h3>turn</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">turn<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/execution_engine.ts#L59">execution_engine.ts:59</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates movement and occupation counters for an agent.
+									May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>agent whose turn is being executed</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if the agent is traveling; false if not. Used to determine the speed of the simulation</p>
+						</li>
+					</ul>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -204,9 +296,6 @@
 						<a href="location_manager.html">location_<wbr>manager</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="main.html">main</a>
-					</li>
-					<li class=" tsd-kind-module">
 						<a href="types.html">types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -215,21 +304,27 @@
 					<li class=" tsd-kind-module">
 						<a href="utilities.html">utilities</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="world.html">world</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="execution_engine.html#max_meter" class="tsd-kind-icon">MAX_<wbr>METER</a>
+						<a href="execution_engine.html#interrupt" class="tsd-kind-icon">INTERRUPT</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="execution_engine.html#min_meter" class="tsd-kind-icon">MIN_<wbr>METER</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="execution_engine.html#interrupt-1" class="tsd-kind-icon">interrupt</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="execution_engine.html#time" class="tsd-kind-icon">time</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="execution_engine.html#round_wait" class="tsd-kind-icon">round_<wbr>wait</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="execution_engine.html#run_sim" class="tsd-kind-icon">run_<wbr>sim</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="execution_engine.html#turn" class="tsd-kind-icon">turn</a>
 					</li>
 				</ul>
 			</nav>

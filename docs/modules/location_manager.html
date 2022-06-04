@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>location_manager | socialsim</title>
-	<meta name="description" content="Documentation for socialsim">
+	<title>location_manager | Anthology</title>
+	<meta name="description" content="Documentation for Anthology">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">socialsim</a>
+					<a href="../index.html" class="title">Anthology</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">socialsim</a>
+					<a href="../modules.html">Anthology</a>
 				</li>
 				<li>
 					<a href="location_manager.html">location_manager</a>
@@ -72,17 +72,15 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#getlocationbyname" class="tsd-kind-icon">get<wbr>Location<wbr>ByName</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#getlocationssortedbydistancefromother" class="tsd-kind-icon">get<wbr>Locations<wbr>Sorted<wbr>ByDistance<wbr>From<wbr>Other</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#doesagentcurrentlocationsatisfypeoplerequirement" class="tsd-kind-icon">does<wbr>Agent<wbr>Current<wbr>Location<wbr>Satisfy<wbr>People<wbr>Requirement</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#doeslocationsatisfylocationrequirement" class="tsd-kind-icon">does<wbr>Location<wbr>Satisfy<wbr>Location<wbr>Requirement</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#getlistedlocationfromcoords" class="tsd-kind-icon">get<wbr>Listed<wbr>Location<wbr>From<wbr>Coords</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#getmanhattandistance" class="tsd-kind-icon">get<wbr>Manhattan<wbr>Distance</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#getnearestlocationfromother" class="tsd-kind-icon">get<wbr>Nearest<wbr>Location<wbr>From<wbr>Other</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#getpeopleatlocation" class="tsd-kind-icon">get<wbr>People<wbr>AtLocation</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#isagentatlocation" class="tsd-kind-icon">is<wbr>Agent<wbr>AtLocation</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#loadlocationsfromjson" class="tsd-kind-icon">load<wbr>Locations<wbr>FromJSON</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#locationssatisfyinglocationrequirement" class="tsd-kind-icon">locations<wbr>Satisfying<wbr>Location<wbr>Requirement</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#locationssatisfyingpeoplerequirement" class="tsd-kind-icon">locations<wbr>Satisfying<wbr>People<wbr>Requirement</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#moveagentclosertodestination" class="tsd-kind-icon">move<wbr>Agent<wbr>Closer<wbr>ToDestination</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#numberofagentsatlocation" class="tsd-kind-icon">number<wbr>OfAgents<wbr>AtLocation</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="location_manager.html#starttraveltolocation" class="tsd-kind-icon">start<wbr>Travel<wbr>ToLocation</a></li>
 							</ul>
 						</section>
@@ -92,74 +90,101 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="getlocationbyname" class="tsd-anchor"></a>
-					<h3>get<wbr>Location<wbr>ByName</h3>
+					<a name="doesagentcurrentlocationsatisfypeoplerequirement" class="tsd-anchor"></a>
+					<h3>does<wbr>Agent<wbr>Current<wbr>Location<wbr>Satisfy<wbr>People<wbr>Requirement</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Location<wbr>ByName<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></li>
+						<li class="tsd-signature tsd-kind-icon">does<wbr>Agent<wbr>Current<wbr>Location<wbr>Satisfy<wbr>People<wbr>Requirement<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a>, people_requirement<span class="tsd-signature-symbol">: </span><a href="types.html#peoplereq" class="tsd-signature-type" data-tsd-kind="Type alias">PeopleReq</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L31">location_manager.ts:31</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L206">location_manager.ts:206</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Filters through available SimLocations by name, and returns the matching location</p>
+									<p>Check if the agent&#39;s current location satisfies a given people requirement</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>name of the location being searched for</p>
+										<p>Agent to be tested</p>
+									</div>
+								</li>
+								<li>
+									<h5>people_requirement: <a href="types.html#peoplereq" class="tsd-signature-type" data-tsd-kind="Type alias">PeopleReq</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>People Requirement to be tested against</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h4>
-							<ul>
-								<li>first location matched by name</li>
-							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>True if the people requirement is satisfied at the current location; False if not</p>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="getlocationssortedbydistancefromother" class="tsd-anchor"></a>
-					<h3>get<wbr>Locations<wbr>Sorted<wbr>ByDistance<wbr>From<wbr>Other</h3>
+					<a name="doeslocationsatisfylocationrequirement" class="tsd-anchor"></a>
+					<h3>does<wbr>Location<wbr>Satisfy<wbr>Location<wbr>Requirement</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Locations<wbr>Sorted<wbr>ByDistance<wbr>From<wbr>Other<span class="tsd-signature-symbol">(</span>locations<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span>, other<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">does<wbr>Location<wbr>Satisfy<wbr>Location<wbr>Requirement<span class="tsd-signature-symbol">(</span>location<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a>, locationReq<span class="tsd-signature-symbol">: </span><a href="types.html#locationreq" class="tsd-signature-type" data-tsd-kind="Type alias">LocationReq</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L135">location_manager.ts:135</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L73">location_manager.ts:73</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sort a list of locations based on their distance from another SimLocation</p>
+									<p>Checks if a given location meets the location requirements</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>locations: <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>location: <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>list of locations to be sorted</p>
+										<p>Location to check</p>
 									</div>
 								</li>
 								<li>
-									<h5>other: <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h5>
+									<h5>locationReq: <a href="types.html#locationreq" class="tsd-signature-type" data-tsd-kind="Type alias">LocationReq</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>another SimLocation for comparison and measure of distance</p>
+										<p>Location Requirement to test against</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span></h4>
-							<p>the sorted list of SimLocations</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>True if the location satisfies the location requirements; False if it doesn&#39;t</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getlistedlocationfromcoords" class="tsd-anchor"></a>
+					<h3>get<wbr>Listed<wbr>Location<wbr>From<wbr>Coords</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Listed<wbr>Location<wbr>From<wbr>Coords<span class="tsd-signature-symbol">(</span>location<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L84">location_manager.ts:84</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>location: <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -173,7 +198,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L153">location_manager.ts:153</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L147">location_manager.ts:147</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -211,7 +236,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L112">location_manager.ts:112</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L106">location_manager.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -249,7 +274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L51">location_manager.ts:51</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L13">location_manager.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -287,7 +312,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L68">location_manager.ts:68</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L30">location_manager.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -316,39 +341,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="loadlocationsfromjson" class="tsd-anchor"></a>
-					<h3>load<wbr>Locations<wbr>FromJSON</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">load<wbr>Locations<wbr>FromJSON<span class="tsd-signature-symbol">(</span>locations_json<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L14">location_manager.ts:14</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Loads locations provided in the JSON object
-									These locations will be availble in the global locationList during the simulation run</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>locations_json: <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>locations JSON Object</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">[]</span></h4>
-							<p>array of locations of type types.SimLocation[]</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="locationssatisfyinglocationrequirement" class="tsd-anchor"></a>
 					<h3>locations<wbr>Satisfying<wbr>Location<wbr>Requirement</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -358,7 +350,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L88">location_manager.ts:88</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L51">location_manager.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -398,7 +390,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L200">location_manager.ts:200</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L163">location_manager.ts:163</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -435,74 +427,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="moveagentclosertodestination" class="tsd-anchor"></a>
-					<h3>move<wbr>Agent<wbr>Closer<wbr>ToDestination</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">move<wbr>Agent<wbr>Closer<wbr>ToDestination<span class="tsd-signature-symbol">(</span>agent<span class="tsd-signature-symbol">: </span><a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L166">location_manager.ts:166</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Move an agent closer to another destination.</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>remarks</dt>
-									<dd><p>Uses the manhattan distance to move the agent. So either increments the x axis or the y axis during any time tick.</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>agent: <a href="types.html#agent" class="tsd-signature-type" data-tsd-kind="Type alias">Agent</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>agent that must be moved</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="numberofagentsatlocation" class="tsd-anchor"></a>
-					<h3>number<wbr>OfAgents<wbr>AtLocation</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">number<wbr>OfAgents<wbr>AtLocation<span class="tsd-signature-symbol">(</span>location<span class="tsd-signature-symbol">: </span><a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L184">location_manager.ts:184</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Return the number of agents at a current location</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>location: <a href="types.html#simlocation" class="tsd-signature-type" data-tsd-kind="Type alias">SimLocation</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>a specified location to check</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-							<p>The number of agents at the specific location</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="starttraveltolocation" class="tsd-anchor"></a>
 					<h3>start<wbr>Travel<wbr>ToLocation</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -512,7 +436,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/78a059d/src/location_manager.ts#L244">location_manager.ts:244</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/location_manager.ts#L225">location_manager.ts:225</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -566,9 +490,6 @@
 						<a href="location_manager.html">location_<wbr>manager</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="main.html">main</a>
-					</li>
-					<li class=" tsd-kind-module">
 						<a href="types.html">types</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -577,15 +498,21 @@
 					<li class=" tsd-kind-module">
 						<a href="utilities.html">utilities</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="world.html">world</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="location_manager.html#getlocationbyname" class="tsd-kind-icon">get<wbr>Location<wbr>ByName</a>
+						<a href="location_manager.html#doesagentcurrentlocationsatisfypeoplerequirement" class="tsd-kind-icon">does<wbr>Agent<wbr>Current<wbr>Location<wbr>Satisfy<wbr>People<wbr>Requirement</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="location_manager.html#getlocationssortedbydistancefromother" class="tsd-kind-icon">get<wbr>Locations<wbr>Sorted<wbr>ByDistance<wbr>From<wbr>Other</a>
+						<a href="location_manager.html#doeslocationsatisfylocationrequirement" class="tsd-kind-icon">does<wbr>Location<wbr>Satisfy<wbr>Location<wbr>Requirement</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="location_manager.html#getlistedlocationfromcoords" class="tsd-kind-icon">get<wbr>Listed<wbr>Location<wbr>From<wbr>Coords</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="location_manager.html#getmanhattandistance" class="tsd-kind-icon">get<wbr>Manhattan<wbr>Distance</a>
@@ -600,19 +527,10 @@
 						<a href="location_manager.html#isagentatlocation" class="tsd-kind-icon">is<wbr>Agent<wbr>AtLocation</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="location_manager.html#loadlocationsfromjson" class="tsd-kind-icon">load<wbr>Locations<wbr>FromJSON</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="location_manager.html#locationssatisfyinglocationrequirement" class="tsd-kind-icon">locations<wbr>Satisfying<wbr>Location<wbr>Requirement</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="location_manager.html#locationssatisfyingpeoplerequirement" class="tsd-kind-icon">locations<wbr>Satisfying<wbr>People<wbr>Requirement</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="location_manager.html#moveagentclosertodestination" class="tsd-kind-icon">move<wbr>Agent<wbr>Closer<wbr>ToDestination</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="location_manager.html#numberofagentsatlocation" class="tsd-kind-icon">number<wbr>OfAgents<wbr>AtLocation</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="location_manager.html#starttraveltolocation" class="tsd-kind-icon">start<wbr>Travel<wbr>ToLocation</a>

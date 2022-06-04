@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MotiveType | Anthology</title>
+	<title>TargetType | Anthology</title>
 	<meta name="description" content="Documentation for Anthology">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 					<a href="../modules/types.html">types</a>
 				</li>
 				<li>
-					<a href="types.motivetype.html">MotiveType</a>
+					<a href="types.targettype.html">TargetType</a>
 				</li>
 			</ul>
-			<h1>Enumeration MotiveType</h1>
+			<h1>Enumeration TargetType</h1>
 		</div>
 	</div>
 </header>
@@ -71,9 +71,10 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Motive Type Enum
-							Currently has a preset list of 5 motives - physical, emotional, social, financial, accomplishment
-						In future, this will be pulled from the json file.</p>
+						<p>Target Type Enum
+							List of values that determine who the target effects of an action (if applicable),
+							are applied to.
+						This roughly mirrors the parameters of the people requirement</p>
 					</div>
 				</div>
 			</section>
@@ -84,11 +85,10 @@
 						<section class="tsd-index-section ">
 							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.motivetype.html#accomplishment" class="tsd-kind-icon">accomplishment</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.motivetype.html#emotional" class="tsd-kind-icon">emotional</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.motivetype.html#financial" class="tsd-kind-icon">financial</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.motivetype.html#physical" class="tsd-kind-icon">physical</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.motivetype.html#social" class="tsd-kind-icon">social</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.targettype.html#all" class="tsd-kind-icon">all</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.targettype.html#randompresent" class="tsd-kind-icon">random<wbr>Present</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.targettype.html#specific" class="tsd-kind-icon">specific</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="types.targettype.html#specificsingle" class="tsd-kind-icon">specific<wbr>Single</a></li>
 							</ul>
 						</section>
 					</div>
@@ -97,77 +97,73 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Enumeration members</h2>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="accomplishment" class="tsd-anchor"></a>
-					<h3>accomplishment</h3>
-					<div class="tsd-signature tsd-kind-icon">accomplishment<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;accomplishment&quot;</span></div>
+					<a name="all" class="tsd-anchor"></a>
+					<h3>all</h3>
+					<div class="tsd-signature tsd-kind-icon">all<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;all&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L37">types.ts:37</a></li>
+							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L298">types.ts:298</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>deals with the agent&#39;s sense of accomplishement - eg. skill learnt by doing a hobby</p>
+							<p>all agents present when the action is started (ie at the action&#39;s associated
+								location when the the agent begins to perform it) recieve the target effects
+							This target type could be used for an agent making a public speech</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="emotional" class="tsd-anchor"></a>
-					<h3>emotional</h3>
-					<div class="tsd-signature tsd-kind-icon">emotional<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;emotional&quot;</span></div>
+					<a name="randompresent" class="tsd-anchor"></a>
+					<h3>random<wbr>Present</h3>
+					<div class="tsd-signature tsd-kind-icon">random<wbr>Present<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;randomPresent&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L22">types.ts:22</a></li>
+							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L339">types.ts:339</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>deals with the agent&#39;s emotional needs - eg. happiness from watching a movie</p>
+							<p>a single, random agent who is present when the action is started (ie at the action&#39;s associated
+								location when the the agent begins to perform it) recieves the target effects
+							this can be used for an action such as asking a strnager for directions</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="financial" class="tsd-anchor"></a>
-					<h3>financial</h3>
-					<div class="tsd-signature tsd-kind-icon">financial<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;financial&quot;</span></div>
+					<a name="specific" class="tsd-anchor"></a>
+					<h3>specific</h3>
+					<div class="tsd-signature tsd-kind-icon">specific<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;specific&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L32">types.ts:32</a></li>
+							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L323">types.ts:323</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>deals with the agent&#39;s financial needs - eg. working for a living</p>
+							<p>only agents who are present when the action is started (ie at the action&#39;s associated
+								location when the the agent begins to perform it), and who fit the specificPeoplePresent
+								criteria of the people requirement recieve the target effects.
+							This is used for actions that only apply to a certain few people.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="physical" class="tsd-anchor"></a>
-					<h3>physical</h3>
-					<div class="tsd-signature tsd-kind-icon">physical<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;physical&quot;</span></div>
+					<a name="specificsingle" class="tsd-anchor"></a>
+					<h3>specific<wbr>Single</h3>
+					<div class="tsd-signature tsd-kind-icon">specific<wbr>Single<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;specificSingle&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L17">types.ts:17</a></li>
+							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L332">types.ts:332</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>deals with the agent&#39;s physical needs - eg. eat or sleep</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="social" class="tsd-anchor"></a>
-					<h3>social</h3>
-					<div class="tsd-signature tsd-kind-icon">social<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;social&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/3632d633/src/types.ts#L27">types.ts:27</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>deals with the agent&#39;s social needs - eg. spending time with other agents</p>
+							<p>a single, random agent who is present when the action is started (ie at the action&#39;s associated
+								location when the the agent begins to perform it), and who fits the specificPeoplePresent
+								criteria of the people requirement recieves the target effects
+								This could be used for an action that has one agent chat with a single
+							friend out of a few specific options</p>
 						</div>
 					</div>
 				</section>
@@ -207,36 +203,33 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="types.motivetype.html" class="tsd-kind-icon">Motive<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="types.reqtype.html" class="tsd-kind-icon">Req<wbr>Type</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-enum tsd-parent-kind-module">
-						<a href="types.motivetype.html" class="tsd-kind-icon">Motive<wbr>Type</a>
+						<a href="types.targettype.html" class="tsd-kind-icon">Target<wbr>Type</a>
 						<ul>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="types.motivetype.html#accomplishment" class="tsd-kind-icon">accomplishment</a>
+								<a href="types.targettype.html#all" class="tsd-kind-icon">all</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="types.motivetype.html#emotional" class="tsd-kind-icon">emotional</a>
+								<a href="types.targettype.html#randompresent" class="tsd-kind-icon">random<wbr>Present</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="types.motivetype.html#financial" class="tsd-kind-icon">financial</a>
+								<a href="types.targettype.html#specific" class="tsd-kind-icon">specific</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="types.motivetype.html#physical" class="tsd-kind-icon">physical</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="types.motivetype.html#social" class="tsd-kind-icon">social</a>
+								<a href="types.targettype.html#specificsingle" class="tsd-kind-icon">specific<wbr>Single</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-module">
-						<a href="types.reqtype.html" class="tsd-kind-icon">Req<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-module">
-						<a href="types.targettype.html" class="tsd-kind-icon">Target<wbr>Type</a>
-					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/types.html#action" class="tsd-kind-icon">Action</a>
 					</li>
