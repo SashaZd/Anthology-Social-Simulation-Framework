@@ -1,0 +1,212 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Anthology</title>
+	<meta name="description" content="Documentation for Anthology">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Anthology</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>Anthology</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#anthology" id="anthology" style="color: inherit; text-decoration: none;">
+					<h1>Anthology</h1>
+				</a>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<ol>
+					<li><p>Clone this project, open a terminal, and set the working directory to the root level of this project.</p>
+					</li>
+					<li><p>Make sure you have both <a href="https://nodejs.org/en/">NodeJS</a> and <a href="https://www.npmjs.com/">npm</a>.</p>
+						<ul>
+							<li><p><strong>On Mac:</strong> Run <code>brew install node</code>.</p>
+							</li>
+							<li><p><strong>On Windows:</strong> Go to <a href="https://nodejs.org/en/">NodeJS</a> and download the installer. Run the installer, and follow its directions until done.</p>
+							</li>
+						</ul>
+					</li>
+					<li><p>At the <strong>root level of the project</strong>, run <code>npm install</code> to install all project dependencies.</p>
+					</li>
+				</ol>
+				<a href="#how-to-run" id="how-to-run" style="color: inherit; text-decoration: none;">
+					<h2>How to Run</h2>
+				</a>
+				<p>To refer to the documentation open the <code>docs/index.html</code> file from your root folder. </p>
+				<a href="#to-run-the-default-simulation" id="to-run-the-default-simulation" style="color: inherit; text-decoration: none;">
+					<h3>To run the default simulation:</h3>
+				</a>
+				<p>Open <code>index.html</code> to run the program in your browser (as previously compiled by the authors)</p>
+				<a href="#to-run-your-own-authored-or-editted-configuration" id="to-run-your-own-authored-or-editted-configuration" style="color: inherit; text-decoration: none;">
+					<h3>To run your own authored or editted configuration</h3>
+				</a>
+				<p>At the root level of your directory, run <code>gulp</code>.
+					This should create a folder called <code>dist</code> with an <code>index.html</code> file.
+				Open <code>index.html</code> to run the program in your browser. </p>
+				<p>Note: While <code>gulp</code> is running you should be able to make any changes to the .ts file or the data.json file and see the changes compiled and run in your browser in the <code>dist/index.html</code> file.</p>
+				<a href="#generate-new-documentation" id="generate-new-documentation" style="color: inherit; text-decoration: none;">
+					<h2>Generate New Documentation</h2>
+				</a>
+				<p>To generate documentation use tsdoc to add doc comments to the code. </p>
+				<pre><code><span style="color: #001080">npx</span><span style="color: #000000"> </span><span style="color: #001080">typedoc</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #008000">/*.ts </span>
+</code></pre>
+				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
+					<h2>Development</h2>
+				</a>
+				<a href="#adding-a-new-ts-module-and-regenerating-documentation" id="adding-a-new-ts-module-and-regenerating-documentation" style="color: inherit; text-decoration: none;">
+					<h3>Adding a New TS Module and Regenerating Documentation</h3>
+				</a>
+				<p>If there&#39;s a new TS module, add the file to the <em>files</em> list in <code>tsconfig.json</code>.</p>
+				<pre><code class="language-json"><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;files&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&quot;src/action_manager.ts&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&quot;src/agent.ts&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&quot;src/execution_engine.ts&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&quot;src/location_manager.ts&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&quot;src/types.ts&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&quot;src/ui.ts&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&quot;src/utilities.ts&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #008000">// add new file here</span>
+<span style="color: #000000">  ],</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;compilerOptions&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;noImplicitAny&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;noImplicitReturns&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;noImplicitThis&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;noUnusedLocals&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;noUnusedParameters&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;target&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;es5&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;typeRoots&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&quot;node_modules/@types&quot;</span>
+<span style="color: #000000">    ],</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;types&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&quot;node&quot;</span>
+<span style="color: #000000">    ],</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;resolveJsonModule&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>Then run <code>npx typedoc src/*.ts</code> in your terminal.</p>
+				<a href="#checking-for-unused-code" id="checking-for-unused-code" style="color: inherit; text-decoration: none;">
+					<h3>Checking for unused code</h3>
+				</a>
+				<p>To find unused methods: </p>
+				<pre><code><span style="color: #001080">ts</span><span style="color: #000000">-</span><span style="color: #001080">prune</span><span style="color: #000000"> -</span><span style="color: #001080">p</span><span style="color: #000000"> </span><span style="color: #001080">tsconfig</span><span style="color: #000000">.</span><span style="color: #001080">ts</span><span style="color: #000000">-</span><span style="color: #001080">prune</span><span style="color: #000000">.</span><span style="color: #001080">json</span><span style="color: #000000"> | </span><span style="color: #001080">grep</span><span style="color: #000000"> -</span><span style="color: #001080">v</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;used in module&#039;</span>
+</code></pre>
+				<p>To generate the Dependency Graph </p>
+				<pre><code><span style="color: #001080">depcruise</span><span style="color: #000000"> --</span><span style="color: #001080">include</span><span style="color: #000000">-</span><span style="color: #001080">only</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;^src&quot;</span><span style="color: #000000"> --</span><span style="color: #001080">output</span><span style="color: #000000">-</span><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">dot</span><span style="color: #000000"> src | dot -T svg &gt; dependencygraph.svg</span>
+</code></pre>
+				<p>or </p>
+				<pre><code><span style="color: #001080">npx</span><span style="color: #000000"> </span><span style="color: #001080">depcruise</span><span style="color: #000000"> --</span><span style="color: #001080">include</span><span style="color: #000000">-</span><span style="color: #001080">only</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;^src&quot;</span><span style="color: #000000"> --</span><span style="color: #001080">output</span><span style="color: #000000">-</span><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">dot</span><span style="color: #000000"> src &gt; dependency.dot</span>
+</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/action_manager.html">action_<wbr>manager</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/agent.html">agent</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/execution_engine.html">execution_<wbr>engine</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/location_manager.html">location_<wbr>manager</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/types.html">types</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ui.html">ui</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utilities.html">utilities</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/world.html">world</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

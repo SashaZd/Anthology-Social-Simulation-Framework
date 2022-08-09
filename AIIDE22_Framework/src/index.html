@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="bundle.js"></script>
+    <title>Anthology</title>
+  </head>
+
+  <body>
+    <center>
+  	<h2>Anthology</h2>
+  	</center>
+
+    <!-- <div > -->
+    	<center>
+
+    	<!-- World Map  -->
+    		<div id="chess" style="display: inline-block;">
+    		    <div id="space 0-5" class="playerMove"></div><div id="space 1-5" class="playerMove"></div><div id="space 2-5" class="playerMove"></div><div id="space 3-5" class="playerMove"></div><div id="space 4-5" class="playerMove"></div><div id="space 5-5" class="playerMove"></div>
+    		    <div id="space 0-4" class="playerMove"></div><div id="space 1-4" class="playerMove"></div><div id="space 2-4" class="playerMove"></div><div id="space 3-4" class="playerMove"></div><div id="space 4-4" class="playerMove"></div><div id="space 5-4" class="playerMove"></div>
+    		    <div id="space 0-3" class="playerMove"></div><div id="space 1-3" class="playerMove"></div><div id="space 2-3" class="playerMove"></div><div id="space 3-3" class="playerMove"></div><div id="space 4-3" class="playerMove"></div><div id="space 5-3" class="playerMove"></div>
+    		    <div id="space 0-2" class="playerMove"></div><div id="space 1-2" class="playerMove"></div><div id="space 2-2" class="playerMove"></div><div id="space 3-2" class="playerMove"></div><div id="space 4-2" class="playerMove"></div><div id="space 5-2" class="playerMove"></div>
+    		    <div id="space 0-1" class="playerMove"></div><div id="space 1-1" class="playerMove"></div><div id="space 2-1" class="playerMove"></div><div id="space 3-1" class="playerMove"></div><div id="space 4-1" class="playerMove"></div><div id="space 5-1" class="playerMove"></div>
+    		    <div id="space 0-0" class="playerMove"></div><div id="space 1-0" class="playerMove"></div><div id="space 2-0" class="playerMove"></div><div id="space 3-0" class="playerMove"></div><div id="space 4-0" class="playerMove"></div><div id="space 5-0" class="playerMove"></div>
+    		</div>
+
+    		<!-- Control Panel -->
+        <div style="display: inline-block; vertical-align: top;">
+          <h4 id="timeLabel" style="">Timestep: <div id="time" style="display: inline-block;">0</div> <button id="startPauseButton">Start</button></h3>
+          <h4 style=""><label for="sleepMove">Movement Speed (ms):</label><input type="number" id="sleepMove" name="sleepMove" min="0" max="9999"></h4>
+          <h4 style=""><label for="sleepStill">Wait Speed (ms):</label><input type="number" id="sleepStill" name="sleepStill" min="0" max="9999"></h4>
+          <h4 style="">Agent Details</h3>
+          <h4 style="text-align:left"><label for="agent">Display Agent: </label><select id="agent" name="agent">
+            <option value="none" selected>-None-</option>
+          </select></h3>
+          <h4 id="occupiedLabel" style="text-align:left">Occupied Counter: <div id="occupied" style="display: inline-block;"></div></h4>
+          <h4 id="actionLabel" style="text-align:left">Current Action: <div id="action" style="display: inline-block;"></div></h4>
+          <h4 id="physicalLabel" style="text-align:left">Physical Motive: <div id="physical" style="display: inline-block;"></div></h4>
+          <h4 id="emotionalLabel" style="text-align:left">Emotional Motive: <div id="emotional" style="display: inline-block;"></div></h4>
+          <h4 id="socialLabel" style="text-align:left">Social Motive: <div id="social" style="display: inline-block;"></div></h4>
+          <h4 id="financialLabel" style="text-align:left">Financial Motive: <div id="financial" style="display: inline-block;"></div></h4>
+          <h4 id="accomplishmentLabel" style="text-align:left">Accomplishment Motive: <div id="accomplishment" style="display: inline-block;"></div></h4>
+    		</div>
+
+    	</center>
+  </body>
+
+</html>

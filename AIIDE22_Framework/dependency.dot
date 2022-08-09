@@ -1,0 +1,32 @@
+strict digraph "dependency-cruiser output"{
+    ordering="out" rankdir="LR" splines="true" overlap="false" nodesep="1" ranksep=".5" fontname="Helvetica-bold" fontsize="9" style="rounded,bold,filled" fillcolor="#ffffff" compound="true"
+    node [shape="box" style="rounded, filled" height="0.2" color="black" fillcolor="#ffffcc" fontcolor="black" fontname="Helvetica" fontsize="9"]
+    edge [arrowhead="normal" arrowsize="0.6" penwidth="2.0" color="#00000033" fontname="Helvetica" fontsize="9"]
+
+    subgraph "cluster_src" {label="src" "src/action_manager.ts" [label="action_manager.ts" URL="src/action_manager.ts" fillcolor="#ddfeff"] }
+    "src/action_manager.ts" -> "src/location_manager.ts"
+    "src/action_manager.ts" -> "src/types.ts"
+    "src/action_manager.ts" -> "src/utilities.ts"
+    "src/action_manager.ts" -> "src/world.ts"
+    subgraph "cluster_src" {label="src" "src/agent.ts" [label="agent.ts" URL="src/agent.ts" fillcolor="#ddfeff"] }
+    "src/agent.ts" -> "src/types.ts"
+    "src/agent.ts" -> "src/utilities.ts"
+    "src/agent.ts" -> "src/world.ts"
+    subgraph "cluster_src" {label="src" "src/data.json" [label="data.json" URL="src/data.json" fillcolor="#ffee44"] }
+    subgraph "cluster_src" {label="src" "src/execution_engine.ts" [label="execution_engine.ts" URL="src/execution_engine.ts" fillcolor="#ddfeff"] }
+    "src/execution_engine.ts" -> "src/action_manager.ts"
+    "src/execution_engine.ts" -> "src/agent.ts"
+    "src/execution_engine.ts" -> "src/data.json"
+    "src/execution_engine.ts" -> "src/ui.ts" [arrowhead="normalnoneodot"]
+    "src/execution_engine.ts" -> "src/world.ts"
+    subgraph "cluster_src" {label="src" "src/location_manager.ts" [label="location_manager.ts" URL="src/location_manager.ts" fillcolor="#ddfeff"] }
+    "src/location_manager.ts" -> "src/utilities.ts"
+    "src/location_manager.ts" -> "src/world.ts"
+    subgraph "cluster_src" {label="src" "src/types.ts" [label="types.ts" URL="src/types.ts" fillcolor="#ddfeff"] }
+    subgraph "cluster_src" {label="src" "src/ui.ts" [label="ui.ts" URL="src/ui.ts" fillcolor="#ddfeff"] }
+    "src/ui.ts" -> "src/agent.ts"
+    "src/ui.ts" -> "src/execution_engine.ts" [arrowhead="normalnoneodot"]
+    "src/ui.ts" -> "src/world.ts"
+    subgraph "cluster_src" {label="src" "src/utilities.ts" [label="utilities.ts" URL="src/utilities.ts" fillcolor="#ddfeff"] }
+    subgraph "cluster_src" {label="src" "src/world.ts" [label="world.ts" URL="src/world.ts" fillcolor="#ddfeff"] }
+}
