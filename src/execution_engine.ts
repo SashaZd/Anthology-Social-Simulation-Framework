@@ -50,6 +50,25 @@ export function run_sim(
 	
 }
 
+
+/**
+ * Tests whether the simulation should continue. 
+ * First checks whether the stopping function for the simulation has been met. 
+ * Next checks if the user has paused the simulation. 
+ * 
+ * @return {boolean} true if the simulation should continue, false if not
+ */
+export function toContinue():boolean {
+	if (agent_manager.allAgentsContent()){
+		return false;
+	} 
+	else if (ui.paused){
+		return false;
+	}
+	return true;
+}
+
+
 /**
  * Updates movement and occupation counters for an agent.
  * May decrement the motives of an agent once every 10 hours. Chooses or executes an action when necessary.

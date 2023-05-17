@@ -86,6 +86,11 @@ export function activeAgentChange() {
 	activeAgent = elt.value;
 }
 
+/**
+ * Abbrieviates the names of the agents to show them on the UI map
+ * @param {string}        name  Name of the agent
+ * @param {boolean=false} lower true if lower case, else upper case
+ */
 function abbreviate(name:string, lower:boolean=false) {
 	let tokens = name.split(/\s/);
 	tokens.length = Math.min(3, tokens.length); // truncate to 3 elements
@@ -152,29 +157,25 @@ export function updateUI(agentList:types.Agent[], locationList:types.SimLocation
 	}
 }
 
+/**
+ * Pauses/Starts the simulation
+ * Triggered by a UI HTML Button element
+ * 
+ * @param {HTMLElement} me - The start/pause HTML button that triggers this function
+ */
 function startPause(me : HTMLElement) {
 	return () => {
 		if(paused) {	// Resume running the simulation
 			paused = false;
 			me.textContent = "Pause"
 			console.log("Simulation running...")
-			exec.run_sim(world.agentList, world.actionList, world.locationList, toContinue);
+			exec.run_sim(world.agentList, world.actionList, world.locationList, exec.toContinue);
 		} else {		// Pause the simulation
 			paused = true;
 			me.textContent = "Start"
 			console.log("Simulation paused.")
 		}
 	}
-}
-
-function toContinue() {
-	if (agent_manager.allAgentsContent()){
-		return false;
-	} 
-	else if (paused){
-		return false;
-	}
-	return true;
 }
 
 
@@ -191,5 +192,5 @@ window.onload = () => {
 		addOption(agent.name);
 	}
 	document.getElementById("agent").addEventListener("change", activeAgentChange);
-	exec.run_sim(world.agentList, world.actionList, world.locationList, toContinue);
+	exec.run_sim(world.agentList, world.actionList, world.locationList, exec.toContinue);
 }
