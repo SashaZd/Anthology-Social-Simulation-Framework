@@ -28,8 +28,8 @@ world.loadAgentsFromJSON(json_data["agents"]);
 export function run_sim(
 		agentList:types.Agent[], actionList:types.Action[]
 		, locationList:types.SimLocation[]
-		, continueFunction: () => boolean):void 
-{
+		, continueFunction: () => boolean):void {
+
 	let movement:boolean = false;
 	if(continueFunction()) {
 		for (var agent of agentList) {
@@ -37,15 +37,17 @@ export function run_sim(
 			movement = movement || turnMove;
 		}
 		world.increment_time()
-	} /* else {
-		utility.log("Finished.");
+		round_wait(() => {run_sim(agentList, actionList, locationList, continueFunction)}, movement);
+		ui.updateUI(agentList, locationList);
+	}  
+	else if(!ui.paused) {
+		utility.log("Simulation ended.");
 		utility.print();
-	} */
+	} 
 	
 	// June 2, 2022 CRM: refactored round_wait() not to depend on all the params, instead just pass it the
 	// continuation function.
-	round_wait(() => {run_sim(agentList, actionList, locationList, continueFunction)}, movement);
-	ui.updateUI(agentList, locationList);
+	
 }
 
 /**

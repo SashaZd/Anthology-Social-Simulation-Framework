@@ -158,6 +158,7 @@ function startPause(me : HTMLElement) {
 			paused = false;
 			me.textContent = "Pause"
 			console.log("Simulation running...")
+			exec.run_sim(world.agentList, world.actionList, world.locationList, toContinue);
 		} else {		// Pause the simulation
 			paused = true;
 			me.textContent = "Start"
@@ -167,9 +168,13 @@ function startPause(me : HTMLElement) {
 }
 
 function toContinue() {
-	// return !(agent_manager.allAgentsContent || paused);
-	// if(paused) console.log("Not continuing b/c I think I'm paused");
-	return !paused;
+	if (agent_manager.allAgentsContent()){
+		return false;
+	} 
+	else if (paused){
+		return false;
+	}
+	return true;
 }
 
 
