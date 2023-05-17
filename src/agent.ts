@@ -45,17 +45,13 @@ export function getAgentByName(name:string):types.Agent {
 export function allAgentsContent():boolean {
 	for (var agent of world.agentList){
 		// If any agent is not content, continue running sim
-		// if(isContent(agent)){
-		// 	utility.log(agent.name + " IS content.")
-		// }
-
 		if(!isContent(agent)){
 			// utility.log(agent.name, " IS NOT content.")
-			return true;
+			return false;
 		}
 	}
 	// If all agents are content, stop running
-	return false;
+	return true;
 }
 
 

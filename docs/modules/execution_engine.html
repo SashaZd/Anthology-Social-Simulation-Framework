@@ -81,6 +81,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#interrupt-1" class="tsd-kind-icon">interrupt</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#round_wait" class="tsd-kind-icon">round_<wbr>wait</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#run_sim" class="tsd-kind-icon">run_<wbr>sim</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#tocontinue" class="tsd-kind-icon">to<wbr>Continue</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="execution_engine.html#turn" class="tsd-kind-icon">turn</a></li>
 							</ul>
 						</section>
@@ -95,7 +96,7 @@
 					<div class="tsd-signature tsd-kind-icon">INTERRUPT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/6e358eb3/src/execution_engine.ts#L89">execution_engine.ts:89</a></li>
+							<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a7385989/src/execution_engine.ts#L110">execution_engine.ts:110</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -112,7 +113,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/6e358eb3/src/execution_engine.ts#L98">execution_engine.ts:98</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a7385989/src/execution_engine.ts#L119">execution_engine.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -144,7 +145,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/6e358eb3/src/execution_engine.ts#L114">execution_engine.ts:114</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a7385989/src/execution_engine.ts#L135">execution_engine.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -190,7 +191,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/6e358eb3/src/execution_engine.ts#L28">execution_engine.ts:28</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a7385989/src/execution_engine.ts#L28">execution_engine.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -243,6 +244,31 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="tocontinue" class="tsd-anchor"></a>
+					<h3>to<wbr>Continue</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Continue<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a7385989/src/execution_engine.ts#L61">execution_engine.ts:61</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Tests whether the simulation should continue.
+										First checks whether the stopping function for the simulation has been met.
+									Next checks if the user has paused the simulation.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if the simulation should continue, false if not</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="turn" class="tsd-anchor"></a>
 					<h3>turn</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -252,7 +278,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/6e358eb3/src/execution_engine.ts#L59">execution_engine.ts:59</a></li>
+									<li>Defined in <a href="https://github.ncsu.edu/sazad/SocialSim/blob/a7385989/src/execution_engine.ts#L80">execution_engine.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -322,6 +348,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="execution_engine.html#run_sim" class="tsd-kind-icon">run_<wbr>sim</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="execution_engine.html#tocontinue" class="tsd-kind-icon">to<wbr>Continue</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="execution_engine.html#turn" class="tsd-kind-icon">turn</a>
